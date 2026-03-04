@@ -66,24 +66,12 @@ made up of composable, open-source-friendly tools.
 
 Each CI/CD run progresses through the following stages:
 
-```text
-┌─────────────────────────────────────────────────────────────────────┐
-│  Every CI/CD Run                                                    │
-│                                                                     │
-│  1. Lint       markdownlint-cli2 · cspell · yamllint                │
-│       ↓                                                             │
-│  2. Build      dotnet build/test + SonarScanner                     │
-│       ↓                                                             │
-│  3. Analyze    CodeQL (produces SARIF output)                       │
-│       ↓                                                             │
-│  4. Validate   Tool self-validation (produces TRX/JUnit output)     │
-│       ↓                                                             │
-│  5. Document   BuildMark · VersionMark · SonarMark · SarifMark      │
-│                ReqStream (enforces requirements coverage)           │
-│       ↓                                                             │
-│  6. Publish    Pandoc (Markdown→HTML) → Weasyprint (HTML→PDF)       │
-└─────────────────────────────────────────────────────────────────────┘
-```
+1. **Lint** — markdownlint-cli2 · cspell · yamllint
+2. **Build** — dotnet build/test + SonarScanner
+3. **Analyze** — CodeQL (produces SARIF output)
+4. **Validate** — Tool self-validation (produces TRX/JUnit output)
+5. **Document** — BuildMark · VersionMark · SonarMark · SarifMark · ReqStream (enforces requirements coverage)
+6. **Publish** — Pandoc (Markdown→HTML) → Weasyprint (HTML→PDF)
 
 ### Tools
 
