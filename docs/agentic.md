@@ -28,7 +28,6 @@ is a compact quick-reference card covering everything an agent needs to know to 
 - **Code style** — XML documentation, error types, namespace style, string formatting
 - **Build and test commands** — how to build, test, run self-validation, and lint locally
 - **Documentation map** — where user guides, requirements, and trace matrices live
-- **Agent report files** — naming convention for inter-agent communication files
 
 **Example `AGENTS.md` structure:**
 
@@ -108,7 +107,7 @@ add features, rather than leaving requirements management as a separate pass:
 sections:
   - title: Functional Requirements
     requirements:
-      - id: FUNC-001
+      - id: Tool-Version
         title: The tool shall display version information.
         justification: Users need to verify the installed tool version.
         tests:

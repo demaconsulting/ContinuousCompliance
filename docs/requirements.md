@@ -17,7 +17,7 @@ Requirements are defined in YAML files with a hierarchical section structure:
 sections:
   - title: Functional Requirements
     requirements:
-      - id: FUNC-001
+      - id: Tool-Version
         title: The tool shall display version information.
         justification: |
           Users need to verify which version of the tool is installed. This is
@@ -26,7 +26,7 @@ sections:
         tests:
           - TemplateTool_VersionDisplay
 
-      - id: FUNC-002
+      - id: Tool-Help
         title: The tool shall display usage help information.
         justification: |
           Users must be able to discover the available options without consulting
@@ -81,7 +81,7 @@ source-specific test matching to associate requirements with tests from specific
 
 ```yaml
 tests:
-  - windows-latest@Test_WindowsSpecificFeature  # Only matches windows-latest.trx
+  - windows-latest@Test_WindowsSpecificFeature  # Only matches files containing windows-latest
   - ubuntu@Test_LinuxSpecificFeature           # Only matches files containing "ubuntu"
   - Test_CrossPlatformFeature                  # Aggregates from all result files
 ```
@@ -97,11 +97,11 @@ Lists all requirements organized by section, with their IDs and titles. Example 
 ```markdown
 # Functional Requirements
 
-## FUNC-001
+## Tool-Version
 
 The tool shall display version information.
 
-## FUNC-002
+## Tool-Help
 
 The tool shall display usage help information.
 ```
@@ -117,8 +117,8 @@ Shows the coverage status of every requirement:
 
 | ID | Title | Tests | Status |
 | :- | :---- | :---- | :----- |
-| FUNC-001 | The tool shall display version information. | TemplateTool_VersionDisplay | ✅ Satisfied |
-| FUNC-002 | The tool shall display usage help information. | TemplateTool_HelpDisplay | ✅ Satisfied |
+| Tool-Version | The tool shall display version information. | TemplateTool_VersionDisplay | ✅ Satisfied |
+| Tool-Help | The tool shall display usage help information. | TemplateTool_HelpDisplay | ✅ Satisfied |
 
 ## Self-Validation
 

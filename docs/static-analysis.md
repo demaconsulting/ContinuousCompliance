@@ -47,7 +47,7 @@ dotnet sonarmark \
 
 ### Enforcement
 
-The `--enforce` flag causes the pipeline to fail if the SonarQube quality gate is not passed:
+The `--enforce` flag causes the pipeline to fail if the SonarQube quality gates are not passed:
 
 ```bash
 dotnet sonarmark \
@@ -69,7 +69,8 @@ dotnet sonarmark --validate --results artifacts/sonarmark-self-validation.trx
 ## CodeQL
 
 [DemaConsulting.SarifMark](https://github.com/demaconsulting/SarifMark) processes SARIF (Static Analysis
-Results Interchange Format) files produced by CodeQL and converts them into human-readable markdown reports.
+Results Interchange Format) files produced by CodeQL (and other static analysis tools) and converts
+them into human-readable markdown reports.
 
 ### How It Works
 
