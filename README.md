@@ -2,205 +2,140 @@
 
 [![License](https://img.shields.io/github/license/demaconsulting/ContinuousCompliance?style=plastic)](LICENSE)
 
-Documentation of the DEMA Consulting approach to Continuous Compliance for use across its projects.
+The DEMA Consulting approach to Continuous Compliance — automated, evidence-based software quality enforced
+on every CI/CD run.
 
-## Overview
+## Why Continuous Compliance?
 
-Continuous Compliance is the practice of continuously verifying that a software project meets its quality,
-security, and documentation requirements throughout the development lifecycle. Rather than treating compliance
-as a one-time activity performed at release, each CI/CD pipeline run enforces compliance gates and generates
-up-to-date evidence.
+In many software projects, compliance is treated as a last-mile activity: a checklist ticked before release.
+This leads to predictable problems:
 
-The DEMA Consulting approach encompasses:
+- **Last-minute surprises** — audits reveal missing test coverage or stale documentation days before a deadline
+- **Inconsistency** — quality checks applied differently (or not at all) across builds and releases
+- **Documentation drift** — requirements, trace matrices, and quality reports written once and never updated
+- **Manual effort** — evidence gathering is slow, error-prone, and impossible to scale
 
-- [Linting](#linting) - Enforcing consistent code and document style
-- [Tool Version Capture](#tool-version-capture) - Recording the tools used in each build
-- [Static Analysis](#static-analysis) - Detecting code quality and security issues
-- [Requirements Enforcement](#requirements-enforcement) - Ensuring all requirements are tested
-- [Self-Validation](#self-validation) - Verifying DemaConsulting tools function correctly
-- [Build Notes Generation](#build-notes-generation) - Generating release change documentation
-- [PDF Document Generation](#pdf-document-generation) - Publishing polished release documents
+The root cause is timing. When compliance work is deferred to release, every problem costs far more to fix
+than if it had been caught earlier.
 
-Every release publishes:
+## What is Continuous Compliance?
 
-- Build information and change notes
-- Requirements document
-- Trace matrix (requirements to tests)
-- Code quality report
-- User guide
+Continuous Compliance integrates quality enforcement into every CI/CD pipeline run. Rather than checking
+compliance once at the end, every commit automatically:
 
-## Linting
+- ✅ **Enforces** documentation and style standards (linting)
+- ✅ **Verifies** all requirements are covered by passing tests
+- ✅ **Checks** code quality gates (SonarQube/SonarCloud and CodeQL)
+- ✅ **Records** the exact tool versions used to build the software
+- ✅ **Generates** a complete, up-to-date audit trail with every build
 
-All DEMA Consulting projects use a combination of linters to maintain consistent quality across different file
-types:
+Problems are surfaced at the commit that introduced them — not weeks later. Every release ships with
+**automatically generated, verified documentation** proving the software meets its requirements.
 
-| Linter | Purpose |
-| :----- | :------ |
-| [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) | Markdown style and formatting |
-| [cspell](https://github.com/streetsidesoftware/cspell) | Spell-checking across all text files |
-| [yamllint](https://github.com/adrienverge/yamllint) | YAML structure and formatting |
+## Benefits
 
-These linters are run as the first step in every CI/CD pipeline, ensuring that documentation and configuration
-issues are caught immediately. Linting failures block subsequent pipeline steps.
+### For All Development Teams
 
-## Tool Version Capture
+- **Catch problems early** — issues are found at the commit that introduced them, not at release time
+- **Always-current docs** — build notes, quality reports, requirements, and trace matrices are regenerated
+  on every build so they are never stale
+- **Faster audits** — all evidence is pre-generated and attached to every release; nothing to chase down
+- **Transparent quality** — requirements coverage and code quality status are visible to the whole team
+  at all times
+- **Lower overhead** — automation eliminates the manual evidence-gathering sprint before each release
 
-Understanding exactly which tools were used to produce a build is critical for reproducibility and auditability.
-[DemaConsulting.VersionMark](https://github.com/demaconsulting/VersionMark) captures tool version information
-from each CI/CD job and publishes a consolidated report.
+### Additional Benefits for Regulated Industries
 
-**How it works:**
+Regulated domains (medical devices, automotive, avionics, industrial control) require documented proof that
+software meets its requirements before it can be certified. Continuous Compliance directly addresses these
+needs:
 
-1. Each CI/CD job runs `versionmark --capture --job-id <job-id>` to record the versions of configured tools
-   (compilers, runtimes, package managers, etc.) into a JSON file.
-2. After all jobs complete, `versionmark --publish --report versions.md` consolidates the per-job JSON files
-   and generates a markdown versions report, highlighting any version discrepancies across jobs.
+- **Traceability** — every requirement is linked to tests, and every test result is archived with the release
+- **Justifications** — the rationale behind each requirement is captured alongside the requirement itself
+- **Repeatable process** — the same pipeline enforces the same gates on every build, eliminating human
+  variability
+- **Standards alignment** — the requirements → tests → evidence model maps naturally to IEC 62443,
+  DO-178C, ISO 26262, and similar standards
 
-The resulting versions document is included in every release, providing a precise record of the build
-environment.
+## The DEMA Consulting Approach
 
-## Static Analysis
+DEMA Consulting implements Continuous Compliance across its projects using a standardized CI/CD pipeline
+made up of composable, open-source-friendly tools.
 
-Static analysis detects code quality and security issues before they reach production. DEMA Consulting projects
-use two complementary analysis approaches:
+### Pipeline Overview
 
-### SonarQube / SonarCloud
+Each CI/CD run progresses through the following stages:
 
-[DemaConsulting.SonarMark](https://github.com/demaconsulting/SonarMark) generates markdown reports from
-SonarQube or SonarCloud analysis results. It fetches quality gate status, issues, and security hot-spots
-directly from the SonarQube/SonarCloud API.
-
-Usage in CI/CD:
-
-```bash
-sonarmark --server https://sonarcloud.io \
-  --project-key my-org_my-project \
-  --token $SONAR_TOKEN \
-  --report quality-report.md \
-  --enforce
+```text
+┌─────────────────────────────────────────────────────────────────────┐
+│  Every CI/CD Run                                                    │
+│                                                                     │
+│  1. Lint       markdownlint-cli2 · cspell · yamllint                │
+│       ↓                                                             │
+│  2. Build      dotnet build/test + SonarScanner                     │
+│       ↓                                                             │
+│  3. Analyze    CodeQL (produces SARIF output)                       │
+│       ↓                                                             │
+│  4. Validate   Tool self-validation (produces TRX/JUnit output)     │
+│       ↓                                                             │
+│  5. Document   BuildMark · VersionMark · SonarMark · SarifMark      │
+│                ReqStream (enforces requirements coverage)           │
+│       ↓                                                             │
+│  6. Publish    Pandoc (Markdown→HTML) → Weasyprint (HTML→PDF)       │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
-The `--enforce` flag causes the pipeline to fail if the quality gate is not passed.
+### Tools
 
-### CodeQL
-
-[DemaConsulting.SarifMark](https://github.com/demaconsulting/SarifMark) processes SARIF (Static Analysis
-Results Interchange Format) files produced by CodeQL and other static analysis tools, converting them into
-human-readable markdown reports.
-
-Usage in CI/CD:
-
-```bash
-sarifmark --sarif analysis.sarif \
-  --report codeql-report.md \
-  --enforce
-```
-
-The `--enforce` flag causes the pipeline to fail if any issues are found.
-
-The code quality report included in every release combines the SonarMark and SarifMark output.
-
-## Requirements Enforcement
-
-[DemaConsulting.ReqStream](https://github.com/demaconsulting/ReqStream) manages requirements written in YAML
-files and enforces that every requirement is covered by passing tests.
-
-**How it works:**
-
-1. Requirements are defined in YAML files with unique IDs, titles, justifications, and test mappings.
-2. Test results (TRX or JUnit format) from the CI/CD pipeline are collected.
-3. ReqStream validates that all requirements have at least one passing test and generates documentation.
-
-Usage in CI/CD:
-
-```bash
-reqstream \
-  --requirements "docs/**/*.yaml" \
-  --tests "test-results/**/*.trx" \
-  --report requirements.md \
-  --matrix trace-matrix.md \
-  --justifications justifications.md \
-  --enforce
-```
-
-The `--enforce` flag fails the pipeline if any requirement is not covered by a passing test.
-
-Every release includes:
-
-- **Requirements document** - The full list of requirements with titles and justifications
-- **Trace matrix** - A mapping of requirements to their covering tests, showing coverage status
-
-## Self-Validation
-
-Each DemaConsulting tool includes a built-in `--validate` command that runs self-validation tests without
-requiring external services or repositories. This serves two purposes:
-
-1. **Verification** - Confirms the installed tool version functions correctly in the target environment.
-2. **Test Evidence** - Produces TRX or JUnit test result files that ReqStream can use as test coverage
-   evidence for the tool's own requirements.
-
-The self-validation step is included in each tool's CI/CD pipeline and the resulting test results are fed
-into the requirements enforcement step, enabling the tools to validate themselves using the same compliance
-infrastructure they provide to other projects.
-
-| Tool | Self-Validation Command |
-| :--- | :---------------------- |
-| [VersionMark](https://github.com/demaconsulting/VersionMark) | `versionmark --validate --results results.trx` |
-| [SonarMark](https://github.com/demaconsulting/SonarMark) | `sonarmark --validate --results results.trx` |
-| [SarifMark](https://github.com/demaconsulting/SarifMark) | `sarifmark --validate --results results.trx` |
-| [ReqStream](https://github.com/demaconsulting/ReqStream) | `reqstream --validate --results results.trx` |
-| [BuildMark](https://github.com/demaconsulting/BuildMark) | `buildmark --validate --results results.trx` |
-
-## Build Notes Generation
-
-[DemaConsulting.BuildMark](https://github.com/demaconsulting/BuildMark) generates markdown build notes from
-Git repository history and GitHub issues. It analyses commits, pull requests, and issues between the previous
-and current release tags to produce a human-readable change summary.
-
-Usage in CI/CD:
-
-```bash
-buildmark \
-  --build-version v1.2.3 \
-  --report build-notes.md \
-  --include-known-issues
-```
-
-The generated build notes document is included in every release and covers:
-
-- Version information (current version, baseline, commit)
-- Changes and new features
-- Bugs fixed
-- Known issues (optional)
-- Link to the complete changelog
-
-## PDF Document Generation
-
-Release documentation is published as polished PDF documents using a two-step process:
-
-1. **[Pandoc](https://pandoc.org/)** converts the generated markdown documents into an intermediate HTML
-   format, combining multiple markdown files (build notes, requirements, trace matrix, quality report,
-   user guide) into a single document.
-2. **[Weasyprint](https://weasyprint.org/)** renders the HTML into a PDF, applying a consistent visual style
-   across all DEMA Consulting release documents.
-
-This pipeline produces professional-quality PDFs from plain markdown sources, ensuring the released
-documentation is both machine-generated (and therefore always up-to-date) and visually consistent.
+| Category | Tool | Purpose |
+| :------- | :--- | :------ |
+| Linting | [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) | Markdown style and formatting |
+| Linting | [cspell](https://github.com/streetsidesoftware/cspell) | Spell-checking across all text files |
+| Linting | [yamllint](https://github.com/adrienverge/yamllint) | YAML structure and formatting |
+| Version Capture | [VersionMark](https://github.com/demaconsulting/VersionMark) | Records tool versions for each CI/CD job |
+| Static Analysis | [SonarMark](https://github.com/demaconsulting/SonarMark) | SonarQube/SonarCloud quality gate reporting |
+| Static Analysis | [SarifMark](https://github.com/demaconsulting/SarifMark) | CodeQL/SARIF analysis reporting |
+| Requirements | [ReqStream](https://github.com/demaconsulting/ReqStream) | Requirements management and traceability enforcement |
+| Build Notes | [BuildMark](https://github.com/demaconsulting/BuildMark) | Release change notes from Git history |
+| PDF Generation | [Pandoc](https://pandoc.org/) | Converts Markdown documents to HTML |
+| PDF Generation | [Weasyprint](https://weasyprint.org/) | Renders HTML to polished PDF documents |
 
 ## Release Artifacts
 
-Every release produced by a DEMA Consulting project that follows this approach publishes the following
-artifacts:
+Every release automatically publishes the following PDF documents:
 
-| Artifact | Tool(s) | Description |
-| :------- | :------ | :---------- |
-| Build Notes | [BuildMark](https://github.com/demaconsulting/BuildMark) | Changes, bug fixes, and version information for this release |
-| Requirements | [ReqStream](https://github.com/demaconsulting/ReqStream) | Full list of requirements with justifications |
-| Trace Matrix | [ReqStream](https://github.com/demaconsulting/ReqStream) | Requirements-to-tests coverage matrix |
-| Code Quality Report | [SonarMark](https://github.com/demaconsulting/SonarMark), [SarifMark](https://github.com/demaconsulting/SarifMark) | SonarQube/SonarCloud and CodeQL analysis results |
-| User Guide | Project-specific | Comprehensive usage documentation |
+| Artifact | Contents |
+| :------- | :------- |
+| **Build Notes** | Changes, bug fixes, tool versions, and build environment for this release |
+| **User Guide** | Comprehensive usage documentation |
+| **Code Quality** | SonarQube/SonarCloud and CodeQL analysis results |
+| **Requirements** | Full requirements list with IDs, titles, and justifications |
+| **Requirements Justifications** | Rationale behind each requirement |
+| **Trace Matrix** | Requirements-to-tests coverage evidence |
 
 All artifacts are generated automatically by the CI/CD pipeline and attached to the GitHub Release.
+
+## Reference Implementations
+
+DEMA Consulting maintains template projects that demonstrate the full Continuous Compliance pipeline in
+practice. These templates are the recommended starting point for new projects:
+
+| Template | Description |
+| :------- | :---------- |
+| [TemplateDotNetTool](https://github.com/demaconsulting/TemplateDotNetTool) | Full reference implementation for .NET command-line tools |
+| [TemplateDotNetLibrary](https://github.com/demaconsulting/TemplateDotNetLibrary) | Full reference implementation for .NET libraries |
+
+## Learn More
+
+Detailed documentation for each part of the pipeline:
+
+- [Linting](docs/linting.md) — markdownlint-cli2, cspell, and yamllint configuration
+- [Tool Version Capture](docs/tool-versions.md) — VersionMark setup and usage
+- [Static Analysis](docs/static-analysis.md) — SonarMark and SarifMark integration
+- [Requirements Enforcement](docs/requirements.md) — ReqStream YAML format and CI/CD integration
+- [Self-Validation](docs/self-validation.md) — Tool self-validation as test evidence
+- [Build Notes Generation](docs/build-notes.md) — BuildMark configuration and output
+- [PDF Document Generation](docs/pdf-generation.md) — Pandoc and Weasyprint pipeline
 
 ## License
 
