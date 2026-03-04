@@ -115,6 +115,27 @@ Every release automatically publishes the following PDF documents:
 
 All artifacts are generated automatically by the CI/CD pipeline and attached to the GitHub Release.
 
+## AI Coding Agents
+
+Continuous Compliance is particularly well suited to AI-assisted development. When coding agents know
+what standards they will be held to, they can produce compliant code on the first attempt — instead of
+iterating through multiple CI failures.
+
+Projects using the DEMA Consulting approach provide agents with machine-readable, authoritative standards
+through two complementary mechanisms:
+
+- **`AGENTS.md`** at the repository root — a quick-reference card covering the tech stack, requirements
+  format, test naming conventions, linting configs, code style rules, and how to build and test
+- **`.github/agents/*.md`** — role-specific instruction files for specialized agents
+  (Requirements Agent, Software Developer, Code Quality Agent, Test Developer, Technical Writer)
+
+With this context, an agent adding a feature knows from the outset to: add a requirement entry to
+`requirements.yaml`, write a test named to match it, follow the coding style in `.editorconfig`, and
+confirm the pipeline gates it will need to pass. The result is code that is compliant with project
+standards from the start.
+
+See [AI Coding Agents](docs/agentic.md) for the full documentation on structuring agent guidance files.
+
 ## Reference Implementations
 
 DEMA Consulting maintains template projects that demonstrate the full Continuous Compliance pipeline in
@@ -136,6 +157,7 @@ Detailed documentation for each part of the pipeline:
 - [Self-Validation](docs/self-validation.md) — Tool self-validation as test evidence
 - [Build Notes Generation](docs/build-notes.md) — BuildMark configuration and output
 - [PDF Document Generation](docs/pdf-generation.md) — Pandoc and Weasyprint pipeline
+- [AI Coding Agents](docs/agentic.md) — Structuring agent guidance files for Continuous Compliance
 
 ## License
 
