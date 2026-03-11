@@ -50,7 +50,7 @@ needs-review:
 
 evidence-source:
   type: url                # 'url' or 'fileshare'
-  location: https://reviews.example.com/evidence/
+  location: https://reviews.example.com/evidence/index.json
 
 reviews:
   - id: Core-Logic
@@ -70,10 +70,40 @@ reviews:
 | Field | Description |
 | :---- | :---------- |
 | `needs-review` | Glob patterns identifying all files that require review coverage |
-| `evidence-source` | Location of the review evidence index (`url` or `fileshare`) |
+| `evidence-source` | Location of `index.json` — the review evidence catalogue (`url` or `fileshare`) |
+| `evidence-source.credentials` | Optional credentials for authenticated URL sources (see below) |
 | `reviews[].id` | Unique identifier for this review-set |
 | `reviews[].title` | Human-readable title for the review-set |
 | `reviews[].paths` | Glob patterns identifying the files covered by this review-set |
+
+#### Credentials for Authenticated URL Sources
+
+For authenticated URL evidence sources, supply credentials through environment variables so that secrets
+are never stored in the definition file or source control:
+
+```yaml
+evidence-source:
+  type: url
+  location: https://reviews.example.com/evidence/index.json
+  credentials:
+    username-env: REVIEWMARK_USER   # name of the environment variable holding the username
+    password-env: REVIEWMARK_TOKEN  # name of the environment variable holding the password
+```
+
+In a CI/CD pipeline, map repository secrets to those environment variables:
+
+```yaml
+- name: Generate Review Documents
+  env:
+    REVIEWMARK_USER: ${{ secrets.REVIEW_USER }}
+    REVIEWMARK_TOKEN: ${{ secrets.REVIEW_TOKEN }}
+  run: >
+    dotnet reviewmark
+    --definition .reviewmark.yaml
+    --plan docs/reviewplan/review-plan.md
+    --report docs/reviewreport/review-report.md
+    --enforce
+```
 
 ## Document Folder Structure
 
