@@ -22,6 +22,7 @@ themselves validated using the same Continuous Compliance infrastructure.
 | [SonarMark](https://github.com/demaconsulting/SonarMark) | `dotnet sonarmark --validate --results results.trx` |
 | [SarifMark](https://github.com/demaconsulting/SarifMark) | `dotnet sarifmark --validate --results results.trx` |
 | [ReqStream](https://github.com/demaconsulting/ReqStream) | `dotnet reqstream --validate --results results.trx` |
+| [ReviewMark](https://github.com/demaconsulting/ReviewMark) | `dotnet reviewmark --validate --results results.trx` |
 | [BuildMark](https://github.com/demaconsulting/BuildMark) | `dotnet buildmark --validate --results results.trx` |
 
 ## CI/CD Integration
@@ -61,6 +62,9 @@ tools' own requirements:
 ```yaml
 - name: Run ReqStream self-validation
   run: dotnet reqstream --validate --results artifacts/reqstream-self-validation.trx
+
+- name: Run ReviewMark self-validation
+  run: dotnet reviewmark --validate --results artifacts/reviewmark-self-validation.trx
 
 - name: Run BuildMark self-validation
   run: dotnet buildmark --validate --results artifacts/buildmark-self-validation.trx
