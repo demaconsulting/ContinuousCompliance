@@ -1,4 +1,4 @@
-# ContinuousCompliance
+# Continuous Compliance
 
 [![License](https://img.shields.io/github/license/demaconsulting/ContinuousCompliance?style=plastic)](LICENSE)
 
