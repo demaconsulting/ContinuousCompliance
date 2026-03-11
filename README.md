@@ -27,6 +27,7 @@ compliance once at the end, every commit automatically:
 - ✅ **Verifies** all requirements are covered by passing tests
 - ✅ **Checks** code quality gates (SonarQube/SonarCloud and CodeQL)
 - ✅ **Records** the exact tool versions used to build the software
+- ✅ **Confirms** file reviews are current and every reviewable file is covered
 - ✅ **Generates** a complete, up-to-date audit trail with every build
 
 Problems are surfaced at the commit that introduced them — not weeks later. Every release ships with
@@ -70,7 +71,7 @@ Each CI/CD run progresses through the following stages:
 2. **Build** — dotnet build/test + SonarScanner
 3. **Analyze** — CodeQL (produces SARIF output)
 4. **Validate** — Tool self-validation (produces TRX/JUnit output)
-5. **Document** — BuildMark · VersionMark · SonarMark · SarifMark · ReqStream (enforces requirements coverage)
+5. **Document** — BuildMark · VersionMark · SonarMark · SarifMark · ReqStream (enforces requirements coverage) · ReviewMark (enforces file-review currency)
 6. **Publish** — Pandoc (Markdown→HTML) → Weasyprint (HTML→PDF)
 
 ### Tools
@@ -84,6 +85,7 @@ Each CI/CD run progresses through the following stages:
 | Static Analysis | [SonarMark](https://github.com/demaconsulting/SonarMark) | SonarQube/SonarCloud quality gate reporting |
 | Static Analysis | [SarifMark](https://github.com/demaconsulting/SarifMark) | CodeQL/SARIF analysis reporting |
 | Requirements | [ReqStream](https://github.com/demaconsulting/ReqStream) | Requirements management and traceability enforcement |
+| File Reviews | [ReviewMark](https://github.com/demaconsulting/ReviewMark) | File-review evidence management and currency enforcement |
 | Build Notes | [BuildMark](https://github.com/demaconsulting/BuildMark) | Release change notes from Git history |
 | PDF Generation | [Pandoc](https://pandoc.org/) | Converts Markdown documents to HTML |
 | PDF Generation | [Weasyprint](https://weasyprint.org/) | Renders HTML to polished PDF documents |
@@ -100,6 +102,8 @@ Every release automatically publishes the following PDF documents:
 | **Requirements** | Full requirements list with IDs, titles, and justifications |
 | **Requirements Justifications** | Rationale behind each requirement |
 | **Trace Matrix** | Requirements-to-tests coverage evidence |
+| **Review Plan** | All files requiring review and the review-set covering each file |
+| **Review Report** | Currency status of each review-set (Current, Stale, or Missing) |
 
 All artifacts are generated automatically by the CI/CD pipeline and attached to the GitHub Release.
 
@@ -142,6 +146,7 @@ Detailed documentation for each part of the pipeline:
 - [Tool Version Capture](docs/tool-versions.md) — VersionMark setup and usage
 - [Static Analysis](docs/static-analysis.md) — SonarMark and SarifMark integration
 - [Requirements Enforcement](docs/requirements.md) — ReqStream YAML format and CI/CD integration
+- [File Reviews](docs/file-reviews.md) — ReviewMark configuration, evidence storage, and document signing
 - [Self-Validation](docs/self-validation.md) — Tool self-validation as test evidence
 - [Build Notes Generation](docs/build-notes.md) — BuildMark configuration and output
 - [PDF Document Generation](docs/pdf-generation.md) — Pandoc and Weasyprint pipeline
