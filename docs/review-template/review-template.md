@@ -1,10 +1,16 @@
-# Review Template
+# _[Review Title]_
 
-This document records the formal review of a set of project files. Complete all sections
-below, recording the outcome of each check. Checklist sections that do not apply to the
-content under review may be skipped with a justification recorded at the section level.
+## 1. Introduction
 
-## Outcomes
+### 1.1 Purpose
+
+This document records the formal review of a set of project files.
+
+### 1.2 Scope
+
+_[Describe the scope of this review, including which project, release, or change is being reviewed.]_
+
+### 1.3 Outcomes
 
 Each check must be recorded with one of the following outcomes:
 
@@ -14,11 +20,7 @@ Each check must be recorded with one of the following outcomes:
 | Fail | The check was performed and the criterion is not satisfied |
 | N/A | The check does not apply; justification is required |
 
----
-
-## 1. Introduction
-
-### 1.1 Review Details
+### 1.4 Review Details
 
 | Field | Value |
 | :---- | :---- |
@@ -28,14 +30,14 @@ Each check must be recorded with one of the following outcomes:
 | Fingerprint | _[Fingerprint of the complete file set]_ |
 | Review Date | _[YYYY-MM-DD]_ |
 
-### 1.2 Reviewers
+### 1.5 Reviewers
 
-| Name | Role | Organization |
-| :--- | :--- | :----------- |
-| _[Reviewer name]_ | _[Role]_ | _[Organization]_ |
-| _[Reviewer name]_ | _[Role]_ | _[Organization]_ |
+| Name | Role | Organization | Signature | Date |
+| :--- | :--- | :----------- | :-------- | :--- |
+| _[Reviewer name]_ | _[Role]_ | _[Organization]_ | _[Signature]_ | _[YYYY-MM-DD]_ |
+| _[Reviewer name]_ | _[Role]_ | _[Organization]_ | _[Signature]_ | _[YYYY-MM-DD]_ |
 
-### 1.3 Files Under Review
+### 1.6 Files Under Review
 
 | File |
 | :--- |
@@ -105,7 +107,7 @@ record the reason here:*
 | TEST-03 | Tests are independent and repeatable (no shared mutable state, no ordering dependency) | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | TEST-04 | Test names clearly describe the behavior being verified | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
-### 2.5 Requirements–Documentation Checks
+### 2.5 Requirements vs Documentation Checks
 
 **Applicable:** Yes / No
 
@@ -117,7 +119,7 @@ files. If not applicable, record the reason here:*
 | REQDOC-01 | All requirements under review are addressed in the documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | REQDOC-02 | No requirement is contradicted by the documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
-### 2.6 Requirements–Implementation Checks
+### 2.6 Requirements vs Implementation Checks
 
 **Applicable:** Yes / No
 
@@ -129,7 +131,7 @@ files. If not applicable, record the reason here:*
 | REQIMP-01 | All requirements under review are addressed by the implementation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | REQIMP-02 | No requirement is contradicted by the implementation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
-### 2.7 Requirements–Testing Checks
+### 2.7 Requirements vs Testing Checks
 
 **Applicable:** Yes / No
 
@@ -141,7 +143,7 @@ If not applicable, record the reason here:*
 | REQTEST-01 | Every requirement under review is covered by at least one test | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | REQTEST-02 | Tests verify the behavior described in each requirement | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
-### 2.8 Code–Documentation Checks
+### 2.8 Code vs Documentation Checks
 
 **Applicable:** Yes / No
 
@@ -172,10 +174,3 @@ but should be noted for the project record:*
 
 *State the basis for the overall outcome, including any conditions or follow-up actions
 required before the review can be considered approved:*
-
-### 3.3 Reviewer Sign-Off
-
-| Name | Role | Signature | Date |
-| :--- | :--- | :-------- | :--- |
-| _[Reviewer name]_ | _[Role]_ | _[Signature]_ | _[YYYY-MM-DD]_ |
-| _[Reviewer name]_ | _[Role]_ | _[Signature]_ | _[YYYY-MM-DD]_ |
