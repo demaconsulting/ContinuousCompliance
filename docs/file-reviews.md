@@ -279,13 +279,14 @@ reviewed a specific document at a specific time, and that the document has not b
 
 | Service | Description |
 | :------ | :---------- |
-| [OpenSign Labs](https://www.opensignlabs.com/) | Open-source digital signature platform; free tier available; supports PDF signing with email-verified signatures |
+| [DocuSeal](https://www.docuseal.com/) | Open-source document signing platform; free tier available; preserves PDF metadata; used by DEMA Consulting |
 | [DocuSign Free](https://www.docusign.com/) | Industry-standard e-signature platform with a limited free tier |
 | [Adobe Acrobat Sign](https://acrobat.adobe.com/us/en/sign.html) | Adobe's e-signature service; free trial available |
 
-[OpenSign Labs](https://www.opensignlabs.com/) is particularly relevant for open-source and smaller
-teams: it is itself open-source, can be self-hosted, and produces signed PDFs that are verifiable
-without proprietary tooling.
+[DocuSeal](https://www.docuseal.com/) is particularly relevant for open-source and smaller teams:
+it is itself open-source, can be self-hosted, preserves PDF metadata, and produces signed PDFs that
+are verifiable without proprietary tooling. DEMA Consulting uses DocuSeal, storing signed review
+PDFs in a `reviews` branch of the repository under review.
 
 ### Signing Workflow
 
