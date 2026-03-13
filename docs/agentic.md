@@ -37,10 +37,24 @@ is a compact quick-reference card covering everything an agent needs to know to 
 ## Available Specialized Agents
 
 - **Requirements Agent** - Develops requirements and ensures test coverage linkage
+- **Technical Writer** - Creates accurate documentation following regulatory best practices
 - **Software Developer** - Writes production code and self-validation tests
 - **Test Developer** - Creates unit and integration tests
 - **Code Quality Agent** - Enforces linting, static analysis, and security standards
-- **Code Review Agent** - Performs formal ReviewMark file reviews for named review-sets
+- **Code Review Agent** - Assists in performing formal file reviews
+- **Repo Consistency Agent** - Ensures downstream repositories remain consistent with template patterns
+
+## Agent Selection Guide
+
+- Fix a bug → **Software Developer**
+- Add a new feature → **Requirements Agent** → **Software Developer** → **Test Developer**
+- Write a test → **Test Developer**
+- Fix linting or static analysis issues → **Code Quality Agent**
+- Update documentation → **Technical Writer**
+- Add or update requirements → **Requirements Agent**
+- Run security scanning or address CodeQL alerts → **Code Quality Agent**
+- Perform a formal file review → **Code Review Agent**
+- Propagate template changes → **Repo Consistency Agent**
 
 ## Requirements
 
@@ -75,12 +89,18 @@ DEMA Consulting projects define the following specialized roles:
 | Agent | File | Responsibilities |
 | :---- | :--- | :--------------- |
 | Requirements Agent | `requirements-agent.md` | Creates and maintains `requirements.yaml`; determines test coverage strategy |
+| Technical Writer | `technical-writer.md` | Creates and maintains documentation following regulatory best practices |
 | Software Developer | `software-developer.md` | Writes production code and self-validation tests in literate style |
 | Test Developer | `test-developer.md` | Creates unit and integration tests following the AAA pattern |
 | Code Quality Agent | `code-quality-agent.md` | Enforces all quality gates (linting, static analysis, requirements traceability) |
 | Code Review Agent | `code-review-agent.md` | Performs formal ReviewMark file reviews; elaborates review-sets and produces structured findings reports |
-| Technical Writer | `technical-writer.md` | Creates and maintains documentation following regulatory best practices |
 | Repo Consistency Agent | `repo-consistency-agent.md` | Ensures downstream repositories remain consistent with template patterns |
+
+The `AGENTS.md` file should also include an **Agent Selection Guide** — a short decision table that
+maps common tasks (fix a bug, add a feature, update documentation, perform a review) to the
+appropriate agent role. This guide helps both human developers and AI agents quickly identify which
+specialized role to invoke for a given task, reducing the risk of using the wrong agent or
+duplicating effort across roles.
 
 Role files use the GitHub Copilot agent front-matter format:
 
