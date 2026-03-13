@@ -119,12 +119,19 @@ through two complementary mechanisms:
 - **`AGENTS.md`** at the repository root — a quick-reference card covering the tech stack, requirements
   format, test naming conventions, linting configs, code style rules, and how to build and test
 - **`.github/agents/*.md`** — role-specific instruction files for specialized agents
-  (Requirements Agent, Software Developer, Code Quality Agent, Test Developer, Technical Writer)
+  (Requirements Agent, Software Developer, Code Quality Agent, Test Developer, Technical Writer,
+  Code Review Agent)
 
 With this context, an agent adding a feature knows from the outset to: add a requirement entry to
 `requirements.yaml`, write a test named to match it, follow the coding style in `.editorconfig`, and
 confirm the pipeline gates it will need to pass. The result is code that is compliant with project
 standards from the start.
+
+ReviewMark review-sets provide a further advantage for AI-assisted reviews. When review-sets are
+designed to group related requirements, design documentation, source code, and tests by feature area,
+an AI agent can review the complete chain of evidence in one context — seeing what the code must do,
+how it is structured, what it actually does, and what is verified — rather than reviewing files in
+isolation. This enables more constructive, context-aware review recommendations.
 
 See [AI Coding Agents](docs/agentic.md) for the full documentation on structuring agent guidance files.
 

@@ -304,6 +304,75 @@ This workflow ensures that each review is tied to an authenticated individual, t
 tamper-evident, satisfying the documentation requirements of standards such as IEC 62443, DO-178C,
 and ISO 26262.
 
+## AI-Assisted Reviews
+
+Review-sets serve a dual purpose in Continuous Compliance projects. Beyond their primary role as
+compliance evidence units, they are a natural grouping mechanism for AI-assisted code reviews.
+
+### Review-Sets as Context Boundaries
+
+A well-designed review-set groups all files that belong together conceptually: requirements
+documents, design documents, source code, and tests that collectively form a coherent unit of
+functionality. An AI agent directed to review all files in a review-set at once can comprehend
+the full chain of evidence:
+
+- **Requirements** — what the code must do and why
+- **Design documents** — how the code is structured and the rationale behind key decisions
+- **Source code** — what the code actually does
+- **Tests** — which behaviors are verified and how
+
+With this context, the agent can identify inconsistencies between requirements and implementation,
+gaps in test coverage relative to stated requirements, undocumented design decisions, and
+requirements that are stated but not tested. This produces far more constructive review
+recommendations than reviewing any single file category in isolation.
+
+### Designing Review-Sets for AI Context
+
+To maximize the usefulness of review-sets for AI-assisted reviews, group files by feature or
+functional area rather than by file type:
+
+```yaml
+reviews:
+  - id: Authentication
+    title: Authentication and authorization subsystem
+    paths:
+      - "docs/requirements/auth-requirements.md"   # requirements
+      - "docs/design/auth-design.md"               # design
+      - "src/Auth/**/*.cs"                          # implementation
+      - "tests/Auth/**/*.cs"                        # tests
+
+  - id: Core-Engine
+    title: Core processing engine
+    paths:
+      - "docs/requirements/engine-requirements.md"
+      - "docs/design/engine-design.md"
+      - "src/Core/**/*.cs"
+      - "tests/Core/**/*.cs"
+```
+
+When an AI agent reviews the `Authentication` review-set, it reads the requirements that define
+expected behavior, the design that explains the implementation approach, the source code that
+provides the actual implementation, and the tests that verify compliance — all in one context.
+The agent can answer questions that cross these boundaries: "Does the implementation match the
+requirements?", "Are all requirements covered by tests?", "Is the design documentation current?".
+
+### Using ReviewMark with AI Review Agents
+
+The `.reviewmark.yaml` configuration makes the file grouping explicit and machine-readable, which
+allows an AI agent to identify and retrieve the complete context for any review-set automatically.
+A review agent workflow can:
+
+1. Read `.reviewmark.yaml` to discover the defined review-sets
+2. Select a review-set by its `id`
+3. Load all files matching the review-set's `paths` patterns
+4. Perform the review with complete context
+5. Generate a structured review report covering requirements coverage, design currency, and
+   implementation correctness
+
+This is more reliable than asking an agent to "review the authentication module" without explicit
+scope, because the `.reviewmark.yaml` precisely and authoritatively defines which files belong to
+that scope.
+
 ## Self-Validation
 
 ReviewMark includes built-in self-validation tests:

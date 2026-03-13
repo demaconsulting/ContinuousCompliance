@@ -37,9 +37,24 @@ is a compact quick-reference card covering everything an agent needs to know to 
 ## Available Specialized Agents
 
 - **Requirements Agent** - Develops requirements and ensures test coverage linkage
+- **Technical Writer** - Creates accurate documentation following regulatory best practices
 - **Software Developer** - Writes production code and self-validation tests
 - **Test Developer** - Creates unit and integration tests
 - **Code Quality Agent** - Enforces linting, static analysis, and security standards
+- **Code Review Agent** - Assists in performing formal file reviews
+- **Repo Consistency Agent** - Ensures downstream repositories remain consistent with template patterns
+
+## Agent Selection Guide
+
+- Fix a bug → **Software Developer**
+- Add a new feature → **Requirements Agent** → **Software Developer** → **Test Developer**
+- Write a test → **Test Developer**
+- Fix linting or static analysis issues → **Code Quality Agent**
+- Update documentation → **Technical Writer**
+- Add or update requirements → **Requirements Agent**
+- Run security scanning or address CodeQL alerts → **Code Quality Agent**
+- Perform a formal file review → **Code Review Agent**
+- Propagate template changes → **Repo Consistency Agent**
 
 ## Requirements
 
@@ -74,11 +89,18 @@ DEMA Consulting projects define the following specialized roles:
 | Agent | File | Responsibilities |
 | :---- | :--- | :--------------- |
 | Requirements Agent | `requirements-agent.md` | Creates and maintains `requirements.yaml`; determines test coverage strategy |
+| Technical Writer | `technical-writer.md` | Creates and maintains documentation following regulatory best practices |
 | Software Developer | `software-developer.md` | Writes production code and self-validation tests in literate style |
 | Test Developer | `test-developer.md` | Creates unit and integration tests following the AAA pattern |
 | Code Quality Agent | `code-quality-agent.md` | Enforces all quality gates (linting, static analysis, requirements traceability) |
-| Technical Writer | `technical-writer.md` | Creates and maintains documentation following regulatory best practices |
+| Code Review Agent | `code-review-agent.md` | Performs formal ReviewMark file reviews; elaborates review-sets and produces structured findings reports |
 | Repo Consistency Agent | `repo-consistency-agent.md` | Ensures downstream repositories remain consistent with template patterns |
+
+The `AGENTS.md` file should also include an **Agent Selection Guide** — a short decision table that
+maps common tasks (fix a bug, add a feature, update documentation, perform a review) to the
+appropriate agent role. This guide helps both human developers and AI agents quickly identify which
+specialized role to invoke for a given task, reducing the risk of using the wrong agent or
+duplicating effort across roles.
 
 Role files use the GitHub Copilot agent front-matter format:
 
@@ -173,3 +195,26 @@ Compliance project provides an agent with:
 
 An agent that reads `AGENTS.md` at the start of every session has all of this context available
 immediately, without needing to discover it through trial and error.
+
+## ReviewMark and AI-Assisted Reviews
+
+Beyond its role in CI/CD enforcement, ReviewMark's review-set grouping is directly useful for
+AI-assisted reviews. When an AI agent is asked to review a feature or subsystem, directing it to
+the corresponding review-set in `.reviewmark.yaml` gives it a precise, pre-defined scope that
+groups all relevant files together.
+
+Review-sets designed for AI context group requirements, design documentation, source code, and
+tests by feature area. An agent that reviews all files in a review-set at once can reason across
+the full chain of evidence — from what the code must do (requirements), to how it is structured
+(design), to what it actually does (code), to what is verified (tests) — rather than reviewing
+any one category in isolation.
+
+This context-aware grouping enables agents to identify:
+
+- **Requirements gaps** — behaviors required but not implemented or not tested
+- **Documentation drift** — design documents that no longer reflect the implementation
+- **Coverage gaps** — code paths not covered by any test
+- **Consistency issues** — discrepancies between stated requirements and actual behavior
+
+See [File Reviews](file-reviews.md#ai-assisted-reviews) for guidance on designing review-sets
+that maximize the usefulness of AI-assisted reviews.
