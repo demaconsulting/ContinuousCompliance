@@ -119,7 +119,8 @@ through two complementary mechanisms:
 - **`AGENTS.md`** at the repository root — a quick-reference card covering the tech stack, requirements
   format, test naming conventions, linting configs, code style rules, and how to build and test
 - **`.github/agents/*.md`** — role-specific instruction files for specialized agents
-  (Requirements Agent, Software Developer, Code Quality Agent, Test Developer, Technical Writer)
+  (Requirements Agent, Software Developer, Code Quality Agent, Test Developer, Technical Writer,
+  Code Review Agent)
 
 With this context, an agent adding a feature knows from the outset to: add a requirement entry to
 `requirements.yaml`, write a test named to match it, follow the coding style in `.editorconfig`, and

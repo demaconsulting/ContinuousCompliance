@@ -40,6 +40,7 @@ is a compact quick-reference card covering everything an agent needs to know to 
 - **Software Developer** - Writes production code and self-validation tests
 - **Test Developer** - Creates unit and integration tests
 - **Code Quality Agent** - Enforces linting, static analysis, and security standards
+- **Code Review Agent** - Performs formal ReviewMark file reviews for named review-sets
 
 ## Requirements
 
@@ -77,6 +78,7 @@ DEMA Consulting projects define the following specialized roles:
 | Software Developer | `software-developer.md` | Writes production code and self-validation tests in literate style |
 | Test Developer | `test-developer.md` | Creates unit and integration tests following the AAA pattern |
 | Code Quality Agent | `code-quality-agent.md` | Enforces all quality gates (linting, static analysis, requirements traceability) |
+| Code Review Agent | `code-review-agent.md` | Performs formal ReviewMark file reviews; elaborates review-sets and produces structured findings reports |
 | Technical Writer | `technical-writer.md` | Creates and maintains documentation following regulatory best practices |
 | Repo Consistency Agent | `repo-consistency-agent.md` | Ensures downstream repositories remain consistent with template patterns |
 
