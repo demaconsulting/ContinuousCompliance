@@ -126,6 +126,12 @@ With this context, an agent adding a feature knows from the outset to: add a req
 confirm the pipeline gates it will need to pass. The result is code that is compliant with project
 standards from the start.
 
+ReviewMark review-sets provide a further advantage for AI-assisted reviews. When review-sets are
+designed to group related requirements, design documentation, source code, and tests by feature area,
+an AI agent can review the complete chain of evidence in one context — seeing what the code must do,
+how it is structured, what it actually does, and what is verified — rather than reviewing files in
+isolation. This enables more constructive, context-aware review recommendations.
+
 See [AI Coding Agents](docs/agentic.md) for the full documentation on structuring agent guidance files.
 
 ## Reference Implementations

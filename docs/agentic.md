@@ -173,3 +173,26 @@ Compliance project provides an agent with:
 
 An agent that reads `AGENTS.md` at the start of every session has all of this context available
 immediately, without needing to discover it through trial and error.
+
+## ReviewMark and AI-Assisted Reviews
+
+Beyond its role in CI/CD enforcement, ReviewMark's review-set grouping is directly useful for
+AI-assisted reviews. When an AI agent is asked to review a feature or subsystem, directing it to
+the corresponding review-set in `.reviewmark.yaml` gives it a precise, pre-defined scope that
+groups all relevant files together.
+
+Review-sets designed for AI context group requirements, design documentation, source code, and
+tests by feature area. An agent that reviews all files in a review-set at once can reason across
+the full chain of evidence — from what the code must do (requirements), to how it is structured
+(design), to what it actually does (code), to what is verified (tests) — rather than reviewing
+any one category in isolation.
+
+This context-aware grouping enables agents to identify:
+
+- **Requirements gaps** — behaviors required but not implemented or not tested
+- **Documentation drift** — design documents that no longer reflect the implementation
+- **Coverage gaps** — code paths not covered by any test
+- **Consistency issues** — discrepancies between stated requirements and actual behavior
+
+See [File Reviews](file-reviews.md#ai-assisted-reviews) for guidance on designing review-sets
+that maximize the usefulness of AI-assisted reviews.
