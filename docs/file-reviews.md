@@ -336,7 +336,7 @@ reviews:
   - id: Authentication
     title: Authentication and authorization subsystem
     paths:
-      - "docs/requirements/auth-requirements.md"   # requirements
+      - "docs/reqstream/auth-requirements.yaml"      # requirements
       - "docs/design/auth-design.md"               # design
       - "src/Auth/**/*.cs"                          # implementation
       - "tests/Auth/**/*.cs"                        # tests
@@ -344,7 +344,7 @@ reviews:
   - id: Core-Engine
     title: Core processing engine
     paths:
-      - "docs/requirements/engine-requirements.md"
+      - "docs/reqstream/engine-requirements.yaml"
       - "docs/design/engine-design.md"
       - "src/Core/**/*.cs"
       - "tests/Core/**/*.cs"
