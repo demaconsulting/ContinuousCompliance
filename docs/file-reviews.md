@@ -331,12 +331,16 @@ recommendations than reviewing any single file category in isolation.
 To maximize the usefulness of review-sets for AI-assisted reviews, group files by feature or
 functional area rather than by file type:
 
+In the example below, requirements files are placed under `docs/reqstream/`. This is a recommended
+convention for downstream projects: create this directory in your own repository (or adjust the
+paths) so that they point to wherever your requirements actually live.
+
 ```yaml
 reviews:
   - id: Authentication
     title: Authentication and authorization subsystem
     paths:
-      - "docs/requirements/auth-requirements.md"   # requirements
+      - "docs/reqstream/auth-requirements.yaml"      # requirements
       - "docs/design/auth-design.md"               # design
       - "src/Auth/**/*.cs"                          # implementation
       - "tests/Auth/**/*.cs"                        # tests
@@ -344,7 +348,7 @@ reviews:
   - id: Core-Engine
     title: Core processing engine
     paths:
-      - "docs/requirements/engine-requirements.md"
+      - "docs/reqstream/engine-requirements.yaml"
       - "docs/design/engine-design.md"
       - "src/Core/**/*.cs"
       - "tests/Core/**/*.cs"
@@ -355,6 +359,76 @@ expected behavior, the design that explains the implementation approach, the sou
 provides the actual implementation, and the tests that verify compliance — all in one context.
 The agent can answer questions that cross these boundaries: "Does the implementation match the
 requirements?", "Are all requirements covered by tests?", "Is the design documentation current?".
+
+### Subsystem Reviews and Software Unit Reviews
+
+When requirements contain both subsystem-requirements (describing cross-cutting concerns and
+subsystems) and design-requirements (describing the behavior of specific software units), two
+complementary types of review-sets are useful.
+
+In this documentation, the term **software unit** is used in the IEC 62304 sense (a software
+item that is not subdivided into other components) that typically maps to an individual class or
+module. **Subsystem-requirements** describe behavior of cross-cutting
+subsystems that span multiple such software units.
+
+**Subsystem reviews** group files related to a cross-cutting concern or subsystem that spans
+multiple classes or modules. Examples include command-line argument processing, logging
+infrastructure, user interface components, and security enforcement. A subsystem review typically
+covers all requirements, documentation, and implementation files that contribute to that
+subsystem, regardless of how many classes are involved.
+
+**Software unit reviews** group files related to a specific class, module, or component —
+typically one review-set per class. When requirements include design-requirements that specify
+how an individual unit must behave, a software unit review provides focused coverage: the
+unit's requirements, its source file, and its direct tests.
+
+This two-tier approach handles projects where the requirements document both high-level
+subsystems and detailed per-class behavior:
+
+```yaml
+reviews:
+  # Subsystem reviews — cross-cutting subsystems
+  - id: CommandLineProcessing
+    title: Review of command-line argument parsing
+    paths:
+      - "docs/reqstream/cli-requirements.yaml"
+      - "docs/design/cli-design.md"
+      - "src/**/CommandLine*.cs"
+      - "src/**/ArgumentParser*.cs"
+      - "tests/**/CommandLine*.cs"
+
+  - id: Logging
+    title: Review of logging infrastructure
+    paths:
+      - "docs/reqstream/logging-requirements.yaml"
+      - "docs/design/logging-design.md"
+      - "src/**/Logger*.cs"
+      - "src/**/Log*.cs"
+      - "tests/**/Log*.cs"
+
+  # Software unit reviews — one per class
+  - id: UserService
+    title: Review of UserService class
+    paths:
+      - "docs/reqstream/user-service-requirements.yaml"
+      - "docs/design/user-service-design.md"
+      - "src/Services/UserService.cs"
+      - "tests/Services/UserServiceTests.cs"
+
+  - id: OrderRepository
+    title: Review of OrderRepository class
+    paths:
+      - "docs/reqstream/order-repository-requirements.yaml"
+      - "docs/design/order-repository-design.md"
+      - "src/Data/OrderRepository.cs"
+      - "tests/Data/OrderRepositoryTests.cs"
+```
+
+Subsystem reviews are appropriate when a requirement addresses a concern implemented across many
+files, making it impractical to assign that requirement to a single software unit review.
+Software unit reviews are appropriate when design-requirements specify the precise behavior of
+a single class, enabling a reviewer — human or AI — to verify each requirement against its
+direct implementation and tests without noise from unrelated files.
 
 ### Using ReviewMark with AI Review Agents
 
