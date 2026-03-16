@@ -356,6 +356,68 @@ provides the actual implementation, and the tests that verify compliance — all
 The agent can answer questions that cross these boundaries: "Does the implementation match the
 requirements?", "Are all requirements covered by tests?", "Is the design documentation current?".
 
+### Concept Reviews and Software Item Reviews
+
+When requirements contain both concept-requirements (describing cross-cutting concerns and
+capabilities) and design-requirements (describing the behavior of specific software items), two
+complementary types of review-sets are useful.
+
+**Concept reviews** group files related to a cross-cutting concern or capability that spans
+multiple classes or modules. Examples include command-line argument processing, logging
+infrastructure, user interface components, and security enforcement. A concept review typically
+covers all requirements, documentation, and implementation files that contribute to that
+capability, regardless of how many classes are involved.
+
+**Software item reviews** group files related to a specific class, module, or component —
+typically one review-set per class. When requirements include design-requirements that specify
+how an individual item must behave, a software item review provides focused coverage: the
+item's requirements, its source file, and its direct tests.
+
+This two-tier approach handles projects where the requirements document both high-level
+capabilities and detailed per-class behavior:
+
+```yaml
+reviews:
+  # Concept reviews — cross-cutting capabilities
+  - id: CommandLineProcessing
+    title: Review of command-line argument parsing
+    paths:
+      - "docs/requirements/cli-requirements.md"
+      - "docs/design/cli-design.md"
+      - "src/**/CommandLine*.cs"
+      - "src/**/ArgumentParser*.cs"
+      - "tests/**/CommandLine*.cs"
+
+  - id: Logging
+    title: Review of logging infrastructure
+    paths:
+      - "docs/requirements/logging-requirements.md"
+      - "src/**/Logger*.cs"
+      - "src/**/Log*.cs"
+      - "tests/**/Log*.cs"
+
+  # Software item reviews — one per class
+  - id: UserService
+    title: Review of UserService class
+    paths:
+      - "docs/requirements/user-service-requirements.md"
+      - "src/Services/UserService.cs"
+      - "tests/Services/UserServiceTests.cs"
+
+  - id: OrderRepository
+    title: Review of OrderRepository class
+    paths:
+      - "docs/requirements/order-repository-requirements.md"
+      - "src/Data/OrderRepository.cs"
+      - "tests/Data/OrderRepositoryTests.cs"
+```
+
+Concept reviews are appropriate when a requirement addresses a concern implemented across many
+files, making it impractical to assign that requirement to a single software item review.
+Software item reviews are appropriate when design-requirements specify the precise behavior of
+a single class, enabling a reviewer — human or AI — to verify each requirement against its
+direct implementation and tests without noise from unrelated files.
+
 ### Using ReviewMark with AI Review Agents
 
 The `.reviewmark.yaml` configuration makes the file grouping explicit and machine-readable, which
