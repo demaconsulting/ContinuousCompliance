@@ -331,6 +331,10 @@ recommendations than reviewing any single file category in isolation.
 To maximize the usefulness of review-sets for AI-assisted reviews, group files by feature or
 functional area rather than by file type:
 
+In the example below, requirements files are placed under `docs/reqstream/`. This is a recommended
+convention for downstream projects: create this directory in your own repository (or adjust the
+paths) so that they point to wherever your requirements actually live.
+
 ```yaml
 reviews:
   - id: Authentication
