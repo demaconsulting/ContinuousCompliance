@@ -17,7 +17,7 @@ Requirements are defined in YAML files with a hierarchical section structure:
 sections:
   - title: Functional Requirements
     requirements:
-      - id: Tool-Version
+      - id: TemplateTool-Core-Version
         title: The tool shall display version information.
         justification: |
           Users need to verify which version of the tool is installed. This is
@@ -26,7 +26,7 @@ sections:
         tests:
           - TemplateTool_VersionDisplay
 
-      - id: Tool-Help
+      - id: TemplateTool-Core-Help
         title: The tool shall display usage help information.
         justification: |
           Users must be able to discover the available options without consulting
@@ -64,8 +64,9 @@ Good IDs are:
 - **Descriptive** — a reader unfamiliar with the project can infer the requirement's subject from
   the ID alone.
 
-The examples in this document use the `System-Feature` pattern (`Tool-Version`, `Tool-Help`),
-which works well for single-product repositories.
+The examples in this document follow this pattern — `TemplateTool-Core-Version` and
+`TemplateTool-Core-Help` identify requirements by project (`TemplateTool`), subsystem (`Core`),
+and feature (`Version`, `Help`).
 
 Requirements can also reference tests defined in a separate `mappings` section, or in included files,
 allowing test mappings to be kept separately from requirement definitions.
@@ -118,11 +119,11 @@ Lists all requirements organized by section, with their IDs and titles. Example 
 ```markdown
 # Functional Requirements
 
-## Tool-Version
+## TemplateTool-Core-Version
 
 The tool shall display version information.
 
-## Tool-Help
+## TemplateTool-Core-Help
 
 The tool shall display usage help information.
 ```
@@ -138,8 +139,8 @@ Shows the coverage status of every requirement:
 
 | ID | Title | Tests | Status |
 | :- | :---- | :---- | :----- |
-| Tool-Version | The tool shall display version information. | TemplateTool_VersionDisplay | ✅ Satisfied |
-| Tool-Help | The tool shall display usage help information. | TemplateTool_HelpDisplay | ✅ Satisfied |
+| TemplateTool-Core-Version | The tool shall display version information. | TemplateTool_VersionDisplay | ✅ Satisfied |
+| TemplateTool-Core-Help | The tool shall display usage help information. | TemplateTool_HelpDisplay | ✅ Satisfied |
 
 ## Self-Validation
 
