@@ -362,7 +362,7 @@ When requirements contain both subsystem-requirements (describing cross-cutting 
 subsystems) and design-requirements (describing the behavior of specific software units), two
 complementary types of review-sets are useful.
 
-In this documentation, the term **software unit** is used in the IEC&nbsp;62304 sense (a software
+In this documentation, the term **software unit** is used in the IEC 62304 sense (a software
 item that is not subdivided into other components); in this repository, that typically maps to an
 individual class or module. **Subsystem-requirements** describe behavior of cross-cutting
 subsystems that span multiple such software units.
