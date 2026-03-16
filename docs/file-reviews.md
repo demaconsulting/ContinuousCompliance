@@ -358,27 +358,27 @@ requirements?", "Are all requirements covered by tests?", "Is the design documen
 
 ### Subsystem Reviews and Software Unit Reviews
 
-When requirements contain both concept-requirements (describing cross-cutting concerns and
-capabilities) and design-requirements (describing the behavior of specific software items), two
+When requirements contain both subsystem-requirements (describing cross-cutting concerns and
+subsystems) and design-requirements (describing the behavior of specific software units), two
 complementary types of review-sets are useful.
 
-**Subsystem reviews** group files related to a cross-cutting concern or capability that spans
+**Subsystem reviews** group files related to a cross-cutting concern or subsystem that spans
 multiple classes or modules. Examples include command-line argument processing, logging
 infrastructure, user interface components, and security enforcement. A subsystem review typically
 covers all requirements, documentation, and implementation files that contribute to that
-capability, regardless of how many classes are involved.
+subsystem, regardless of how many classes are involved.
 
 **Software unit reviews** group files related to a specific class, module, or component —
 typically one review-set per class. When requirements include design-requirements that specify
-how an individual item must behave, a software unit review provides focused coverage: the
-item's requirements, its source file, and its direct tests.
+how an individual unit must behave, a software unit review provides focused coverage: the
+unit's requirements, its source file, and its direct tests.
 
 This two-tier approach handles projects where the requirements document both high-level
-capabilities and detailed per-class behavior:
+subsystems and detailed per-class behavior:
 
 ```yaml
 reviews:
-  # Subsystem reviews — cross-cutting capabilities
+  # Subsystem reviews — cross-cutting subsystems
   - id: CommandLineProcessing
     title: Review of command-line argument parsing
     paths:
