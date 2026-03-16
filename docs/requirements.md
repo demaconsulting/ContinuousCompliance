@@ -39,12 +39,33 @@ sections:
 
 | Field | Required | Description |
 | :---- | :------- | :---------- |
-| `id` | Yes | Unique requirement identifier (any format) |
+| `id` | Yes | Unique requirement identifier; prefer semantic IDs (see below) |
 | `title` | Yes | The requirement statement |
 | `justification` | No | Rationale explaining why this requirement exists |
 | `tests` | No | List of test names that satisfy this requirement |
 | `children` | No | IDs of child requirements (coverage propagates up) |
 | `tags` | No | Labels for filtering (e.g., `security`, `compliance`) |
+
+### Choosing Requirement IDs
+
+Requirement IDs appear in trace matrices, generated reports, code comments, and test names. A
+semantic ID communicates meaning at the point of reference — without having to look up what the
+ID means.
+
+Prefer a `Project-System-ShortDescription` format:
+
+- **`MyApp-Auth-PasswordMinLength`** is self-explanatory wherever it appears.
+- **`REQ-042`** requires a lookup to understand.
+
+Good IDs are:
+
+- **Unique** — no two requirements share the same ID.
+- **Stable** — avoid IDs that encode a sequence number or date that may need to change.
+- **Descriptive** — a reader unfamiliar with the project can infer the requirement's subject from
+  the ID alone.
+
+The examples in this document use the `System-Feature` pattern (`Tool-Version`, `Tool-Help`),
+which works well for single-product repositories.
 
 Requirements can also reference tests defined in a separate `mappings` section, or in included files,
 allowing test mappings to be kept separately from requirement definitions.
