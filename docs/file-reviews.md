@@ -382,7 +382,7 @@ reviews:
   - id: CommandLineProcessing
     title: Review of command-line argument parsing
     paths:
-      - "docs/requirements/cli-requirements.md"
+      - "docs/reqstream/cli-requirements.yaml"
       - "docs/design/cli-design.md"
       - "src/**/CommandLine*.cs"
       - "src/**/ArgumentParser*.cs"
@@ -391,7 +391,8 @@ reviews:
   - id: Logging
     title: Review of logging infrastructure
     paths:
-      - "docs/requirements/logging-requirements.md"
+      - "docs/reqstream/logging-requirements.yaml"
+      - "docs/design/logging-design.md"
       - "src/**/Logger*.cs"
       - "src/**/Log*.cs"
       - "tests/**/Log*.cs"
@@ -400,14 +401,16 @@ reviews:
   - id: UserService
     title: Review of UserService class
     paths:
-      - "docs/requirements/user-service-requirements.md"
+      - "docs/reqstream/user-service-requirements.yaml"
+      - "docs/design/user-service-design.md"
       - "src/Services/UserService.cs"
       - "tests/Services/UserServiceTests.cs"
 
   - id: OrderRepository
     title: Review of OrderRepository class
     paths:
-      - "docs/requirements/order-repository-requirements.md"
+      - "docs/reqstream/order-repository-requirements.yaml"
+      - "docs/design/order-repository-design.md"
       - "src/Data/OrderRepository.cs"
       - "tests/Data/OrderRepositoryTests.cs"
 ```
