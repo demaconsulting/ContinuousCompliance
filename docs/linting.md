@@ -70,7 +70,9 @@ If the consuming project already has a `package.json`, merge the linting tools i
 
 The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth
 for linting — they are used both locally by developers and by the CI/CD pipeline, ensuring rules are
-defined in only one place.
+defined in only one place. To use them in your own repository, copy `lint.sh`, `lint.bat`, and the
+corresponding lint configuration files from `templates/lint/` into the root of your repository, then
+invoke them as shown below.
 
 ```yaml
 - name: Run linters
