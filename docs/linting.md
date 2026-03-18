@@ -52,6 +52,20 @@ root. Key configuration highlights:
 - Line length is capped at 120 characters
 - Enforces 2-space indentation and requires at least 2 spaces before inline comments
 
+### package.json
+
+The npm dependencies (`cspell` and `markdownlint-cli2`) are declared in
+[`package.json`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/package.json).
+If the consuming project already has a `package.json`, merge the linting tools into its existing
+`devDependencies` rather than replacing the file:
+
+```json
+"devDependencies": {
+  "cspell": "9.7.0",
+  "markdownlint-cli2": "0.21.0"
+}
+```
+
 ## Running Linting
 
 The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth
