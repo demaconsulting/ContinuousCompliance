@@ -133,7 +133,7 @@ record the reason here:*
 | # | Check | Outcome | Justification |
 | :-- | :---- | :------ | :------------ |
 | ERR-01 | Error handling follows the approach described in the design documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
-| ERR-02 | The volume and detail of logging and debug information is appropriate | Pass / Fail / N/A | _Required if Fail or N/A_ |
+| ERR-02 | The logging volume and level of detail are appropriate | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | ERR-03 | Error messages are user-friendly and actionable | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | ERR-04 | Error messages and log entries do not leak sensitive data | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
