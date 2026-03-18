@@ -174,7 +174,7 @@ relevant to the files under review. If not applicable, record the reason here:*
 | # | Check | Outcome | Justification |
 | :-- | :---- | :------ | :------------ |
 | SEC-01 | No obvious security vulnerabilities are present (e.g., injection flaws, hardcoded credentials) | Pass / Fail / N/A | _Required if Fail or N/A_ |
-| SEC-02 | Authentication and authorization are handled the correct way (see Design Documentation) | Pass / Fail / N/A | _Required if Fail or N/A_ |
+| SEC-02 | Authentication and authorization are handled correctly (see Design Documentation) | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | SEC-03 | Sensitive data is stored and transmitted securely | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
 ### 2.10 Code Readability Checks
