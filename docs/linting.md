@@ -17,12 +17,12 @@ progressing further.
 
 ## Configuration
 
-Template configuration files are provided in [`templates/lint/`](../templates/lint/) and should be
+Template configuration files are provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) and should be
 copied to the repository root when setting up linting for a new project.
 
 ### markdownlint-cli2
 
-Markdown linting is configured via [`.markdownlint-cli2.yaml`](../templates/lint/.markdownlint-cli2.yaml)
+Markdown linting is configured via [`.markdownlint-cli2.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/.markdownlint-cli2.yaml)
 at the repository root. Key configuration highlights:
 
 - All default markdownlint rules are enabled
@@ -35,7 +35,7 @@ for the full list of available rules.
 
 ### cspell
 
-Spell-checking is configured via [`.cspell.yaml`](../templates/lint/.cspell.yaml) at the repository
+Spell-checking is configured via [`.cspell.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/.cspell.yaml) at the repository
 root. Key configuration highlights:
 
 - Includes a project word list of common technical terms (tool names, identifiers) to prevent false positives
@@ -44,7 +44,7 @@ root. Key configuration highlights:
 
 ### yamllint
 
-YAML linting is configured via [`.yamllint.yaml`](../templates/lint/.yamllint.yaml) at the repository
+YAML linting is configured via [`.yamllint.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/.yamllint.yaml) at the repository
 root. Key configuration highlights:
 
 - Extends the yamllint default rule set
@@ -54,12 +54,13 @@ root. Key configuration highlights:
 
 ## Running Linting
 
-The lint scripts provided in [`templates/lint/`](../templates/lint/) are the single source of truth
+The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth
 for linting — they are used both locally by developers and by the CI/CD pipeline, ensuring rules are
 defined in only one place.
 
 ```yaml
 - name: Run linters
+  shell: bash
   run: ./lint.sh
 ```
 
