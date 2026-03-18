@@ -22,77 +22,35 @@ copied to the repository root when setting up linting for a new project.
 
 ### markdownlint-cli2
 
-Markdown linting is configured via `.markdownlint-cli2.yaml` at the repository root. This file enables
-or disables specific rules and configures rule options:
+Markdown linting is configured via [`.markdownlint-cli2.yaml`](../templates/lint/.markdownlint-cli2.yaml)
+at the repository root. Key configuration highlights:
 
-```yaml
-config:
-  default: true
-  MD003:
-    style: atx
-  MD007:
-    indent: 2
-  MD013:
-    line_length: 120
-  MD025: false
-  MD033: false
-  MD041: false
+- All default markdownlint rules are enabled
+- ATX-style headers (`# Header`) are required instead of Setext-style
+- Line length is capped at 120 characters to allow URLs and technical content
+- Multiple top-level headers, inline HTML, and documents without a top-level header are permitted
 
-ignores:
-  - node_modules
-  - "**/AGENT_REPORT_*.md"
-```
-
-Rules are inherited from the [markdownlint](https://github.com/DavidAnson/markdownlint) rule set.
 See the [markdownlint rules reference](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
 for the full list of available rules.
 
 ### cspell
 
-Spell-checking is configured via `.cspell.yaml` at the repository root. Project-specific terms
-(tool names, identifiers, acronyms) are added to the project word list to prevent false positives:
+Spell-checking is configured via [`.cspell.yaml`](../templates/lint/.cspell.yaml) at the repository
+root. Key configuration highlights:
 
-```yaml
-version: "0.2"
-language: en
-
-words:
-  - reqstream
-  - reviewmark
-  - buildmark
-  - versionmark
-  - yamllint
-  - markdownlint
-  - cspell
-  - pandoc
-
-ignorePaths:
-  - node_modules/**
-  - .git/**
-  - bin/**
-  - obj/**
-  - .venv/**
-```
+- Includes a project word list of common technical terms (tool names, identifiers) to prevent false positives
+- Excludes build artifacts and dependency directories (`node_modules`, `.git`, `bin`, `obj`, `.venv`)
+- The word list should be extended with any project-specific terms as the project grows
 
 ### yamllint
 
-YAML linting is configured via `.yamllint.yaml` at the repository root:
+YAML linting is configured via [`.yamllint.yaml`](../templates/lint/.yamllint.yaml) at the repository
+root. Key configuration highlights:
 
-```yaml
-extends: default
-
-rules:
-  truthy:
-    allowed-values: ['true', 'false', 'on', 'off']
-  line-length:
-    max: 120
-    level: error
-  indentation:
-    spaces: 2
-    indent-sequences: true
-  comments:
-    min-spaces-from-content: 2
-```
+- Extends the yamllint default rule set
+- Allows `on:` and `off:` as non-boolean values (required for GitHub Actions workflow keys)
+- Line length is capped at 120 characters
+- Enforces 2-space indentation and requires at least 2 spaces before inline comments
 
 ## CI/CD Integration
 
