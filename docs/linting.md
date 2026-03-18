@@ -75,13 +75,13 @@ defined in only one place.
 ```yaml
 - name: Run linters
   shell: bash
-  run: ./lint.sh
+  run: bash ./lint.sh
 ```
 
 Running locally on Linux/macOS:
 
 ```bash
-./lint.sh
+bash ./lint.sh
 ```
 
 Running locally on Windows:
