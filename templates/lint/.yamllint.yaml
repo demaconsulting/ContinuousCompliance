@@ -1,3 +1,4 @@
+---
 # YAML Linting Standards
 #
 # PURPOSE:
@@ -11,6 +12,11 @@
 # - Consistency across repositories is critical for maintainability
 
 extends: default
+
+# Exclude common build artifacts and dependencies
+ignore: |
+  node_modules/
+  .git/
 
 rules:
   # Allow 'on:' in GitHub Actions workflows (not a boolean value)
