@@ -14,8 +14,10 @@ set "LINT_ERROR=0"
 REM Install npm dependencies
 call npm install
 
-REM Create Python virtual environment (for yamllint)
-python -m venv .venv
+REM Create Python virtual environment (for yamllint) if missing
+if not exist ".venv\Scripts\activate.bat" (
+    python -m venv .venv
+)
 call .venv\Scripts\activate.bat
 pip install yamllint
 
