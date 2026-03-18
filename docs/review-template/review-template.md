@@ -80,7 +80,7 @@ record the reason here:*
 | DES-04 | Design documentation describes the expected normal operation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | DES-05 | Design documentation describes the expected error handling | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
-### 2.3 Documentation Checks
+### 2.3 Technical Documentation Checks
 
 **Applicable:** Yes / No
 
