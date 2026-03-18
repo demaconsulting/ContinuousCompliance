@@ -243,7 +243,7 @@ files. If not applicable, record the reason here:*
 | CODEDOC-01 | The code correctly implements the design documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | CODEDOC-02 | All public APIs and interfaces are documented in the design documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 | CODEDOC-03 | Non-obvious algorithms and significant design decisions are explained in the design documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
-| CODEDOC-04 | Important code details not captured in the design documentation are identified | Pass / Fail / N/A | _Required if Fail or N/A_ |
+| CODEDOC-04 | No important code details are missing from the design documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
 ---
 
