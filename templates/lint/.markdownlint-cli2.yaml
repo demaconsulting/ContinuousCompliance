@@ -13,25 +13,25 @@
 config:
   # Enable all default rules
   default: true
-  
+
   # Require ATX-style headers (# Header) instead of Setext-style
   MD003:
     style: atx
-  
+
   # Set consistent indentation for nested lists
   MD007:
     indent: 2
-  
+
   # Allow longer lines for URLs and technical content
   MD013:
     line_length: 120
-  
+
   # Allow multiple top-level headers per document
   MD025: false
-  
+
   # Allow inline HTML for enhanced documentation
   MD033: false
-  
+
   # Allow documents without top-level header (for fragments)
   MD041: false
 
