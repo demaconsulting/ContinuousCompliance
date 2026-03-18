@@ -204,8 +204,8 @@ files. If not applicable, record the reason here:*
 
 | # | Check | Outcome | Justification |
 | :-- | :---- | :------ | :------------ |
-| REQDOC-01 | All requirements under review are addressed in the general technical documentation under review | Pass / Fail / N/A | _Required if Fail or N/A_ |
-| REQDOC-02 | No requirement is contradicted by the general technical documentation under review | Pass / Fail / N/A | _Required if Fail or N/A_ |
+| REQDOC-01 | All reviewed requirements are addressed in the general technical documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
+| REQDOC-02 | No reviewed requirement is contradicted by the general technical documentation | Pass / Fail / N/A | _Required if Fail or N/A_ |
 
 ### 2.12 Requirements vs Implementation Checks
 
