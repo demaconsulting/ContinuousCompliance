@@ -189,7 +189,7 @@ Compliance project provides an agent with:
 
 - **What to build** — `requirements.yaml` defines all requirements
 - **How to prove it** — test naming conventions and source filters define the evidence format
-- **What style to follow** — `.editorconfig`, `.cspell.json`, `.markdownlint-cli2.jsonc`, `.yamllint.yaml`
+- **What style to follow** — `.editorconfig`, `.cspell.yaml`, `.markdownlint-cli2.yaml`, `.yamllint.yaml`
 - **What gates to pass** — `AGENTS.md` and role files enumerate every CI enforcement step
 - **Where to look** — the documentation map points to guides, requirements, and trace matrices
 

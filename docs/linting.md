@@ -17,18 +17,30 @@ progressing further.
 
 ## Configuration
 
+Template configuration files are provided in [`templates/lint/`](../templates/lint/) and should be
+copied to the repository root when setting up linting for a new project.
+
 ### markdownlint-cli2
 
-Markdown linting is configured via `.markdownlint-cli2.jsonc` at the repository root. This file enables
+Markdown linting is configured via `.markdownlint-cli2.yaml` at the repository root. This file enables
 or disables specific rules and configures rule options:
 
-```jsonc
-{
-  "config": {
-    "default": true,
-    "MD013": false  // Line length - disabled to allow natural prose
-  }
-}
+```yaml
+config:
+  default: true
+  MD003:
+    style: atx
+  MD007:
+    indent: 2
+  MD013:
+    line_length: 120
+  MD025: false
+  MD033: false
+  MD041: false
+
+ignores:
+  - node_modules
+  - "**/AGENT_REPORT_*.md"
 ```
 
 Rules are inherited from the [markdownlint](https://github.com/DavidAnson/markdownlint) rule set.
@@ -37,26 +49,29 @@ for the full list of available rules.
 
 ### cspell
 
-Spell-checking is configured via `.cspell.json` at the repository root. Project-specific terms
+Spell-checking is configured via `.cspell.yaml` at the repository root. Project-specific terms
 (tool names, identifiers, acronyms) are added to the project word list to prevent false positives:
 
-```json
-{
-  "version": "0.2",
-  "language": "en",
-  "words": [
-    "DemaConsulting",
-    "SonarMark",
-    "SarifMark",
-    "ReqStream",
-    "VersionMark",
-    "BuildMark"
-  ],
-  "ignorePaths": [
-    "node_modules",
-    "**/*.json"
-  ]
-}
+```yaml
+version: "0.2"
+language: en
+
+words:
+  - reqstream
+  - reviewmark
+  - buildmark
+  - versionmark
+  - yamllint
+  - markdownlint
+  - cspell
+  - pandoc
+
+ignorePaths:
+  - node_modules/**
+  - .git/**
+  - bin/**
+  - obj/**
+  - .venv/**
 ```
 
 ### yamllint
@@ -65,11 +80,18 @@ YAML linting is configured via `.yamllint.yaml` at the repository root:
 
 ```yaml
 extends: default
+
 rules:
+  truthy:
+    allowed-values: ['true', 'false', 'on', 'off']
   line-length:
     max: 120
-  truthy:
-    allowed-values: ['true', 'false']
+    level: error
+  indentation:
+    spaces: 2
+    indent-sequences: true
+  comments:
+    min-spaces-from-content: 2
 ```
 
 ## CI/CD Integration
@@ -97,7 +119,7 @@ reusable build workflow. It runs on every push and pull request:
 
 ## Running Locally
 
-Linting can also be run locally using the provided shell scripts:
+Linting can also be run locally using the scripts provided in [`templates/lint/`](../templates/lint/):
 
 ```bash
 # Linux/macOS
@@ -107,5 +129,5 @@ Linting can also be run locally using the provided shell scripts:
 lint.bat
 ```
 
-These scripts run all three linters against the repository using the same configuration as the CI/CD
-pipeline, enabling developers to catch and fix issues before pushing.
+These scripts install all required dependencies (npm packages and yamllint via Python venv) and run
+all three linters against the repository, enabling developers to catch and fix issues before pushing.
