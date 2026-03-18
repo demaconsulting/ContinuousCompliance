@@ -1,0 +1,28 @@
+# Spell-Checking
+#
+# PURPOSE:
+# - Maintain professional documentation and code quality
+# - Catch spelling errors before publication
+# - Support consistent technical terminology usage
+
+version: "0.2"
+language: en
+
+# Project-specific technical terms and tool names (update as needed)
+words:
+  - reqstream
+  - reviewmark
+  - buildmark
+  - versionmark
+  - yamllint
+  - markdownlint
+  - cspell
+  - pandoc
+
+# Exclude common build artifacts and dependencies
+ignorePaths:
+  - node_modules/**
+  - .git/**
+  - bin/**
+  - obj/**
+  - .venv/**

@@ -17,95 +17,80 @@ progressing further.
 
 ## Configuration
 
+Template configuration files are provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) and should be
+copied to the repository root when setting up linting for a new project.
+
 ### markdownlint-cli2
 
-Markdown linting is configured via `.markdownlint-cli2.jsonc` at the repository root. This file enables
-or disables specific rules and configures rule options:
+Markdown linting is configured via [`.markdownlint-cli2.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/.markdownlint-cli2.yaml)
+at the repository root. Key configuration highlights:
 
-```jsonc
-{
-  "config": {
-    "default": true,
-    "MD013": false  // Line length - disabled to allow natural prose
-  }
-}
-```
+- All default markdownlint rules are enabled
+- ATX-style headers (`# Header`) are required instead of Setext-style
+- Line length is capped at 120 characters to allow URLs and technical content
+- Multiple top-level headers, inline HTML, and documents without a top-level header are permitted
 
-Rules are inherited from the [markdownlint](https://github.com/DavidAnson/markdownlint) rule set.
 See the [markdownlint rules reference](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
 for the full list of available rules.
 
 ### cspell
 
-Spell-checking is configured via `.cspell.json` at the repository root. Project-specific terms
-(tool names, identifiers, acronyms) are added to the project word list to prevent false positives:
+Spell-checking is configured via [`.cspell.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/.cspell.yaml) at the repository
+root. Key configuration highlights:
 
-```json
-{
-  "version": "0.2",
-  "language": "en",
-  "words": [
-    "DemaConsulting",
-    "SonarMark",
-    "SarifMark",
-    "ReqStream",
-    "VersionMark",
-    "BuildMark"
-  ],
-  "ignorePaths": [
-    "node_modules",
-    "**/*.json"
-  ]
-}
-```
+- Includes a project word list of common technical terms (tool names, identifiers) to prevent false positives
+- Excludes build artifacts and dependency directories (`node_modules`, `.git`, `bin`, `obj`, `.venv`)
+- The word list should be extended with any project-specific terms as the project grows
 
 ### yamllint
 
-YAML linting is configured via `.yamllint.yaml` at the repository root:
+YAML linting is configured via [`.yamllint.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/.yamllint.yaml) at the repository
+root. Key configuration highlights:
 
-```yaml
-extends: default
-rules:
-  line-length:
-    max: 120
-  truthy:
-    allowed-values: ['true', 'false']
+- Extends the yamllint default rule set
+- Allows `on:` and `off:` as non-boolean values (required for GitHub Actions workflow keys)
+- Line length is capped at 120 characters
+- Enforces 2-space indentation and requires at least 2 spaces before inline comments
+
+### package.json
+
+The npm dependencies (`cspell` and `markdownlint-cli2`) are declared in
+[`package.json`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/package.json).
+If the consuming project already has a `package.json`, merge the linting tools into its existing
+`devDependencies` rather than replacing the file:
+
+```json
+"devDependencies": {
+  "cspell": "9.7.0",
+  "markdownlint-cli2": "0.21.0"
+}
 ```
 
-## CI/CD Integration
+## Running Linting
 
-In the DEMA Consulting pipeline the linting stage is implemented as the `quality-checks` job in the
-reusable build workflow. It runs on every push and pull request:
+The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth
+for linting — they are used both locally by developers and by the CI/CD pipeline, ensuring rules are
+defined in only one place. To use them in your own repository, copy `lint.sh`, `lint.bat`, and the
+corresponding lint configuration files from `templates/lint/` into the root of your repository, then
+invoke them as shown below.
 
 ```yaml
-- name: Run markdown linter
-  uses: DavidAnson/markdownlint-cli2-action@v22
-  with:
-    globs: '**/*.md'
-
-- name: Run spell checker
-  uses: streetsidesoftware/cspell-action@v8
-  with:
-    files: '**/*.{md,cs}'
-    incremental_files_only: false
-
-- name: Run YAML linter
-  uses: ibiqlik/action-yamllint@v3
-  with:
-    config_file: .yamllint.yaml
+- name: Run linters
+  shell: bash
+  run: bash ./lint.sh
 ```
 
-## Running Locally
-
-Linting can also be run locally using the provided shell scripts:
+Running locally on Linux/macOS:
 
 ```bash
-# Linux/macOS
-./lint.sh
+bash ./lint.sh
+```
 
-# Windows
+Running locally on Windows:
+
+```bat
 lint.bat
 ```
 
-These scripts run all three linters against the repository using the same configuration as the CI/CD
-pipeline, enabling developers to catch and fix issues before pushing.
+The scripts install all required dependencies (npm packages and yamllint via Python venv) and run
+all three linters, exiting non-zero on any failure.
