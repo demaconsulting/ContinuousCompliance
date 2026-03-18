@@ -5,7 +5,7 @@
 # - Ensure consistent formatting for readability and maintenance
 # - Support automated documentation generation and publishing
 #
-# DO NOT MODIFY: These rules represent company coding standards
+# DO NOT MODIFY: These rules represent coding standards
 # - If files fail linting, fix the files to meet these standards
 # - Do not relax rules to accommodate existing non-compliant files
 # - Consistency across repositories is critical for documentation quality
