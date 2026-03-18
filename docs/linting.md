@@ -52,40 +52,28 @@ root. Key configuration highlights:
 - Line length is capped at 120 characters
 - Enforces 2-space indentation and requires at least 2 spaces before inline comments
 
-## CI/CD Integration
+## Running Linting
 
-In the DEMA Consulting pipeline the linting stage is implemented as the `quality-checks` job in the
-reusable build workflow. It runs on every push and pull request:
+The lint scripts provided in [`templates/lint/`](../templates/lint/) are the single source of truth
+for linting — they are used both locally by developers and by the CI/CD pipeline, ensuring rules are
+defined in only one place.
 
 ```yaml
-- name: Run markdown linter
-  uses: DavidAnson/markdownlint-cli2-action@v22
-  with:
-    globs: '**/*.md'
-
-- name: Run spell checker
-  uses: streetsidesoftware/cspell-action@v8
-  with:
-    files: '**/*.{md,cs}'
-    incremental_files_only: false
-
-- name: Run YAML linter
-  uses: ibiqlik/action-yamllint@v3
-  with:
-    config_file: .yamllint.yaml
+- name: Run linters
+  run: ./lint.sh
 ```
 
-## Running Locally
-
-Linting can also be run locally using the scripts provided in [`templates/lint/`](../templates/lint/):
+Running locally on Linux/macOS:
 
 ```bash
-# Linux/macOS
 ./lint.sh
+```
 
-# Windows
+Running locally on Windows:
+
+```bat
 lint.bat
 ```
 
-These scripts install all required dependencies (npm packages and yamllint via Python venv) and run
-all three linters against the repository, enabling developers to catch and fix issues before pushing.
+The scripts install all required dependencies (npm packages and yamllint via Python venv) and run
+all three linters, exiting non-zero on any failure.
