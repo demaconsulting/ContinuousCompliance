@@ -14,7 +14,9 @@ lint_error=0
 npm install
 
 # Create Python virtual environment (for yamllint)
-python -m venv .venv
+if [ ! -d ".venv" ]; then
+  python -m venv .venv
+fi
 source .venv/bin/activate
 pip install yamllint
 
