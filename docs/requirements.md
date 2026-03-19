@@ -8,6 +8,27 @@ the foundation of any compliance regime.
 YAML files, validates test coverage, and generates requirements documentation, justifications, and a
 trace matrix.
 
+## Template Files
+
+The `templates/reqstream` folder provides ready-to-use template files for a new project:
+
+- [`.config/dotnet-tools.json`][reqstream-dotnet-tools] — registers the `dotnet reqstream` tool via
+  .NET local tool manifest
+- [`requirements.yaml`][reqstream-root] — root requirements file that includes all files from
+  `docs/reqstream/`
+- [`docs/reqstream/subsystem-example.yaml`][reqstream-subsystem-example] — example software subsystem
+  requirements
+- [`docs/reqstream/unit-example.yaml`][reqstream-unit-example] — example software unit requirements
+
+[reqstream-dotnet-tools]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/.config/dotnet-tools.json
+[reqstream-root]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/requirements.yaml
+[reqstream-subsystem-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/subsystem-example.yaml
+[reqstream-unit-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/unit-example.yaml
+
+The recommended approach is to keep a separate requirements YAML file per software subsystem or unit under
+`docs/reqstream/`, and list them in `requirements.yaml` using the `includes` field. This keeps each file
+focused on one component and makes reviews easier.
+
 ## Requirements File Format
 
 Requirements are defined in YAML files with a hierarchical section structure:

@@ -1,0 +1,41 @@
+---
+# Software Unit Requirements Example
+#
+# PURPOSE:
+# - Demonstrate software unit requirements in ReqStream YAML format
+# - Software units are the smallest independently testable components
+# - Unit requirements describe precise, implementation-level behavior
+#
+# USAGE:
+# - Replace "TemplateTool-Output" with your project and unit name
+# - Add, remove, or modify requirements to match your unit's specification
+# - Reference tests using the id of the test method in your test suite
+
+sections:
+  - title: Output Unit Requirements
+    requirements:
+      - id: TemplateTool-Output-Format
+        title: The tool shall format output according to the configured style.
+        justification: |
+          Consistent output formatting ensures that generated artifacts meet
+          project-specific standards and are readable by downstream tooling.
+        tests:
+          - TemplateTool_OutputFormatDefault
+          - TemplateTool_OutputFormatCustom
+
+      - id: TemplateTool-Output-Encoding
+        title: The tool shall write output files using UTF-8 encoding.
+        justification: |
+          UTF-8 encoding ensures broad compatibility with downstream tools and
+          platforms, and is required for correct handling of international
+          characters in requirement text.
+        tests:
+          - TemplateTool_OutputEncoding
+
+      - id: TemplateTool-Output-Overwrite
+        title: The tool shall overwrite existing output files without error.
+        justification: |
+          Idempotent output generation allows CI/CD pipelines to regenerate
+          artifacts on every run without manual cleanup steps.
+        tests:
+          - TemplateTool_OutputOverwrite

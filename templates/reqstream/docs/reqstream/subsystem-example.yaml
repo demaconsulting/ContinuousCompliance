@@ -1,0 +1,41 @@
+---
+# Software Subsystem Requirements Example
+#
+# PURPOSE:
+# - Demonstrate software subsystem requirements in ReqStream YAML format
+# - Each section groups related requirements for a software subsystem
+# - Subsystem requirements describe the externally visible behavior of a component
+#
+# USAGE:
+# - Replace "TemplateTool-Core" with your project and subsystem name
+# - Add, remove, or modify requirements to match your subsystem's specification
+# - Reference tests using the id of the test method in your test suite
+
+sections:
+  - title: Core Subsystem Requirements
+    requirements:
+      - id: TemplateTool-Core-Version
+        title: The tool shall display version information.
+        justification: |
+          Users need to verify which version of the tool is installed. This is
+          particularly important for regulated environments where software versions
+          must be recorded.
+        tests:
+          - TemplateTool_VersionDisplay
+
+      - id: TemplateTool-Core-Help
+        title: The tool shall display usage help information.
+        justification: |
+          Users must be able to discover the available options without consulting
+          external documentation.
+        tests:
+          - TemplateTool_HelpDisplay
+
+      - id: TemplateTool-Core-Config
+        title: The tool shall load configuration from a YAML file.
+        justification: |
+          External configuration files allow users to define settings without
+          modifying source code, supporting reproducible and auditable builds.
+        tests:
+          - TemplateTool_ConfigLoad
+          - TemplateTool_ConfigDefaults
