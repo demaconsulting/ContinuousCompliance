@@ -21,7 +21,7 @@ source .venv/bin/activate
 pip install -r pip-requirements.txt
 
 # Run spell check
-npx cspell "**/*.{md,yaml,yml,json,cs,cpp,hpp,h,txt}" || lint_error=1
+npx cspell --no-progress --no-color "**/*.{md,yaml,yml,json,cs,cpp,hpp,h,txt}" || lint_error=1
 
 # Run markdownlint check
 npx markdownlint-cli2 "**/*.md" || lint_error=1
