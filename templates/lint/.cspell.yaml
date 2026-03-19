@@ -5,11 +5,14 @@
 # - Maintain professional documentation and code quality
 # - Catch spelling errors before publication
 # - Support consistent technical terminology usage
+# - Misspelled words should be fixed in the source
+# - NEVER add a misspelled word to the 'words' list
+# - PROPOSE only genuine technical terms/names as needed
 
 version: "0.2"
 language: en
 
-# Project-specific technical terms and tool names (update as needed)
+# Project-specific technical terms and tool names
 words:
   - reqstream
   - reviewmark
