@@ -1,0 +1,31 @@
+---
+# MathHelper Software Unit Requirements
+#
+# PURPOSE:
+# - Define the requirements for the MathHelper software unit
+# - Software units are the smallest independently testable components (e.g. a class)
+# - Unit requirements describe precise, implementation-level behavior
+#
+# USAGE:
+# - Replace "TemplateReviews-MathHelper" with your project and class name
+# - Add, remove, or modify requirements to match your unit's specification
+# - Reference tests using the id of the test method in your test suite
+
+sections:
+  - title: MathHelper Class Requirements
+    requirements:
+      - id: TemplateReviews-MathHelper-Add
+        title: The MathHelper.Add method shall return the sum of two integers.
+        justification: |
+          Addition is a fundamental arithmetic operation required to support
+          numeric computations throughout the application.
+        tests:
+          - MathHelper_Add_ReturnsSum
+
+      - id: TemplateReviews-MathHelper-Multiply
+        title: The MathHelper.Multiply method shall return the product of two integers.
+        justification: |
+          Multiplication is a fundamental arithmetic operation required to support
+          numeric computations throughout the application.
+        tests:
+          - MathHelper_Multiply_ReturnsProduct

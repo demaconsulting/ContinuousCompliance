@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "demaconsulting.reqstream": {
+      "version": "1.4.1",
+      "commands": [
+        "reqstream"
+      ]
+    },
+    "demaconsulting.reviewmark": {
+      "version": "0.4.0",
+      "commands": [
+        "reviewmark"
+      ]
+    }
+  }
+}

@@ -9,6 +9,27 @@ missed is a manual, error-prone process.
 maintaining cryptographic fingerprints of reviewed files and querying an evidence store to verify that
 every file requiring review is covered by a current, valid review.
 
+## Template Files
+
+The [`templates/reviews`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/reviews)
+folder provides a ready-to-use example showing how a complete ReviewMark setup should be structured:
+
+- [`.config/dotnet-tools.json`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/.config/dotnet-tools.json) — registers both `dotnet reviewmark` and `dotnet reqstream` via .NET local tool manifest
+- [`requirements.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/requirements.yaml) — root requirements file that includes all files from `docs/reqstream/`
+- [`docs/reqstream/math-helper-requirements.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/reqstream/math-helper-requirements.yaml) — software unit requirements for `MathHelper`
+- [`docs/reqstream/string-helper-requirements.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/reqstream/string-helper-requirements.yaml) — software unit requirements for `StringHelper`
+- [`docs/design/math-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/math-helper-design.md) — design document for `MathHelper`
+- [`docs/design/string-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/string-helper-design.md) — design document for `StringHelper`
+- [`src/MathHelper.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/src/MathHelper.cs) — source for the `MathHelper` software unit
+- [`src/StringHelper.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/src/StringHelper.cs) — source for the `StringHelper` software unit
+- [`test/MathHelperTests.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/test/MathHelperTests.cs) — MSTest V4 tests for `MathHelper`
+- [`test/StringHelperTests.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/test/StringHelperTests.cs) — MSTest V4 tests for `StringHelper`
+- [`.reviewmark.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/.reviewmark.yaml) — two software unit review-sets, each grouping requirements, design, source, and tests
+
+The template demonstrates two software unit review-sets without any subsystem layer, making it easy
+to see how requirements, design documents, source files, and tests are grouped together for a focused,
+AI-readable review context.
+
 ## Role in Continuous Compliance
 
 ReviewMark fills the **file-review evidence** role in the Continuous Compliance pipeline. Every CI/CD
