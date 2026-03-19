@@ -11,7 +11,7 @@ every file requiring review is covered by a current, valid review.
 
 ## Template Files
 
-The [`templates/reviews`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews)
+The [`templates/reviews`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/reviews)
 folder provides a ready-to-use example showing how a complete ReviewMark setup should be structured:
 
 - [`.config/dotnet-tools.json`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/.config/dotnet-tools.json) — registers both `dotnet reviewmark` and `dotnet reqstream` via .NET local tool manifest
