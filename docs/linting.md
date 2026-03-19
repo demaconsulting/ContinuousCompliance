@@ -72,6 +72,8 @@ The pip dependencies (`yamllint`) are declared in
 [`pip-requirements.txt`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/pip-requirements.txt).
 This file follows the standard pip requirements file format and is installed into a Python virtual
 environment by the lint scripts, which expect to install from `pip-requirements.txt` by default.
+When you copy `lint.sh` and/or `lint.bat` from `templates/lint/` into a repository, you must also copy
+`pip-requirements.txt` alongside them so the scripts' `pip install -r pip-requirements.txt` step can succeed.
 
 If your project already uses `pip-requirements.txt`, simply add `yamllint` to that file:
 
