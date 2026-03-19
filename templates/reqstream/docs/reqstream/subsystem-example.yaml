@@ -20,8 +20,8 @@ sections:
           A command-line interface enables automation in CI/CD pipelines and allows
           integration with scripts and build processes. This is essential for the
           tool's primary use case.
-        tests:
-          - TemplateTool_Cli_Interface
+        children:
+          - TemplateTool-Program-Main
 
       - id: TemplateTool-Cli-Help
         title: The tool shall display usage help when the '--help' argument is provided.
