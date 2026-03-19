@@ -66,6 +66,33 @@ If the consuming project already has a `package.json`, merge the linting tools i
 }
 ```
 
+### pip-requirements.txt
+
+The pip dependencies (`yamllint`) are declared in
+[`pip-requirements.txt`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/pip-requirements.txt).
+This file follows the standard pip requirements file format and is installed into a Python virtual
+environment by the lint scripts, which expect to install from `pip-requirements.txt` by default.
+When you copy `lint.sh` and/or `lint.bat` from `templates/lint/` into a repository, you must also copy
+`pip-requirements.txt` alongside them so the scripts' `pip install -r pip-requirements.txt` step can succeed.
+
+If your project already uses `pip-requirements.txt`, add `yamllint` pinned to the template version to that file:
+
+```text
+yamllint==1.38.0
+```
+
+If your project keeps its Python dependencies in a differently named file (for example, `requirements.txt`),
+either:
+
+- Add `yamllint` to that existing requirements file and update the lint scripts to install from it instead of
+  `pip-requirements.txt`, or
+- Keep a separate `pip-requirements.txt` alongside your existing file, containing at least `yamllint` and any
+  other lint-only Python tools you want the lint scripts to install.
+
+The file is named `pip-requirements.txt` rather than the conventional `requirements.txt` because
+Continuous Compliance repositories have Business and Software requirements documents, and a root-level
+`requirements.txt` would be ambiguous. The `pip-` prefix makes the purpose of the file clear.
+
 ## Running Linting
 
 The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth

@@ -17,6 +17,7 @@ extends: default
 ignore: |
   node_modules/
   .git/
+  .venv/
 
 rules:
   # Allow 'on:' in GitHub Actions workflows (not a boolean value)
