@@ -39,4 +39,5 @@ config:
 # Exclude common build artifacts and generated files
 ignores:
   - node_modules
+  - .venv
   - "**/AGENT_REPORT_*.md"
