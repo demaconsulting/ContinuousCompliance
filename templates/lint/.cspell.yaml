@@ -7,7 +7,7 @@
 # - Support consistent technical terminology usage
 # - Misspelled words should be fixed in the source
 # - NEVER add a misspelled word to the 'words' list
-# - PROPOSE genuine used technical terms, names, and projects
+# - PROPOSE only genuine technical terms/names as needed
 
 version: "0.2"
 language: en
