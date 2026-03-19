@@ -1,0 +1,32 @@
+---
+# Software Unit Requirements Example
+#
+# PURPOSE:
+# - Demonstrate software unit requirements in ReqStream YAML format
+# - Software units are the smallest independently testable components (e.g. a class)
+# - Unit requirements describe precise, implementation-level behavior
+#
+# USAGE:
+# - Replace "TemplateTool-Program" with your project and class name
+# - Add, remove, or modify requirements to match your unit's specification
+# - Reference tests using the id of the test method in your test suite
+
+sections:
+  - title: Program Class Requirements
+    requirements:
+      - id: TemplateTool-Program-Main
+        title: The Program.Main method shall process command-line arguments and run the tool.
+        justification: |
+          The entry point must parse arguments and orchestrate tool execution so that
+          the tool behaves consistently when invoked from the command line or a script.
+        tests:
+          - TemplateTool_Program_Main
+
+      - id: TemplateTool-Program-PrintBanner
+        title: The Program.PrintBanner method shall write the tool name and version to the console.
+        justification: |
+          Displaying the tool name and version at startup makes it easy to identify
+          which tool produced a given output, supporting traceability in regulated
+          environments.
+        tests:
+          - TemplateTool_Program_PrintBanner

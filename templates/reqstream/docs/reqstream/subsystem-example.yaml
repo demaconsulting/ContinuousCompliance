@@ -1,0 +1,32 @@
+---
+# Software Subsystem Requirements Example
+#
+# PURPOSE:
+# - Demonstrate software subsystem requirements in ReqStream YAML format
+# - Each section groups related requirements for a software subsystem
+# - Subsystem requirements describe the externally visible behavior of a component
+#
+# USAGE:
+# - Replace "TemplateTool-Cli" with your project and subsystem name
+# - Add, remove, or modify requirements to match your subsystem's specification
+# - Reference tests using the id of the test method in your test suite
+
+sections:
+  - title: Command Line Processing Subsystem Requirements
+    requirements:
+      - id: TemplateTool-Cli-Interface
+        title: The tool shall provide a command-line interface.
+        justification: |
+          A command-line interface enables automation in CI/CD pipelines and allows
+          integration with scripts and build processes. This is essential for the
+          tool's primary use case.
+        children:
+          - TemplateTool-Program-Main
+
+      - id: TemplateTool-Cli-Help
+        title: The tool shall display usage help when the '--help' argument is provided.
+        justification: |
+          Users must be able to discover the available options without consulting
+          external documentation.
+        tests:
+          - TemplateTool_Cli_Help

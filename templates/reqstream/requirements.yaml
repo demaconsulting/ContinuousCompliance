@@ -1,0 +1,23 @@
+---
+# Root Requirements File
+#
+# PURPOSE:
+# - Serve as the entry point for ReqStream requirement processing
+# - Include all reviewable requirement files from docs/reqstream
+#
+# USAGE:
+# - Run ReqStream against this file to process all requirements:
+#
+#   dotnet reqstream \
+#     --requirements requirements.yaml \
+#     --tests "artifacts/**/*.trx" \
+#     --report docs/requirements/requirements.md \
+#     --justifications docs/justifications/justifications.md \
+#     --matrix docs/tracematrix/tracematrix.md \
+#     --enforce
+#
+# - Add new requirement files under docs/reqstream/ and include them here
+
+includes:
+  - docs/reqstream/subsystem-example.yaml
+  - docs/reqstream/unit-example.yaml
