@@ -1,0 +1,31 @@
+---
+# StringHelper Software Unit Requirements
+#
+# PURPOSE:
+# - Define the requirements for the StringHelper software unit
+# - Software units are the smallest independently testable components (e.g. a class)
+# - Unit requirements describe precise, implementation-level behavior
+#
+# USAGE:
+# - Replace "TemplateReviews-StringHelper" with your project and class name
+# - Add, remove, or modify requirements to match your unit's specification
+# - Reference tests using the id of the test method in your test suite
+
+sections:
+  - title: StringHelper Class Requirements
+    requirements:
+      - id: TemplateReviews-StringHelper-Reverse
+        title: The StringHelper.Reverse method shall return the characters of the input string in reverse order.
+        justification: |
+          Reversing a string is a common text-processing operation needed to support
+          display formatting and data transformation features.
+        tests:
+          - StringHelper_Reverse_ReturnsReversedString
+
+      - id: TemplateReviews-StringHelper-ToUpper
+        title: The StringHelper.ToUpper method shall return the input string converted to upper case.
+        justification: |
+          Case normalisation is required when comparing or displaying text in a
+          consistent format, regardless of the original casing.
+        tests:
+          - StringHelper_ToUpper_ReturnsUpperCaseString

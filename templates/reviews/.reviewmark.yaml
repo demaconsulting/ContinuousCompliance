@@ -1,0 +1,50 @@
+---
+# .reviewmark.yaml
+#
+# PURPOSE:
+# - Define which files require review and how they are grouped into review-sets
+# - Each review-set groups the requirements, design, source, and tests for one software unit
+#
+# USAGE:
+# - Run ReviewMark to generate the Review Plan and Review Report:
+#
+#   dotnet reviewmark \
+#     --definition .reviewmark.yaml \
+#     --plan docs/reviewplan/review-plan.md \
+#     --plan-depth 1 \
+#     --report docs/reviewreport/review-report.md \
+#     --report-depth 1 \
+#     --enforce
+#
+# - Update the evidence-source location to point to your evidence store
+
+# Patterns identifying all files that require review.
+# Processed in order; prefix a pattern with '!' to exclude.
+needs-review:
+  - "docs/reqstream/**/*.yaml"
+  - "docs/design/**/*.md"
+  - "src/**/*.cs"
+  - "test/**/*.cs"
+
+evidence-source:
+  type: url
+  location: https://reviews.example.com/evidence/index.json
+
+reviews:
+  # Software unit review — MathHelper class
+  - id: MathHelper
+    title: Review of MathHelper class
+    paths:
+      - "docs/reqstream/math-helper-requirements.yaml"
+      - "docs/design/math-helper-design.md"
+      - "src/MathHelper.cs"
+      - "test/MathHelperTests.cs"
+
+  # Software unit review — StringHelper class
+  - id: StringHelper
+    title: Review of StringHelper class
+    paths:
+      - "docs/reqstream/string-helper-requirements.yaml"
+      - "docs/design/string-helper-design.md"
+      - "src/StringHelper.cs"
+      - "test/StringHelperTests.cs"
