@@ -3,39 +3,30 @@
 #
 # PURPOSE:
 # - Demonstrate software unit requirements in ReqStream YAML format
-# - Software units are the smallest independently testable components
+# - Software units are the smallest independently testable components (e.g. a class)
 # - Unit requirements describe precise, implementation-level behavior
 #
 # USAGE:
-# - Replace "TemplateTool-Output" with your project and unit name
+# - Replace "TemplateTool-Program" with your project and class name
 # - Add, remove, or modify requirements to match your unit's specification
 # - Reference tests using the id of the test method in your test suite
 
 sections:
-  - title: Output Unit Requirements
+  - title: Program Class Requirements
     requirements:
-      - id: TemplateTool-Output-Format
-        title: The tool shall format output according to the configured style.
+      - id: TemplateTool-Program-Main
+        title: The Program.Main method shall process command-line arguments and run the tool.
         justification: |
-          Consistent output formatting ensures that generated artifacts meet
-          project-specific standards and are readable by downstream tooling.
+          The entry point must parse arguments and orchestrate tool execution so that
+          the tool behaves consistently when invoked from the command line or a script.
         tests:
-          - TemplateTool_OutputFormatDefault
-          - TemplateTool_OutputFormatCustom
+          - TemplateTool_Program_Main
 
-      - id: TemplateTool-Output-Encoding
-        title: The tool shall write output files using UTF-8 encoding.
+      - id: TemplateTool-Program-PrintBanner
+        title: The Program.PrintBanner method shall write the tool name and version to the console.
         justification: |
-          UTF-8 encoding ensures broad compatibility with downstream tools and
-          platforms, and is required for correct handling of international
-          characters in requirement text.
+          Displaying the tool name and version at startup makes it easy to identify
+          which tool produced a given output, supporting traceability in regulated
+          environments.
         tests:
-          - TemplateTool_OutputEncoding
-
-      - id: TemplateTool-Output-Overwrite
-        title: The tool shall overwrite existing output files without error.
-        justification: |
-          Idempotent output generation allows CI/CD pipelines to regenerate
-          artifacts on every run without manual cleanup steps.
-        tests:
-          - TemplateTool_OutputOverwrite
+          - TemplateTool_Program_PrintBanner
