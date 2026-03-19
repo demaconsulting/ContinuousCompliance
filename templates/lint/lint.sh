@@ -18,7 +18,7 @@ if [ ! -d ".venv" ]; then
   python -m venv .venv
 fi
 source .venv/bin/activate
-pip install yamllint
+pip install -r pip-requirements.txt
 
 # Run spell check
 npx cspell "**/*.{md,yaml,yml,json,cs,cpp,hpp,h,txt}" || lint_error=1

@@ -66,6 +66,22 @@ If the consuming project already has a `package.json`, merge the linting tools i
 }
 ```
 
+### pip-requirements.txt
+
+The pip dependencies (`yamllint`) are declared in
+[`pip-requirements.txt`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/pip-requirements.txt).
+This file follows the standard pip requirements file format and is installed into a Python virtual
+environment by the lint scripts. If the consuming project already has pip dependencies, add `yamllint`
+to the existing list:
+
+```text
+yamllint
+```
+
+The file is named `pip-requirements.txt` rather than the conventional `requirements.txt` because
+Continuous Compliance repositories have Business and Software requirements documents, and a root-level
+`requirements.txt` would be ambiguous. The `pip-` prefix makes the purpose of the file clear.
+
 ## Running Linting
 
 The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth

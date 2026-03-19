@@ -19,7 +19,7 @@ if not exist ".venv\Scripts\activate.bat" (
     python -m venv .venv
 )
 call .venv\Scripts\activate.bat
-pip install yamllint
+pip install -r pip-requirements.txt
 
 REM Run spell check
 npx cspell "**/*.{md,yaml,yml,json,cs,cpp,hpp,h,txt}"
