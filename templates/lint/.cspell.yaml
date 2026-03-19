@@ -5,35 +5,14 @@
 # - Maintain professional documentation and code quality
 # - Catch spelling errors before publication
 # - Support consistent technical terminology usage
-#
-# ============================================================
-# IMPORTANT - READ BEFORE MODIFYING THIS FILE
-# ============================================================
-#
-# NEVER add a word to the 'words' list in order to silence a
-# spell-checking failure. Doing so defeats the entire purpose
-# of spell-checking and lowers the quality of the repository.
-#
-# The ONLY valid reason to add a word here is when it is a
-# genuine technical term, tool name, or project identifier
-# that cspell does not recognize and that is spelled correctly.
-#
-# If you believe a new word should be added:
-#   1. Raise a PROPOSAL (e.g. open an issue or pull request)
-#      that explains why the word is a real technical term.
-#   2. The proposal must be reviewed and approved before the
-#      word is added.
-#
-# If cspell flags a word that is genuinely misspelled, fix
-# the spelling in the source file - do NOT add the misspelling
-# here.
-# ============================================================
+# - Misspelled words should be fixed in the source
+# - NEVER add a misspelled word to the 'words' list
+# - PROPOSE genuine used technical terms, names, and projects
 
 version: "0.2"
 language: en
 
-# Project-specific technical terms and tool names.
-# See the instructions above before adding any new entries.
+# Project-specific technical terms and tool names
 words:
   - reqstream
   - reviewmark
