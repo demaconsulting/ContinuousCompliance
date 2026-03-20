@@ -36,8 +36,12 @@ config:
   # Allow documents without top-level header (for fragments)
   MD041: false
 
-# Exclude common build artifacts and generated files
+# Exclude common build artifacts, dependencies, and vendored third-party code
 ignores:
-  - node_modules
-  - .venv
+  - "**/.git/**"
+  - "**/node_modules/**"
+  - "**/.venv/**"
+  - "**/thirdparty/**"
+  - "**/third-party/**"
+  - "**/3rd-party/**"
   - "**/AGENT_REPORT_*.md"

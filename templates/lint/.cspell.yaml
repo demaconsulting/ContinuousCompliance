@@ -23,10 +23,15 @@ words:
   - cspell
   - pandoc
 
-# Exclude common build artifacts and dependencies
+# Exclude common build artifacts, dependencies, and vendored third-party code
 ignorePaths:
-  - node_modules/**
-  - .git/**
+  - "**/.git/**"
+  - "**/node_modules/**"
+  - "**/.venv/**"
+  - "**/thirdparty/**"
+  - "**/third-party/**"
+  - "**/3rd-party/**"
+  - "**/AGENT_REPORT_*.md"
   - bin/**
   - obj/**
-  - .venv/**
+  - package-lock.json
