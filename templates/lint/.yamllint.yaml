@@ -13,7 +13,7 @@
 
 extends: default
 
-# Exclude common build artifacts and dependencies
+# Exclude common build artifacts, dependencies, and vendored third-party code
 ignore: |
   .git/
   node_modules/
