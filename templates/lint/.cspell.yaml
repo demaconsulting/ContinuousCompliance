@@ -30,3 +30,6 @@ ignorePaths:
   - bin/**
   - obj/**
   - .venv/**
+  - "**/thirdparty/**"
+  - "**/third-party/**"
+  - "**/3rd-party/**"

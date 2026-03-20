@@ -41,3 +41,6 @@ ignores:
   - node_modules
   - .venv
   - "**/AGENT_REPORT_*.md"
+  - "**/thirdparty/**"
+  - "**/third-party/**"
+  - "**/3rd-party/**"

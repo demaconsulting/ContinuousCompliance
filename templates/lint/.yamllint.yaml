@@ -18,6 +18,9 @@ ignore: |
   node_modules/
   .git/
   .venv/
+  **/thirdparty/
+  **/third-party/
+  **/3rd-party/
 
 rules:
   # Allow 'on:' in GitHub Actions workflows (not a boolean value)
