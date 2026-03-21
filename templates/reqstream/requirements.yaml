@@ -21,3 +21,4 @@
 includes:
   - docs/reqstream/subsystem-example.yaml
   - docs/reqstream/unit-example.yaml
+  - docs/reqstream/ots-example.yaml
