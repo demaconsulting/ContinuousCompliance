@@ -44,11 +44,14 @@ See [Tool Version Capture](tool-versions.md) for configuration details.
 ### Stage 3: Static Analysis
 
 SonarQube/SonarCloud and CodeQL are typically already present in mature projects. If so, adding
-SonarMark and SarifMark only adds reporting — no new analysis is introduced.
+SonarMark and SarifMark only adds reporting — no new analysis is introduced. If not yet configured,
+add the analysis jobs to your CI/CD pipeline as part of this stage.
 
-- [ ] Confirm SonarQube/SonarCloud is configured and the quality gate passes
+- [ ] If SonarQube/SonarCloud is not already configured, add SonarScanner to your build CI/CD job
+  (wrapping the build and test steps); otherwise confirm the existing quality gate passes
 - [ ] Add a SonarMark reporting step to your document generation job (no `--enforce` yet)
-- [ ] Confirm CodeQL analysis is configured and producing SARIF output
+- [ ] If CodeQL is not already configured, add a dedicated CodeQL analysis CI/CD job; otherwise
+  confirm it is producing SARIF output
 - [ ] Add a SarifMark reporting step to your document generation job (no `--enforce` yet)
 - [ ] Review the generated reports and resolve any existing findings
 - [ ] Add `--enforce` to SonarMark and SarifMark once all findings are resolved
