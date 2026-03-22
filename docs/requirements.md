@@ -19,15 +19,43 @@ The `templates/reqstream` folder provides ready-to-use template files for a new 
 - [`docs/reqstream/subsystem-example.yaml`][reqstream-subsystem-example] — example software subsystem
   requirements
 - [`docs/reqstream/unit-example.yaml`][reqstream-unit-example] — example software unit requirements
+- [`docs/reqstream/ots-example.yaml`][reqstream-ots-example] — example OTS (off-the-shelf) software
+  requirements
 
 [reqstream-dotnet-tools]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/.config/dotnet-tools.json
 [reqstream-root]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/requirements.yaml
 [reqstream-subsystem-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/subsystem-example.yaml
 [reqstream-unit-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/unit-example.yaml
+[reqstream-ots-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/ots-example.yaml
 
-The recommended approach is to keep a separate requirements YAML file per software subsystem or unit under
-`docs/reqstream/`, and list them in `requirements.yaml` using the `includes` field. This keeps each file
-focused on one component and makes reviews easier.
+The recommended approach is to keep a separate requirements YAML file per software subsystem, unit,
+or OTS component under `docs/reqstream/`, and list them in `requirements.yaml` using the `includes`
+field. This keeps each file focused on one component and makes reviews easier.
+
+## Requirement Classes
+
+Requirements fall into three classes based on the component they describe:
+
+### Software Subsystem Requirements
+
+Subsystem requirements describe the externally visible behavior of a component — what it does from
+the perspective of its callers, without specifying how it is implemented internally. A subsystem is
+typically a module, service, or library boundary. Subsystem requirements are satisfied when the
+component's observable behavior matches the stated requirement, as demonstrated by passing tests.
+
+### Software Unit Requirements
+
+Unit requirements describe precise, implementation-level behavior of the smallest independently
+testable components — typically a class or method. Unit requirements are verified by unit tests that
+exercise the component in isolation.
+
+### OTS (Off-the-Shelf) Software Requirements
+
+OTS requirements document the functionality that the project needs from a third-party component, such
+as a library, framework, or commercial tool. These requirements make explicit which OTS capabilities
+the project depends on, enabling review and replacement decisions. OTS requirements are satisfied by
+tests (typically smoke or integration tests) that demonstrate the OTS component provides the required
+behavior in the project's environment.
 
 ## Requirements File Format
 
