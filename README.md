@@ -58,6 +58,27 @@ needs:
 - **Standards alignment** — the requirements → tests → evidence model maps naturally to IEC 62443,
   DO-178C, ISO 26262, and similar standards
 
+## Repository Model
+
+Continuous Compliance is designed around the **polyrepo** model — one repository per deliverable
+package. Each repository is treated as a self-contained machine that produces a single package and
+its complete set of compliance evidence (build notes, code quality report, requirements trace matrix,
+review records, and PDF release documentation).
+
+This model works well because:
+
+- Every repository has a clear scope — one package, one set of requirements, one release
+- Each release is independently auditable — all evidence is generated from the same source and
+  version-tagged together
+- Teams can adopt the approach incrementally — one repository at a time, without changing others
+
+**Monorepo note:** Continuous Compliance does not map as naturally to monolithic repositories
+(monorepos) that build multiple packages from a single codebase. In a monorepo, requirements,
+reviews, and release artifacts span many components, making it harder to produce per-package
+compliance evidence with a single pipeline. Projects that must use a monorepo can still apply
+individual pipeline stages (linting, static analysis, requirements enforcement) but will need to
+design custom artifact scoping to produce meaningful per-package release documents.
+
 ## The DEMA Consulting Approach
 
 DEMA Consulting implements Continuous Compliance across its projects using a standardized CI/CD pipeline
@@ -158,6 +179,9 @@ Detailed documentation for each part of the pipeline:
 - [Build Notes Generation](docs/build-notes.md) — BuildMark configuration and output
 - [PDF Document Generation](docs/pdf-generation.md) — Pandoc and Weasyprint pipeline
 - [AI Coding Agents](docs/agentic.md) — Structuring agent guidance files for Continuous Compliance
+- [Environment Setup](docs/environment-setup.md) — Setting up a local development environment
+- [Adopting Continuous Compliance](docs/migration.md) — Incremental migration guide for existing projects
+- [Troubleshooting](docs/troubleshooting.md) — Common issues and solutions
 
 ## License
 

@@ -66,7 +66,8 @@ root. Key configuration highlights:
 The npm dependencies (`cspell` and `markdownlint-cli2`) are declared in
 [`package.json`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/package.json).
 If the consuming project already has a `package.json`, merge the linting tools into its existing
-`devDependencies` rather than replacing the file:
+`devDependencies` rather than replacing the file. The versions below reflect the current template;
+always use the versions from the template file when adopting the toolchain:
 
 ```json
 "devDependencies": {
@@ -84,7 +85,8 @@ environment by the lint scripts, which expect to install from `pip-requirements.
 When you copy `lint.sh` and/or `lint.bat` from `templates/lint/` into a repository, you must also copy
 `pip-requirements.txt` alongside them so the scripts' `pip install -r pip-requirements.txt` step can succeed.
 
-If your project already uses `pip-requirements.txt`, add `yamllint` pinned to the template version to that file:
+If your project already uses `pip-requirements.txt`, add `yamllint` pinned to the version specified
+in the template file:
 
 ```text
 yamllint==1.38.0
