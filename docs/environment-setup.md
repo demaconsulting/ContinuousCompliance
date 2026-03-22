@@ -45,7 +45,7 @@ lint.bat
 The script will:
 
 1. Create a Python virtual environment (`.venv/`) and install `yamllint` from `pip-requirements.txt`
-2. Install npm packages (`cspell`, `markdownlint-cli2`, `mermaid-filter`) via `npm install`
+2. Install npm packages (`cspell`, `markdownlint-cli2`) via `npm install`
 3. Run all three linters against the repository
 
 On subsequent runs the virtual environment and `node_modules/` directory are reused, so only the
@@ -69,9 +69,9 @@ is updated.
 After installing all dependencies, run tool self-validation to confirm everything is working:
 
 ```bash
-dotnet versionmark --validate --results /tmp/versionmark-check.trx
-dotnet reqstream --validate --results /tmp/reqstream-check.trx
-dotnet reviewmark --validate --results /tmp/reviewmark-check.trx
+dotnet versionmark --validate --results test-results/versionmark-check.trx
+dotnet reqstream --validate --results test-results/reqstream-check.trx
+dotnet reviewmark --validate --results test-results/reviewmark-check.trx
 ```
 
 Each command prints a summary and exits with code 0 if all built-in tests pass.
@@ -83,12 +83,8 @@ render Mermaid diagram blocks embedded in Markdown. It is installed as an npm de
 the linting tools and requires a Chromium-compatible browser. On most systems this is satisfied by
 installing Google Chrome or Chromium.
 
-On Linux CI environments without a display, set the following environment variable to enable
-headless rendering:
-
-```bash
-export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-```
+On Linux CI environments without a display, a system installation of Google Chrome or Chromium is
+required for Puppeteer to run in headless mode.
 
 ## Troubleshooting
 

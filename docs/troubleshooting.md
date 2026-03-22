@@ -46,8 +46,9 @@ See the [word list policy](linting.md#word-list-policy) for details.
 
 **Cause:** The file uses tabs instead of spaces, or inconsistent indentation widths.
 
-**Solution:** Convert all indentation to 2-space soft tabs. Many editors can do this automatically
-via `.editorconfig`. Check that your editor is not inserting tab characters in YAML files.
+**Solution:** Convert all indentation to 2-space soft tabs. Many editors can be configured in
+their settings to enforce this; teams may also add an `.editorconfig` file to standardize
+indentation. Check that your editor is not inserting tab characters in YAML files.
 
 ---
 
@@ -190,8 +191,8 @@ Error running filter node_modules/.bin/mermaid-filter
 
 **Cause:** The `mermaid-filter` npm package is not installed.
 
-**Solution:** Run `npm install` in the repository root to install all npm devDependencies, including
-`mermaid-filter`.
+**Solution:** Check that `mermaid-filter` is listed as a devDependency in your project's
+`package.json`, then run `npm install` in the repository root.
 
 On **Windows**, pandoc cannot invoke the bare `mermaid-filter` binary directly. Use the `.cmd`
 wrapper instead:

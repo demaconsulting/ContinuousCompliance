@@ -20,7 +20,8 @@ add compliance automation progressively without disrupting day-to-day developmen
 Linting is the lowest-risk starting point. It has no dependency on other pipeline stages and can be
 introduced with a single CI/CD job.
 
-- [ ] Copy `lint.sh`, `lint.bat`, and the lint configuration files from
+- [ ] Copy `lint.sh`, `lint.bat`, `package.json`, `pip-requirements.txt`, and the lint
+  configuration files from
   [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint)
   into your repository root
 - [ ] Run `bash ./lint.sh` locally and resolve all linting errors in existing files
@@ -101,7 +102,8 @@ PDF generation collects all the documents produced by previous stages and render
 archivable PDF/A-3u files. It depends on all upstream stages being in place.
 
 - [ ] Install Pandoc and Weasyprint: add them to `.config/dotnet-tools.json`
-- [ ] Install npm dependencies: `mermaid-filter` for diagram rendering
+- [ ] Install npm dependencies: add `mermaid-filter` as a devDependency in `package.json` and run
+  `npm install`
 - [ ] Create `definition.yaml` files for each document type
 - [ ] Create a shared HTML template and CSS stylesheet
 - [ ] Add Pandoc and Weasyprint steps to your CI/CD release job
