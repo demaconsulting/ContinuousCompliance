@@ -30,9 +30,11 @@ technical term.
 **Solution:** Do **not** add the word to `.cspell.yaml` without a review. Instead:
 
 1. Confirm the word is spelled correctly.
-2. Open a proposal (issue or pull request) explaining why the word is a genuine technical term and
-   should be added to the word list.
-3. After the proposal is reviewed and approved, add the word to the `words` list in `.cspell.yaml`.
+2. Add the word to the `words` list in `.cspell.yaml` as part of the pull request that introduces
+   the technical term, or open a separate proposal (issue or pull request) if the term is being
+   added independently.
+3. Ensure the change is discussed and reviewed before merging — the word list update may be
+   included in the same PR as the code change as long as reviewers can verify the term is genuine.
 
 See the [word list policy](linting.md#word-list-policy) for details.
 
@@ -190,6 +192,15 @@ Error running filter node_modules/.bin/mermaid-filter
 
 **Solution:** Run `npm install` in the repository root to install all npm devDependencies, including
 `mermaid-filter`.
+
+On **Windows**, pandoc cannot invoke the bare `mermaid-filter` binary directly. Use the `.cmd`
+wrapper instead:
+
+```text
+--filter node_modules/.bin/mermaid-filter.cmd
+```
+
+See the CI/CD example in [PDF Generation](pdf-generation.md) for the correct Windows invocation.
 
 ---
 
