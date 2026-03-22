@@ -16,7 +16,7 @@ sections:
     sections:
       - title: System.Text.Json
         requirements:
-          - id: SystemTextJson-ReadJson
+          - id: TemplateTool-SystemTextJson-ReadJson
             title: System.Text.Json shall be able to read JSON files.
             justification: |
               The application must deserialize JSON configuration and data files at
@@ -25,7 +25,7 @@ sections:
             tests:
               - SystemTextJson_ReadJson
 
-          - id: SystemTextJson-WriteJson
+          - id: TemplateTool-SystemTextJson-WriteJson
             title: System.Text.Json shall be able to write JSON files.
             justification: |
               The application must serialize data structures to JSON files for
