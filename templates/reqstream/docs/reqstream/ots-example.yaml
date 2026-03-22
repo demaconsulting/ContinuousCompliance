@@ -12,23 +12,25 @@
 # - Reference tests using the id of the test method in your test suite
 
 sections:
-  - title: System.Text.Json OTS Requirements
-    requirements:
-      - id: SystemTextJson-ReadJson
-        title: System.Text.Json shall be able to read JSON files.
-        justification: |
-          The application must deserialize JSON configuration and data files at
-          runtime. System.Text.Json is used as the JSON parsing library, so it
-          must correctly read well-formed JSON input.
-        tests:
-          - SystemTextJson_ReadJson
+  - title: OTS Software Requirements
+    sections:
+      - title: System.Text.Json
+        requirements:
+          - id: SystemTextJson-ReadJson
+            title: System.Text.Json shall be able to read JSON files.
+            justification: |
+              The application must deserialize JSON configuration and data files at
+              runtime. System.Text.Json is used as the JSON parsing library, so it
+              must correctly read well-formed JSON input.
+            tests:
+              - SystemTextJson_ReadJson
 
-      - id: SystemTextJson-WriteJson
-        title: System.Text.Json shall be able to write JSON files.
-        justification: |
-          The application must serialize data structures to JSON files for
-          persistence and interoperability. System.Text.Json is used as the
-          JSON serialization library, so it must correctly produce well-formed
-          JSON output.
-        tests:
-          - SystemTextJson_WriteJson
+          - id: SystemTextJson-WriteJson
+            title: System.Text.Json shall be able to write JSON files.
+            justification: |
+              The application must serialize data structures to JSON files for
+              persistence and interoperability. System.Text.Json is used as the
+              JSON serialization library, so it must correctly produce well-formed
+              JSON output.
+            tests:
+              - SystemTextJson_WriteJson
