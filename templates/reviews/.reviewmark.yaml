@@ -16,7 +16,6 @@
 #     --report-depth 1 \
 #     --enforce
 #
-# - Update evidence-source once an evidence store is provisioned
 
 # Patterns identifying all files that require review.
 # Processed in order; prefix a pattern with '!' to exclude.
@@ -26,7 +25,7 @@ needs-review:
   - "src/**/*.cs"
   - "test/**/*.cs"
 
-# Start with 'none'; update to 'url' or 'fileshare' once ready.
+# Source of review evidence - see ReviewMark user guide.
 evidence-source:
   type: none
 

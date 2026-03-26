@@ -69,7 +69,7 @@ needs-review:
   - "!**/obj/**"           # exclude build output
   - "!src/Generated/**"   # exclude auto-generated files
 
-# Read the ReviewMark user guide for configuring the evidence source.
+# Source of review evidence - see ReviewMark user guide.
 evidence-source:
   type: none
 
@@ -91,7 +91,7 @@ reviews:
 | Field | Description |
 | :---- | :---------- |
 | `needs-review` | Glob patterns identifying all files that require review coverage |
-| `evidence-source` | Where to find the review evidence catalogue (`none`, `url`, or `fileshare`) |
+| `evidence-source` | Source of review evidence (`none`, `url`, or `fileshare`) |
 | `evidence-source.credentials` | Optional credentials for authenticated URL sources (see below) |
 | `reviews[].id` | Unique identifier for this review-set |
 | `reviews[].title` | Human-readable title for the review-set |
