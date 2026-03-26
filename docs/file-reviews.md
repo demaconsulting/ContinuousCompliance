@@ -56,7 +56,7 @@ every release.
 ## Review Definition
 
 Reviews are configured in a `.reviewmark.yaml` file at the repository root. This file defines which
-files require review, where to find the evidence store, and how to group files into named review-sets:
+files require review and how to group them into named review-sets.
 
 ```yaml
 # .reviewmark.yaml
@@ -69,9 +69,9 @@ needs-review:
   - "!**/obj/**"           # exclude build output
   - "!src/Generated/**"   # exclude auto-generated files
 
+# Source of review evidence - see ReviewMark user guide.
 evidence-source:
-  type: url                # 'url' or 'fileshare'
-  location: https://reviews.example.com/evidence/index.json
+  type: none
 
 reviews:
   - id: Core-Logic
@@ -91,7 +91,7 @@ reviews:
 | Field | Description |
 | :---- | :---------- |
 | `needs-review` | Glob patterns identifying all files that require review coverage |
-| `evidence-source` | Location of `index.json` — the review evidence catalogue (`url` or `fileshare`) |
+| `evidence-source` | Source of review evidence (`none`, `url`, or `fileshare`) |
 | `evidence-source.credentials` | Optional credentials for authenticated URL sources (see below) |
 | `reviews[].id` | Unique identifier for this review-set |
 | `reviews[].title` | Human-readable title for the review-set |

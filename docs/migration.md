@@ -88,11 +88,6 @@ useful for any team.
 - [ ] Install ReviewMark: add it to `.config/dotnet-tools.json`
 - [ ] Create `.reviewmark.yaml` defining which files require review and how they are grouped into
   review-sets
-- [ ] Conduct initial reviews for all files matching the `needs-review` patterns and store the
-  evidence PDFs in your evidence store
-- [ ] Run ReviewMark locally **without** `--enforce` and review the review plan and report
-- [ ] Add ReviewMark to your CI/CD document generation job **without** `--enforce`
-- [ ] Add `--enforce` once all files are covered by current reviews
 
 See [File Reviews](file-reviews.md) for configuration and evidence storage details.
 

@@ -16,7 +16,6 @@
 #     --report-depth 1 \
 #     --enforce
 #
-# - Update the evidence-source location to point to your evidence store
 
 # Patterns identifying all files that require review.
 # Processed in order; prefix a pattern with '!' to exclude.
@@ -26,9 +25,9 @@ needs-review:
   - "src/**/*.cs"
   - "test/**/*.cs"
 
+# Source of review evidence - see ReviewMark user guide.
 evidence-source:
-  type: url
-  location: https://reviews.example.com/evidence/index.json
+  type: none
 
 reviews:
   # Software unit review — MathHelper class
