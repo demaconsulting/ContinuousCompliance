@@ -56,10 +56,7 @@ every release.
 ## Review Definition
 
 Reviews are configured in a `.reviewmark.yaml` file at the repository root. This file defines which
-files require review, where to find the evidence store, and how to group files into named review-sets.
-
-New projects should start with an evidence source of `none` and transition to a `url` or `fileshare`
-source once an evidence store is provisioned:
+files require review and how to group them into named review-sets.
 
 ```yaml
 # .reviewmark.yaml
@@ -72,7 +69,7 @@ needs-review:
   - "!**/obj/**"           # exclude build output
   - "!src/Generated/**"   # exclude auto-generated files
 
-# Start with 'none'; replace with 'url' or 'fileshare' once an evidence store is provisioned.
+# Read the ReviewMark user guide for configuring the evidence source.
 evidence-source:
   type: none
 
