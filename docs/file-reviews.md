@@ -56,7 +56,10 @@ every release.
 ## Review Definition
 
 Reviews are configured in a `.reviewmark.yaml` file at the repository root. This file defines which
-files require review, where to find the evidence store, and how to group files into named review-sets:
+files require review, where to find the evidence store, and how to group files into named review-sets.
+
+New projects should start with `evidence-source: type: none` and transition to a `url` or `fileshare`
+source once an evidence store is provisioned:
 
 ```yaml
 # .reviewmark.yaml
@@ -69,9 +72,9 @@ needs-review:
   - "!**/obj/**"           # exclude build output
   - "!src/Generated/**"   # exclude auto-generated files
 
+# Start with 'none'; replace with 'url' or 'fileshare' once an evidence store is provisioned.
 evidence-source:
-  type: url                # 'url' or 'fileshare'
-  location: https://reviews.example.com/evidence/index.json
+  type: none
 
 reviews:
   - id: Core-Logic
@@ -91,11 +94,29 @@ reviews:
 | Field | Description |
 | :---- | :---------- |
 | `needs-review` | Glob patterns identifying all files that require review coverage |
-| `evidence-source` | Location of `index.json` — the review evidence catalogue (`url` or `fileshare`) |
+| `evidence-source` | Where to find review evidence — `none` for initial setup, or `url`/`fileshare` pointing to `index.json` |
 | `evidence-source.credentials` | Optional credentials for authenticated URL sources (see below) |
 | `reviews[].id` | Unique identifier for this review-set |
 | `reviews[].title` | Human-readable title for the review-set |
 | `reviews[].paths` | Glob patterns identifying the files covered by this review-set |
+
+#### Evidence Source Types
+
+| Type | Description |
+| :--- | :---------- |
+| `none` | No evidence store; always returns an empty index. Use this during initial project setup before an evidence store is provisioned. |
+| `url` | Full HTTP or HTTPS URL to `index.json` |
+| `fileshare` | Full UNC or local file-system path to `index.json` |
+
+Start every new project with `type: none`. Once reviews have been conducted and an evidence store is
+provisioned, replace `none` with the appropriate source type:
+
+```yaml
+# Transition from 'none' to 'url' once an evidence store is available:
+evidence-source:
+  type: url
+  location: https://reviews.example.com/evidence/index.json
+```
 
 #### Credentials for Authenticated URL Sources
 

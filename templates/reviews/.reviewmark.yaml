@@ -16,7 +16,8 @@
 #     --report-depth 1 \
 #     --enforce
 #
-# - Update the evidence-source location to point to your evidence store
+# - Start with evidence-source type 'none' (no evidence store required)
+# - Transition to 'url' or 'fileshare' once an evidence store is provisioned
 
 # Patterns identifying all files that require review.
 # Processed in order; prefix a pattern with '!' to exclude.
@@ -26,9 +27,12 @@ needs-review:
   - "src/**/*.cs"
   - "test/**/*.cs"
 
+# 'none' skips loading any evidence index — useful during initial project setup
+# before an evidence store is provisioned. Once ready, replace with:
+#   type: url
+#   location: https://reviews.example.com/evidence/index.json
 evidence-source:
-  type: url
-  location: https://reviews.example.com/evidence/index.json
+  type: none
 
 reviews:
   # Software unit review — MathHelper class
