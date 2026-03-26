@@ -16,8 +16,7 @@
 #     --report-depth 1 \
 #     --enforce
 #
-# - Start with evidence-source type 'none' (no evidence store required)
-# - Transition to 'url' or 'fileshare' once an evidence store is provisioned
+# - Update evidence-source once an evidence store is provisioned
 
 # Patterns identifying all files that require review.
 # Processed in order; prefix a pattern with '!' to exclude.
@@ -27,10 +26,7 @@ needs-review:
   - "src/**/*.cs"
   - "test/**/*.cs"
 
-# 'none' skips loading any evidence index — useful during initial project setup
-# before an evidence store is provisioned. Once ready, replace with:
-#   type: url
-#   location: https://reviews.example.com/evidence/index.json
+# Start with 'none'; update to 'url' or 'fileshare' once ready.
 evidence-source:
   type: none
 

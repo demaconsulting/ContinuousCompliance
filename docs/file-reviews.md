@@ -58,7 +58,7 @@ every release.
 Reviews are configured in a `.reviewmark.yaml` file at the repository root. This file defines which
 files require review, where to find the evidence store, and how to group files into named review-sets.
 
-New projects should start with `evidence-source: type: none` and transition to a `url` or `fileshare`
+New projects should start with an evidence source of `none` and transition to a `url` or `fileshare`
 source once an evidence store is provisioned:
 
 ```yaml
@@ -94,29 +94,11 @@ reviews:
 | Field | Description |
 | :---- | :---------- |
 | `needs-review` | Glob patterns identifying all files that require review coverage |
-| `evidence-source` | Where to find review evidence — `none` for initial setup, or `url`/`fileshare` pointing to `index.json` |
+| `evidence-source` | Where to find the review evidence catalogue (`none`, `url`, or `fileshare`) |
 | `evidence-source.credentials` | Optional credentials for authenticated URL sources (see below) |
 | `reviews[].id` | Unique identifier for this review-set |
 | `reviews[].title` | Human-readable title for the review-set |
 | `reviews[].paths` | Glob patterns identifying the files covered by this review-set |
-
-#### Evidence Source Types
-
-| Type | Description |
-| :--- | :---------- |
-| `none` | No evidence store; always returns an empty index. Use this during initial project setup before an evidence store is provisioned. |
-| `url` | Full HTTP or HTTPS URL to `index.json` |
-| `fileshare` | Full UNC or local file-system path to `index.json` |
-
-Start every new project with `type: none`. Once reviews have been conducted and an evidence store is
-provisioned, replace `none` with the appropriate source type:
-
-```yaml
-# Transition from 'none' to 'url' once an evidence store is available:
-evidence-source:
-  type: url
-  location: https://reviews.example.com/evidence/index.json
-```
 
 #### Credentials for Authenticated URL Sources
 
