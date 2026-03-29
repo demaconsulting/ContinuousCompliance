@@ -1,0 +1,32 @@
+---
+# Software System Requirements Example
+#
+# PURPOSE:
+# - Demonstrate software system requirements in ReqStream YAML format
+# - System requirements describe the complete deliverable product from the perspective
+#   of its external users and interfaces
+# - System requirements are verified by integration or end-to-end tests
+#
+# USAGE:
+# - Replace "TemplateTool" with your project name
+# - Add, remove, or modify requirements to match your system's specification
+# - Reference tests using the id of the test method in your test suite
+
+sections:
+  - title: System Requirements
+    requirements:
+      - id: TemplateTool-Version
+        title: The tool shall display version information.
+        justification: |
+          Users need to verify the installed tool version to confirm compatibility
+          with their workflow and to support traceability in regulated environments.
+        tests:
+          - TemplateTool_VersionDisplay
+
+      - id: TemplateTool-Exit-Code
+        title: The tool shall exit with a non-zero exit code when processing fails.
+        justification: |
+          CI/CD pipelines rely on exit codes to detect failures. A non-zero exit code
+          on failure allows pipelines to stop and report the issue automatically.
+        tests:
+          - TemplateTool_ExitCode_Failure

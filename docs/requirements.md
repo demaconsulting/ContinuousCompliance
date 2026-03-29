@@ -16,6 +16,8 @@ The `templates/reqstream` folder provides ready-to-use template files for a new 
   .NET local tool manifest
 - [`requirements.yaml`][reqstream-root] — root requirements file that includes all files from
   `docs/reqstream/`
+- [`docs/reqstream/system-example.yaml`][reqstream-system-example] — example software system
+  requirements
 - [`docs/reqstream/subsystem-example.yaml`][reqstream-subsystem-example] — example software subsystem
   requirements
 - [`docs/reqstream/unit-example.yaml`][reqstream-unit-example] — example software unit requirements
@@ -24,6 +26,7 @@ The `templates/reqstream` folder provides ready-to-use template files for a new 
 
 [reqstream-dotnet-tools]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/.config/dotnet-tools.json
 [reqstream-root]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/requirements.yaml
+[reqstream-system-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/system-example.yaml
 [reqstream-subsystem-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/subsystem-example.yaml
 [reqstream-unit-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/unit-example.yaml
 [reqstream-ots-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/ots-example.yaml

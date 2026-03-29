@@ -65,12 +65,10 @@ files require review and how to group them into named review-sets.
 # Processed in order; prefix a pattern with '!' to exclude.
 needs-review:
   - "**/*.cs"                    # All C# source and test files
-  - "**/*.md"                    # Requirements and design documentation
+  - "docs/design/**/*.md"        # Requirements and design documentation
   - "docs/reqstream/**/*.yaml"   # Requirements files only
   - "!**/obj/**"                 # exclude build output
   - "!**/bin/**"                 # exclude binary output
-  - "!**/generated/**"           # exclude auto-generated files (lowercase)
-  - "!**/Generated/**"           # exclude auto-generated files (PascalCase)
 
 # Source of review evidence - see ReviewMark user guide.
 evidence-source:
