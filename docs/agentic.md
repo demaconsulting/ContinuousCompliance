@@ -35,12 +35,21 @@ files — each covering one layer of the project — that an agent can load sele
 they build a complete picture of the project from general to specific, but an agent only needs
 to load the layers relevant to its task:
 
-| Layer | File(s) | What It Tells an Agent |
-| :---- | :------ | :--------------------- |
-| **Requirements** | `requirements.yaml` | What the software must do; which tests prove it |
-| **Review coverage** | `.reviewmark.yaml` | Which files need formal review; how they are grouped |
-| **Code quality** | `.editorconfig`, `.cspell.yaml`, `.markdownlint-cli2.yaml`, `.yamllint.yaml` | How code and documentation must be formatted |
-| **Build and test** | `AGENTS.md` | How to build, test, and lint locally; where everything lives |
++----------------------+-----------------------------------------------+----------------------------------------------+
+| Layer                | File(s)                                       | What It Tells an Agent                       |
++======================+===============================================+==============================================+
+| **Requirements**     | `requirements.yaml`                           | What the software must do; which tests       |
+|                      |                                               | prove it                                     |
++----------------------+-----------------------------------------------+----------------------------------------------+
+| **Review coverage**  | `.reviewmark.yaml`                            | Which files need formal review; how they     |
+|                      |                                               | are grouped                                  |
++----------------------+-----------------------------------------------+----------------------------------------------+
+| **Code quality**     | `.editorconfig`, `.cspell.yaml`,              | How code and documentation must be           |
+|                      | `.markdownlint-cli2.yaml`, `.yamllint.yaml`   | formatted                                    |
++----------------------+-----------------------------------------------+----------------------------------------------+
+| **Build and test**   | `AGENTS.md`                                   | How to build, test, and lint locally;        |
+|                      |                                               | where everything lives                       |
++----------------------+-----------------------------------------------+----------------------------------------------+
 
 An agent implementing a new feature needs the requirements layer and the build layer. An agent
 performing a code review needs the review-coverage layer and the requirements layer. An agent

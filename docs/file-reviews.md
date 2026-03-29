@@ -457,12 +457,21 @@ direct implementation and tests without noise from unrelated files.
 Projects following DEMA Consulting standards use a set of named review-set types that agents and
 reviewers can recognize and rely upon:
 
-| Review-Set Type | ID Pattern | Contents |
-| :-------------- | :--------- | :------- |
-| **System** | `[Project]-System` | System-level requirements, design introduction, system design documents, integration tests |
-| **Design** | `[Product]-Design` | System-level requirements, platform requirements, all design documents |
-| **All Requirements** | `[Product]-AllRequirements` | All requirement files including root `requirements.yaml` |
-| **Unit** | `[Product]-[Unit]` | Unit requirements, design documents, source code, unit tests |
++----------------------+------------------------------+----------------------------------------------------------+
+| Review-Set Type      | ID Pattern                   | Contents                                                 |
++======================+==============================+==========================================================+
+| **System**           | `[Project]-System`           | System-level requirements, design introduction,          |
+|                      |                              | system design documents, integration tests               |
++----------------------+------------------------------+----------------------------------------------------------+
+| **Design**           | `[Product]-Design`           | System-level requirements, platform requirements,        |
+|                      |                              | all design documents                                     |
++----------------------+------------------------------+----------------------------------------------------------+
+| **All Requirements** | `[Product]-AllRequirements`  | All requirement files including root                     |
+|                      |                              | `requirements.yaml`                                      |
++----------------------+------------------------------+----------------------------------------------------------+
+| **Unit**             | `[Product]-[Unit]`           | Unit requirements, design documents, source code,        |
+|                      |                              | unit tests                                               |
++----------------------+------------------------------+----------------------------------------------------------+
 
 A typical project would have one System review, one Design review, one AllRequirements review, and
 one Unit review per software unit (class). This structure gives reviewers — and review agents — a

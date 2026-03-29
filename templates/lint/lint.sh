@@ -11,14 +11,14 @@
 lint_error=0
 
 # Install npm dependencies
-npm install --silent
+npm install --silent || lint_error=1
 
 # Create Python virtual environment (for yamllint)
 if [ ! -d ".venv" ]; then
   python -m venv .venv
 fi
 source .venv/bin/activate
-pip install -r pip-requirements.txt --quiet --disable-pip-version-check
+pip install -r pip-requirements.txt --quiet --disable-pip-version-check || lint_error=1
 
 # Run spell check
 npx cspell --no-progress --no-color --quiet "**/*.{md,yaml,yml,json,cs,cpp,hpp,h,txt}" || lint_error=1
