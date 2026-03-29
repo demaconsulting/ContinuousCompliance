@@ -69,7 +69,8 @@ needs-review:
   - "docs/reqstream/**/*.yaml"   # Requirements files only
   - "!**/obj/**"                 # exclude build output
   - "!**/bin/**"                 # exclude binary output
-  - "!**/generated/**"           # exclude auto-generated files
+  - "!**/generated/**"           # exclude auto-generated files (lowercase)
+  - "!**/Generated/**"           # exclude auto-generated files (PascalCase)
 
 # Source of review evidence - see ReviewMark user guide.
 evidence-source:
