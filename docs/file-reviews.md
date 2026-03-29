@@ -451,6 +451,54 @@ Software unit reviews are appropriate when design-requirements specify the preci
 a single class, enabling a reviewer — human or AI — to verify each requirement against its
 direct implementation and tests without noise from unrelated files.
 
+### Standard Review-Set Patterns
+
+Projects following DEMA Consulting standards use a set of named review-set types that agents and
+reviewers can recognize and rely upon:
+
+| Review-Set Type | ID Pattern | Contents |
+| :-------------- | :--------- | :------- |
+| **System** | `[Project]-System` | System-level requirements, design introduction, system design documents, integration tests |
+| **Design** | `[Product]-Design` | System-level requirements, platform requirements, all design documents |
+| **All Requirements** | `[Product]-AllRequirements` | All requirement files including root `requirements.yaml` |
+| **Unit** | `[Product]-[Unit]` | Unit requirements, design documents, source code, unit tests |
+
+A typical project would have one System review, one Design review, one AllRequirements review, and
+one Unit review per software unit (class). This structure gives reviewers — and review agents — a
+predictable set of entry points into the codebase:
+
+```yaml
+reviews:
+  - id: MyProduct-System
+    title: System Integration Review
+    paths:
+      - "docs/reqstream/myproduct-system.yaml"
+      - "docs/design/introduction.md"
+      - "docs/design/system.md"
+      - "tests/**/IntegrationTests.cs"
+
+  - id: MyProduct-Design
+    title: Architecture and Design Review
+    paths:
+      - "docs/reqstream/myproduct-system.yaml"
+      - "docs/reqstream/platform-requirements.yaml"
+      - "docs/design/**/*.md"
+
+  - id: MyProduct-AllRequirements
+    title: All Requirements Review
+    paths:
+      - "requirements.yaml"
+      - "docs/reqstream/**/*.yaml"
+
+  - id: MyProduct-MyComponent
+    title: MyComponent Unit Review
+    paths:
+      - "docs/reqstream/unit-mycomponent.yaml"
+      - "docs/design/mycomponent.md"
+      - "src/MyComponent.cs"
+      - "tests/MyComponentTests.cs"
+```
+
 ### Using ReviewMark with AI Review Agents
 
 The `.reviewmark.yaml` configuration makes the file grouping explicit and machine-readable, which

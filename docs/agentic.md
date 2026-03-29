@@ -34,27 +34,34 @@ is a compact quick-reference card covering everything an agent needs to know to 
 ```markdown
 # Agent Quick Reference
 
+## Standards Application (ALL Agents Must Follow)
+
+Before performing any work, read and apply the relevant standards from `.github/standards/`:
+
+- **`reqstream-usage.md`** - For requirements management (traceability, semantic IDs, source filters)
+- **`reviewmark-usage.md`** - For file review management (review-sets, file patterns, enforcement)
+- **`software-items.md`** - For software categorization (system/subsystem/unit/OTS classification)
+- **`technical-documentation.md`** - For documentation creation and maintenance
+
+Load only the standards relevant to your specific task scope and apply their guidelines throughout
+your work.
+
+## Agent Delegation Guidelines
+
+The default agent should handle simple, straightforward tasks directly.
+Delegate to specialized agents only for specific scenarios:
+
+- **Light development work** (small fixes, simple features) → @developer agent
+- **Formal feature implementation** (complex, multi-step) → @implementation agent
+- **Formal reviews** (compliance verification, detailed analysis) → @code-review agent
+- **Template consistency** (downstream repository alignment) → @repo-consistency agent
+
 ## Available Specialized Agents
 
-- **Requirements Agent** - Develops requirements and ensures test coverage linkage
-- **Technical Writer** - Creates accurate documentation following regulatory best practices
-- **Software Developer** - Writes production code and self-validation tests
-- **Test Developer** - Creates unit and integration tests
-- **Code Quality Agent** - Enforces linting, static analysis, and security standards
-- **Code Review Agent** - Assists in performing formal file reviews
-- **Repo Consistency Agent** - Ensures downstream repositories remain consistent with template patterns
-
-## Agent Selection Guide
-
-- Fix a bug → **Software Developer**
-- Add a new feature → **Requirements Agent** → **Software Developer** → **Test Developer**
-- Write a test → **Test Developer**
-- Fix linting or static analysis issues → **Code Quality Agent**
-- Update documentation → **Technical Writer**
-- Add or update requirements → **Requirements Agent**
-- Run security scanning or address CodeQL alerts → **Code Quality Agent**
-- Perform a formal file review → **Code Review Agent**
-- Propagate template changes → **Repo Consistency Agent**
+- **code-review** - Performs formal file reviews using standardized review processes
+- **developer** - General-purpose development agent that applies standards based on the work
+- **implementation** - Orchestrator for complex multi-step feature implementations
+- **repo-consistency** - Ensures alignment with template patterns and best practices
 
 ## Requirements
 
@@ -84,23 +91,10 @@ For projects that use specialized agent roles, each role has its own instruction
 `.github/agents/`. These files define the role's responsibilities, when to invoke it, what it owns,
 and which other agents it defers to.
 
-DEMA Consulting projects define the following specialized roles:
-
-| Agent | File | Responsibilities |
-| :---- | :--- | :--------------- |
-| Requirements Agent | `requirements-agent.md` | Creates and maintains `requirements.yaml`; determines test coverage strategy |
-| Technical Writer | `technical-writer.md` | Creates and maintains documentation following regulatory best practices |
-| Software Developer | `software-developer.md` | Writes production code and self-validation tests in literate style |
-| Test Developer | `test-developer.md` | Creates unit and integration tests following the AAA pattern |
-| Code Quality Agent | `code-quality-agent.md` | Enforces all quality gates (linting, static analysis, requirements traceability) |
-| Code Review Agent | `code-review-agent.md` | Performs formal ReviewMark file reviews; elaborates review-sets and produces structured findings reports |
-| Repo Consistency Agent | `repo-consistency-agent.md` | Ensures downstream repositories remain consistent with template patterns |
-
-The `AGENTS.md` file should also include an **Agent Selection Guide** — a short decision table that
-maps common tasks (fix a bug, add a feature, update documentation, perform a review) to the
-appropriate agent role. This guide helps both human developers and AI agents quickly identify which
-specialized role to invoke for a given task, reducing the risk of using the wrong agent or
-duplicating effort across roles.
+The exact set of agents varies by project, but common roles include development, quality assurance,
+code review, and repository consistency. The `AGENTS.md` file should also include an **Agent
+Delegation Guidelines** section — a short guide mapping common tasks to the appropriate agent role,
+helping both human developers and AI agents quickly identify which role to invoke for a given task.
 
 Role files use the GitHub Copilot agent front-matter format:
 
@@ -114,6 +108,24 @@ description: Develops requirements and ensures appropriate test coverage linkage
 
 ...
 ```
+
+### .github/standards/ — Machine-Readable Project Standards
+
+Projects place detailed, machine-readable standards in `.github/standards/`. These files provide the
+authoritative rules agents must follow for each domain of work. Unlike `AGENTS.md` — which is a
+compact quick-reference — standards files contain the full detail agents need to produce compliant
+output on the first attempt:
+
+| Standard File | Domain |
+| :------------ | :----- |
+| `reqstream-usage.md` | Requirements management — YAML format, semantic IDs, source filters |
+| `reviewmark-usage.md` | File review management — review-set structure, patterns, enforcement |
+| `software-items.md` | Software categorization — system/subsystem/unit/OTS classification |
+| `technical-documentation.md` | Documentation — structure, Pandoc conventions, README best practices |
+
+Agents should load only the standards relevant to their current task, and apply the quality checks
+and guidelines from those standards throughout their work. This selective loading keeps agent context
+focused on what matters for the task at hand.
 
 ## What Helps Agents Most
 
@@ -168,17 +180,18 @@ without additional correction.
 ## Agent Report Files
 
 When agents need to communicate intermediate results or hand off work between roles, they write
-report files. DEMA Consulting projects use a naming convention that keeps these files out of the
-committed codebase:
+report files to a dedicated folder. DEMA Consulting projects use a `.agent-logs/` folder that is
+excluded from source control and linting:
 
-- **Pattern**: `AGENT_REPORT_<description>.md` (e.g., `AGENT_REPORT_analysis.md`)
-- **Purpose**: Temporary inter-agent communication; not intended for long-term storage
-- **Exclusions**: Files matching this pattern are excluded from:
+- **Location**: `.agent-logs/[agent-name]-[subject]-[unique-id].md`
+- **Purpose**: Records work performed, decisions made, and follow-up items; also used for temporary
+  inter-agent communication
+- **Exclusions**: The `.agent-logs/` folder is excluded from:
   - Git tracking (via `.gitignore`)
   - Markdown linting
   - Spell checking
 
-This prevents agent-generated scratch files from polluting the project history or triggering false
+This prevents agent-generated log files from polluting the project history or triggering false
 linting failures.
 
 ## Continuous Compliance as Agent Context
@@ -190,11 +203,13 @@ Compliance project provides an agent with:
 - **What to build** — `requirements.yaml` defines all requirements
 - **How to prove it** — test naming conventions and source filters define the evidence format
 - **What style to follow** — `.editorconfig`, `.cspell.yaml`, `.markdownlint-cli2.yaml`, `.yamllint.yaml`
+- **What standards to apply** — `.github/standards/` files provide detailed domain-specific guidance
 - **What gates to pass** — `AGENTS.md` and role files enumerate every CI enforcement step
 - **Where to look** — the documentation map points to guides, requirements, and trace matrices
 
-An agent that reads `AGENTS.md` at the start of every session has all of this context available
-immediately, without needing to discover it through trial and error.
+An agent that reads `AGENTS.md` at the start of every session — and then loads the relevant
+standards files from `.github/standards/` — has all of this context available immediately, without
+needing to discover it through trial and error.
 
 ## ReviewMark and AI-Assisted Reviews
 
