@@ -65,7 +65,7 @@ files require review and how to group them into named review-sets.
 # Processed in order; prefix a pattern with '!' to exclude.
 needs-review:
   - "**/*.cs"                    # All C# source and test files
-  - "docs/design/**/*.md"        # Requirements and design documentation
+  - "docs/design/**/*.md"        # Design documentation
   - "docs/reqstream/**/*.yaml"   # Requirements files only
   - "!**/obj/**"                 # exclude build output
   - "!**/bin/**"                 # exclude binary output
