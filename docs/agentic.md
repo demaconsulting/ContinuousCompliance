@@ -34,39 +34,18 @@ is a compact quick-reference card covering everything an agent needs to know to 
 ```markdown
 # Agent Quick Reference
 
-## Standards Application (ALL Agents Must Follow)
+## Key Compliance Files
 
-Before performing any work, read and apply the relevant standards from `.github/standards/`:
+- `requirements.yaml` — all project requirements (ALL must be linked to passing tests)
+- `.reviewmark.yaml` — files requiring formal review and named review-set groupings
+- `.cspell.yaml`, `.markdownlint-cli2.yaml`, `.yamllint.yaml` — linting configuration
+- `.editorconfig` — code formatting rules
 
-- **`reqstream-usage.md`** - For requirements management (traceability, semantic IDs, source filters)
-- **`reviewmark-usage.md`** - For file review management (review-sets, file patterns, enforcement)
-- **`software-items.md`** - For software categorization (system/subsystem/unit/OTS classification)
-- **`technical-documentation.md`** - For documentation creation and maintenance
+## Requirements Rules
 
-Load only the standards relevant to your specific task scope and apply their guidelines throughout
-your work.
-
-## Agent Delegation Guidelines
-
-The default agent should handle simple, straightforward tasks directly.
-Delegate to specialized agents only for specific scenarios:
-
-- **Light development work** (small fixes, simple features) → @developer agent
-- **Formal feature implementation** (complex, multi-step) → @implementation agent
-- **Formal reviews** (compliance verification, detailed analysis) → @code-review agent
-- **Template consistency** (downstream repository alignment) → @repo-consistency agent
-
-## Available Specialized Agents
-
-- **code-review** - Performs formal file reviews using standardized review processes
-- **developer** - General-purpose development agent that applies standards based on the work
-- **implementation** - Orchestrator for complex multi-step feature implementations
-- **repo-consistency** - Ensures alignment with template patterns and best practices
-
-## Requirements
-
-- All requirements MUST be linked to tests (enforced via `dotnet reqstream --enforce`)
-- When adding features: add requirement + link to test
+- ALL requirements MUST be linked to tests (enforced via `dotnet reqstream --enforce`)
+- When adding features: add a requirement entry and link to at least one test
+- When writing tests: name them so they can be linked in `requirements.yaml`
 
 ## Test Source Filters
 
@@ -83,6 +62,7 @@ Delegate to specialized agents only for specific scenarios:
 
 dotnet build --configuration Release
 dotnet test --configuration Release
+./lint.sh   # or lint.bat on Windows
 ```
 
 ### .github/agents/ — Specialized Role Instructions
@@ -92,9 +72,9 @@ For projects that use specialized agent roles, each role has its own instruction
 and which other agents it defers to.
 
 The exact set of agents varies by project, but common roles include development, quality assurance,
-code review, and repository consistency. The `AGENTS.md` file should also include an **Agent
-Delegation Guidelines** section — a short guide mapping common tasks to the appropriate agent role,
-helping both human developers and AI agents quickly identify which role to invoke for a given task.
+code review, and repository consistency. The `AGENTS.md` file should also include a delegation
+guide — a short section mapping common tasks to the appropriate agent role, helping both human
+developers and AI agents quickly identify which role to invoke for a given task.
 
 Role files use the GitHub Copilot agent front-matter format:
 
@@ -109,23 +89,18 @@ description: Develops requirements and ensures appropriate test coverage linkage
 ...
 ```
 
-### .github/standards/ — Machine-Readable Project Standards
+### Additional Guidance Files
 
-Projects place detailed, machine-readable standards in `.github/standards/`. These files provide the
-authoritative rules agents must follow for each domain of work. Unlike `AGENTS.md` — which is a
-compact quick-reference — standards files contain the full detail agents need to produce compliant
-output on the first attempt:
+Beyond `AGENTS.md` and role files, projects may include additional guidance files with detailed
+standards and conventions agents can load when relevant to their task. Unlike the compact
+quick-reference in `AGENTS.md`, these files contain the full detail agents need to produce
+compliant output on the first attempt — covering areas such as requirements management, file
+review configuration, documentation structure, and code style.
 
-| Standard File | Domain |
-| :------------ | :----- |
-| `reqstream-usage.md` | Requirements management — YAML format, semantic IDs, source filters |
-| `reviewmark-usage.md` | File review management — review-set structure, patterns, enforcement |
-| `software-items.md` | Software categorization — system/subsystem/unit/OTS classification |
-| `technical-documentation.md` | Documentation — structure, Pandoc conventions, README best practices |
-
-Agents should load only the standards relevant to their current task, and apply the quality checks
-and guidelines from those standards throughout their work. This selective loading keeps agent context
-focused on what matters for the task at hand.
+By placing these guidance files in the repository alongside the code they govern, projects make
+their standards self-documenting: an agent working on requirements can read the requirements
+guidance, an agent performing a review can read the review guidance, and so on — without any
+external configuration or pre-training.
 
 ## What Helps Agents Most
 
@@ -203,12 +178,12 @@ Compliance project provides an agent with:
 - **What to build** — `requirements.yaml` defines all requirements
 - **How to prove it** — test naming conventions and source filters define the evidence format
 - **What style to follow** — `.editorconfig`, `.cspell.yaml`, `.markdownlint-cli2.yaml`, `.yamllint.yaml`
-- **What standards to apply** — `.github/standards/` files provide detailed domain-specific guidance
-- **What gates to pass** — `AGENTS.md` and role files enumerate every CI enforcement step
+- **What standards to apply** — guidance files in the repository provide detailed domain-specific rules
+- **What gates to pass** — `AGENTS.md` enumerates every CI enforcement step
 - **Where to look** — the documentation map points to guides, requirements, and trace matrices
 
-An agent that reads `AGENTS.md` at the start of every session — and then loads the relevant
-standards files from `.github/standards/` — has all of this context available immediately, without
+An agent that reads `AGENTS.md` at the start of every session — and then loads any additional
+guidance files relevant to its task — has all of this context available immediately, without
 needing to discover it through trial and error.
 
 ## ReviewMark and AI-Assisted Reviews
