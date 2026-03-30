@@ -15,7 +15,7 @@
 sections:
   - title: System Requirements
     requirements:
-      - id: TemplateTool-Version
+      - id: TemplateTool-System-Version
         title: The tool shall display version information.
         justification: |
           Users need to verify the installed tool version to confirm compatibility
@@ -23,7 +23,7 @@ sections:
         tests:
           - TemplateTool_VersionDisplay
 
-      - id: TemplateTool-Exit-Code
+      - id: TemplateTool-System-ExitCode
         title: The tool shall exit with a non-zero exit code when processing fails.
         justification: |
           CI/CD pipelines rely on exit codes to detect failures. A non-zero exit code
