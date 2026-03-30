@@ -40,7 +40,7 @@ review-set organization.
 
 ## Design Document Types
 
-A typical Continuous Compliance project uses three levels of design documentation, each serving
+A typical Continuous Compliance project uses four levels of design documentation, each serving
 a distinct role in the review evidence chain:
 
 ### Design Introduction (`docs/design/introduction.md`)
@@ -66,9 +66,26 @@ the file is an example rather than production documentation:
 - **Processing pipeline** — the end-to-end sequence of operations across units
 - **Interactions between units** — a table of inter-unit calls, call sites, and purpose
 
-A system design document is most valuable for projects with multiple units that coordinate to
-deliver system-level behavior. For simple systems where units are entirely independent, this
+A system design document is most valuable for projects with multiple subsystems that coordinate to
+deliver system-level behavior. For simple systems where subsystems are entirely independent, this
 document can be brief.
+
+### Subsystem Design (`docs/design/{subsystem}.md`)
+
+A subsystem design describes how a group of related software units work together to deliver a
+cross-cutting concern or a coherent area of functionality. Subsystems may span multiple classes
+or modules; the subsystem design documents their shared responsibility and the interactions
+between their constituent units.
+
+A subsystem design covers:
+
+- **Overview** — the subsystem's role and the requirements it satisfies through emergent behavior
+- **Units in this subsystem** — a table listing each unit, its source file, and its purpose
+- **Interactions between units** — how the units within the subsystem collaborate
+
+Subsystem requirements are satisfied by the emergent behavior of one or more units within the
+subsystem. The subsystem design document makes this relationship explicit, giving reviewers a
+clear picture of how unit-level behavior combines to fulfill subsystem-level requirements.
 
 ### Unit Design (`docs/design/{unit}.md`)
 
@@ -90,9 +107,9 @@ All design documentation lives under `docs/design/`:
 ```text
 docs/design/
 ├── introduction.md      — design overview, scope, and structure (always required)
-├── system.md            — system-level data flows and unit interactions
-├── {component}.md       — one file per software unit (class or module)
-└── {subsystem}.md       — optional subsystem-level design documents
+├── system.md            — system-level data flows and subsystem interactions
+├── {subsystem}.md       — one file per subsystem (group of related units)
+└── {unit}.md            — one file per software unit (class or module)
 ```
 
 This layout is referenced in the [Technical Documentation Standards][tech-doc] used by DEMA
@@ -109,6 +126,7 @@ types defined in DEMA Consulting projects include design documents at the approp
 | :-------------- | :-------------------- |
 | **System** | `docs/design/introduction.md`, `docs/design/system.md` |
 | **Design** | `docs/design/**/*.md` (all design documents) |
+| **Subsystem** | `docs/design/{subsystem}.md` (single subsystem design document) |
 | **Unit** | `docs/design/{unit}.md` (single unit design document) |
 
 A `.reviewmark.yaml` that includes design documentation at each scope level:
@@ -130,13 +148,21 @@ reviews:
       - "docs/reqstream/platform-requirements.yaml"
       - "docs/design/**/*.md"
 
-  - id: MyProduct-MyComponent
-    title: MyComponent Unit Review
+  - id: MyProduct-MySubsystem
+    title: MySubsystem Subsystem Review
     paths:
-      - "docs/reqstream/unit-mycomponent.yaml"
-      - "docs/design/mycomponent.md"
-      - "src/MyComponent.cs"
-      - "tests/MyComponentTests.cs"
+      - "docs/reqstream/subsystem-mysubsystem.yaml"
+      - "docs/design/mysubsystem.md"
+      - "src/MySubsystem/**/*.cs"
+      - "tests/MySubsystem/**/*.cs"
+
+  - id: MyProduct-MyUnit
+    title: MyUnit Unit Review
+    paths:
+      - "docs/reqstream/unit-myunit.yaml"
+      - "docs/design/myunit.md"
+      - "src/MySubsystem/MyUnit.cs"
+      - "tests/MySubsystem/MyUnitTests.cs"
 ```
 
 ## Template Examples
@@ -147,12 +173,13 @@ folder contains ready-to-use examples of each design document type:
 | Template File | Description |
 | :------------ | :---------- |
 | [`docs/design/introduction.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/introduction.md) | Design introduction for the example system |
-| [`docs/design/example-system.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/example-system.md) | System-level design showing unit interactions |
+| [`docs/design/example-system.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/example-system.md) | System-level design showing subsystem interactions |
+| [`docs/design/helpers.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/helpers.md) | Subsystem-level design for the Helpers subsystem |
 | [`docs/design/math-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/math-helper-design.md) | Unit-level design for `MathHelper` |
 | [`docs/design/string-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/string-helper-design.md) | Unit-level design for `StringHelper` |
 
-The template `.reviewmark.yaml` shows how System, Design, and Unit review-sets reference these
-documents alongside requirements, source code, and tests.
+The template `.reviewmark.yaml` shows how System, Design, Subsystem, and Unit review-sets reference
+these documents alongside requirements, source code, and tests.
 
 ## Writing Guidelines
 

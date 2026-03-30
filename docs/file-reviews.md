@@ -19,19 +19,20 @@ folder provides a ready-to-use example showing how a complete ReviewMark setup s
 - [`docs/reqstream/math-helper-requirements.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/reqstream/math-helper-requirements.yaml) — software unit requirements for `MathHelper`
 - [`docs/reqstream/string-helper-requirements.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/reqstream/string-helper-requirements.yaml) — software unit requirements for `StringHelper`
 - [`docs/design/introduction.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/introduction.md) — design introduction for the example system
-- [`docs/design/example-system.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/example-system.md) — system-level design showing unit interactions
+- [`docs/design/example-system.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/example-system.md) — system-level design showing subsystem interactions
+- [`docs/design/helpers.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/helpers.md) — subsystem design for the Helpers subsystem
 - [`docs/design/math-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/math-helper-design.md) — unit design document for `MathHelper`
 - [`docs/design/string-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/string-helper-design.md) — unit design document for `StringHelper`
-- [`src/MathHelper.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/src/MathHelper.cs) — source for the `MathHelper` software unit
-- [`src/StringHelper.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/src/StringHelper.cs) — source for the `StringHelper` software unit
+- [`src/Helpers/MathHelper.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/src/Helpers/MathHelper.cs) — source for the `MathHelper` software unit
+- [`src/Helpers/StringHelper.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/src/Helpers/StringHelper.cs) — source for the `StringHelper` software unit
 - [`test/MathHelperTests.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/test/MathHelperTests.cs) — MSTest V4 tests for `MathHelper`
 - [`test/StringHelperTests.cs`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/test/StringHelperTests.cs) — MSTest V4 tests for `StringHelper`
-- [`.reviewmark.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/.reviewmark.yaml) — System, Design, and two Unit review-sets demonstrating the standard review-set types
+- [`.reviewmark.yaml`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/.reviewmark.yaml) — System, Design, Subsystem, and Unit review-sets demonstrating all standard review-set types
 
-The template demonstrates the three standard review-set types — System, Design, and Unit — making it
-easy to see how design documentation integrates with requirements, source code, and tests across all
-levels of the review hierarchy. See [Design Documentation](design.md) for the role design documents
-play in this hierarchy.
+The template demonstrates all four standard review-set types — System, Design, Subsystem, and Unit —
+making it easy to see how design documentation integrates with requirements, source code, and tests
+across all levels of the review hierarchy. See [Design Documentation](design.md) for the role design
+documents play in this hierarchy.
 
 ## Role in Continuous Compliance
 

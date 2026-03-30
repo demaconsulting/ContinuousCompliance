@@ -14,9 +14,10 @@ does not restate requirements; it explains how they are realized.
 
 This document covers the detailed design of the following software units:
 
-- **MathHelper** — static utility class providing common arithmetic operations (`MathHelper.cs`)
-- **StringHelper** — static utility class providing common string manipulation operations
-  (`StringHelper.cs`)
+- **Helpers** — subsystem grouping related utility classes
+  - **MathHelper** — static utility class providing common arithmetic operations (`MathHelper.cs`)
+  - **StringHelper** — static utility class providing common string manipulation operations
+    (`StringHelper.cs`)
 
 The following topics are out of scope:
 
@@ -25,12 +26,14 @@ The following topics are out of scope:
 
 ## Software Structure
 
-The following tree shows how the software items are organized across the system and unit levels:
+The following tree shows how the software items are organized across the system, subsystem, and
+unit levels:
 
 ```text
 TemplateReviews (System)
-├── MathHelper (Unit)
-└── StringHelper (Unit)
+└── Helpers (Subsystem)
+    ├── MathHelper (Unit)
+    └── StringHelper (Unit)
 ```
 
 Each unit is described in detail in its own design document within the `docs/design/` folder.
@@ -42,12 +45,14 @@ navigation aid from design to code:
 
 ```text
 src/
-├── MathHelper.cs           — arithmetic utility class
-└── StringHelper.cs         — string manipulation utility class
+└── Helpers/
+    ├── MathHelper.cs           — arithmetic utility class
+    └── StringHelper.cs         — string manipulation utility class
 
 docs/design/
 ├── introduction.md         — this document; design overview and scope
-├── example-system.md       — system-level interactions between units
+├── example-system.md       — system-level interactions between subsystems
+├── helpers.md              — Helpers subsystem design
 ├── math-helper-design.md   — detailed design for MathHelper
 └── string-helper-design.md — detailed design for StringHelper
 ```

@@ -43,13 +43,23 @@ reviews:
     paths:
       - "docs/design/**/*.md"
 
+  # Subsystem review — Helpers subsystem
+  - id: TemplateReviews-Helpers
+    title: Review of Helpers subsystem
+    paths:
+      - "docs/design/helpers.md"
+      - "docs/design/math-helper-design.md"
+      - "docs/design/string-helper-design.md"
+      - "src/Helpers/**/*.cs"
+      - "test/**/*.cs"
+
   # Software unit review — MathHelper class
   - id: MathHelper
     title: Review of MathHelper class
     paths:
       - "docs/reqstream/math-helper-requirements.yaml"
       - "docs/design/math-helper-design.md"
-      - "src/MathHelper.cs"
+      - "src/Helpers/MathHelper.cs"
       - "test/MathHelperTests.cs"
 
   # Software unit review — StringHelper class
@@ -58,5 +68,5 @@ reviews:
     paths:
       - "docs/reqstream/string-helper-requirements.yaml"
       - "docs/design/string-helper-design.md"
-      - "src/StringHelper.cs"
+      - "src/Helpers/StringHelper.cs"
       - "test/StringHelperTests.cs"
