@@ -1,65 +1,99 @@
-# AI Coding Agents
+# AI Coding Agents and Continuous Compliance
 
-AI coding agents are most effective when they understand the standards they are being held to before they
-write a single line of code. Without that context, an agent implementing a feature must discover
-compliance requirements through repeated CI failure cycles — adding a requirement entry after a
-ReqStream enforcement failure, fixing linting errors after a markdownlint failure, adjusting code style
-after a formatter check failure.
+## The Challenge: Agents Without Constraints
 
-Continuous Compliance projects short-circuit this cycle by providing agents with machine-readable,
-authoritative project standards up front. When an agent consults these files at the start of a task, it
-can produce compliant code on the first attempt.
+AI coding agents left to their own devices tend to "vibe-code" — implementing what they think
+is wanted based on the immediate prompt, without considering the broader system they are
+working within. An unconstrained agent rarely asks:
 
-## Agent Guidance Files
+- Does this feature have a documented requirement?
+- Are all existing requirements still linked to passing tests?
+- Does the new code meet the project's formatting and style rules?
+- Does the changed file need a formal review record?
 
-DEMA Consulting projects use two layers of agent guidance:
+Without this context, the agent will often produce something that works in isolation but
+fails the project's compliance gates. The result is a CI failure loop: add a requirement
+entry after a ReqStream enforcement failure, fix linting errors after a markdownlint failure,
+adjust code style after a formatter check failure — each cycle costing another pipeline run
+and more agent turns.
 
-### AGENTS.md — Root Quick Reference
+## The Context Problem
 
-`AGENTS.md` at the repository root is the primary entry point for any agent working on the project. It
-is a compact quick-reference card covering everything an agent needs to know to work effectively:
+The obvious solution — "just give the agent the whole repository" — does not scale. A
+typical software project contains hundreds of source files, multiple documentation
+directories, configuration files, test suites, and generated artifacts. Loading everything
+floods the agent's context window with information irrelevant to the current task, crowding
+out the content the agent actually needs to reason well.
 
-- **Available specialized agents** — roles defined for the project and when to invoke each
-- **Tech stack** — languages, frameworks, runtimes, and package managers in use
-- **Key files** — location of `requirements.yaml`, linting configs, and `.editorconfig`
+What agents need is **targeted, structured context**: enough information to understand the
+project's standards and their current task, without drowning in the rest of the codebase.
+
+## How Continuous Compliance Helps
+
+Continuous Compliance projects provide that targeted context through a set of machine-readable
+files — each covering one layer of the project — that an agent can load selectively. Together
+they build a complete picture of the project from general to specific, but an agent only needs
+to load the layers relevant to its task:
+
++----------------------+-----------------------------------------------+----------------------------------------------+
+| Layer                | File(s)                                       | What It Tells an Agent                       |
++======================+===============================================+==============================================+
+| **Requirements**     | `requirements.yaml`                           | What the software must do; which tests       |
+|                      |                                               | prove it                                     |
++----------------------+-----------------------------------------------+----------------------------------------------+
+| **Review coverage**  | `.reviewmark.yaml`                            | Which files need formal review; how they     |
+|                      |                                               | are grouped                                  |
++----------------------+-----------------------------------------------+----------------------------------------------+
+| **Code quality**     | `.editorconfig`, `.cspell.yaml`,              | How code and documentation must be           |
+|                      | `.markdownlint-cli2.yaml`, `.yamllint.yaml`   | formatted                                    |
++----------------------+-----------------------------------------------+----------------------------------------------+
+| **Build and test**   | `AGENTS.md`                                   | How to build, test, and lint locally;        |
+|                      |                                               | where everything lives                       |
++----------------------+-----------------------------------------------+----------------------------------------------+
+
+An agent implementing a new feature needs the requirements layer and the build layer. An agent
+performing a code review needs the review-coverage layer and the requirements layer. An agent
+fixing a documentation spelling error needs only the code-quality layer. None of them needs
+to read the whole repository.
+
+This is the core benefit of Continuous Compliance for agentic development: **the project
+documents its own standards in a form that machines can read, so agents can load exactly what
+they need, when they need it.**
+
+## AGENTS.md — The Entry Point
+
+`AGENTS.md` at the repository root is the primary entry point for any agent working on the
+project. It is a compact quick-reference card — a map to the project's standards — covering
+the essential information an agent needs to orient itself before starting work:
+
+- **Key compliance files** — where to find `requirements.yaml`, `.reviewmark.yaml`, and linting configs
 - **Requirements rules** — all requirements must be linked to tests; enforced in CI
 - **Test source filters** — platform- and runtime-specific test evidence requirements
 - **Test naming conventions** — patterns that make tests linkable to requirements
-- **Code style** — XML documentation, error types, namespace style, string formatting
-- **Build and test commands** — how to build, test, run self-validation, and lint locally
-- **Documentation map** — where user guides, requirements, and trace matrices live
+- **Code style** — formatting rules, documentation conventions, naming patterns
+- **Build and test commands** — how to build, test, and lint locally
+
+An agent that reads `AGENTS.md` at the start of every session has an immediate, accurate
+picture of the project's structure and standards, without needing to discover them through
+trial and error or CI failure.
 
 **Example `AGENTS.md` structure:**
 
 ```markdown
 # Agent Quick Reference
 
-## Available Specialized Agents
+## Key Compliance Files
 
-- **Requirements Agent** - Develops requirements and ensures test coverage linkage
-- **Technical Writer** - Creates accurate documentation following regulatory best practices
-- **Software Developer** - Writes production code and self-validation tests
-- **Test Developer** - Creates unit and integration tests
-- **Code Quality Agent** - Enforces linting, static analysis, and security standards
-- **Code Review Agent** - Assists in performing formal file reviews
-- **Repo Consistency Agent** - Ensures downstream repositories remain consistent with template patterns
+- `requirements.yaml` — all project requirements (ALL must be linked to passing tests)
+- `.reviewmark.yaml` — files requiring formal review and named review-set groupings
+- `.cspell.yaml`, `.markdownlint-cli2.yaml`, `.yamllint.yaml` — linting configuration
+- `.editorconfig` — code formatting rules
 
-## Agent Selection Guide
+## Requirements Rules
 
-- Fix a bug → **Software Developer**
-- Add a new feature → **Requirements Agent** → **Software Developer** → **Test Developer**
-- Write a test → **Test Developer**
-- Fix linting or static analysis issues → **Code Quality Agent**
-- Update documentation → **Technical Writer**
-- Add or update requirements → **Requirements Agent**
-- Run security scanning or address CodeQL alerts → **Code Quality Agent**
-- Perform a formal file review → **Code Review Agent**
-- Propagate template changes → **Repo Consistency Agent**
-
-## Requirements
-
-- All requirements MUST be linked to tests (enforced via `dotnet reqstream --enforce`)
-- When adding features: add requirement + link to test
+- ALL requirements MUST be linked to tests (enforced via `dotnet reqstream --enforce`)
+- When adding features: add a requirement entry and link to at least one test
+- When writing tests: name them so they can be linked in `requirements.yaml`
 
 ## Test Source Filters
 
@@ -76,31 +110,20 @@ is a compact quick-reference card covering everything an agent needs to know to 
 
 dotnet build --configuration Release
 dotnet test --configuration Release
+./lint.sh   # or lint.bat on Windows
 ```
 
-### .github/agents/ — Specialized Role Instructions
+## Agent Guidance Files
 
-For projects that use specialized agent roles, each role has its own instruction file in
-`.github/agents/`. These files define the role's responsibilities, when to invoke it, what it owns,
-and which other agents it defers to.
+For larger or more complex projects, a single `AGENTS.md` may not be enough. Projects can
+provide additional layers of guidance through two mechanisms:
 
-DEMA Consulting projects define the following specialized roles:
+### Specialized Role Files
 
-| Agent | File | Responsibilities |
-| :---- | :--- | :--------------- |
-| Requirements Agent | `requirements-agent.md` | Creates and maintains `requirements.yaml`; determines test coverage strategy |
-| Technical Writer | `technical-writer.md` | Creates and maintains documentation following regulatory best practices |
-| Software Developer | `software-developer.md` | Writes production code and self-validation tests in literate style |
-| Test Developer | `test-developer.md` | Creates unit and integration tests following the AAA pattern |
-| Code Quality Agent | `code-quality-agent.md` | Enforces all quality gates (linting, static analysis, requirements traceability) |
-| Code Review Agent | `code-review-agent.md` | Performs formal ReviewMark file reviews; elaborates review-sets and produces structured findings reports |
-| Repo Consistency Agent | `repo-consistency-agent.md` | Ensures downstream repositories remain consistent with template patterns |
-
-The `AGENTS.md` file should also include an **Agent Selection Guide** — a short decision table that
-maps common tasks (fix a bug, add a feature, update documentation, perform a review) to the
-appropriate agent role. This guide helps both human developers and AI agents quickly identify which
-specialized role to invoke for a given task, reducing the risk of using the wrong agent or
-duplicating effort across roles.
+Projects that use specialized agent roles place an instruction file for each role in
+`.github/agents/`. These files define the role's responsibilities, when to invoke it, what
+it owns, and which other agents it defers to. This allows different agents to load only the
+guidance relevant to their role, keeping each agent's context focused.
 
 Role files use the GitHub Copilot agent front-matter format:
 
@@ -115,99 +138,51 @@ description: Develops requirements and ensures appropriate test coverage linkage
 ...
 ```
 
-## What Helps Agents Most
+### Detailed Guidance Files
 
-The following information, when present in `AGENTS.md` or role files, has the highest impact on
-agent compliance:
+Projects may also include detailed guidance files covering specific domains — requirements
+management, file review configuration, documentation structure, code style conventions, and
+so on. Unlike the compact quick-reference in `AGENTS.md`, these files contain the full detail
+agents need to produce compliant output in complex situations.
 
-### Requirements Format
-
-Agents that know the `requirements.yaml` schema can add correctly formatted requirements when they
-add features, rather than leaving requirements management as a separate pass:
-
-```yaml
-sections:
-  - title: Functional Requirements
-    requirements:
-      - id: Tool-Version
-        title: The tool shall display version information.
-        justification: Users need to verify the installed tool version.
-        tests:
-          - TemplateTool_VersionDisplay
-```
-
-### Test Naming Conventions
-
-When the test naming convention is documented, agents can write tests whose names will automatically
-match requirement links in `requirements.yaml`. For example, DEMA Consulting tools use the pattern
-`ToolName_FeatureName` for self-validation tests. An agent that knows this will name its test
-`MyTool_NewFeature` and link it in requirements as `MyTool_NewFeature` — immediately satisfying the
-ReqStream enforcement check.
-
-### Test Source Filters
-
-When requirements need platform-specific or runtime-specific evidence, the source filter syntax must
-be documented. An agent that understands that `windows@TestName` restricts evidence to Windows
-results will write and link tests correctly, rather than accidentally removing filters that invalidate
-compliance evidence.
-
-### Quality Gates
-
-Knowing all the quality gates the CI enforces — build warnings, linting, static analysis, requirements
-traceability, test results — allows an agent to validate its own work before triggering a pipeline
-run. The Code Quality Agent role captures this checklist in its instruction file, making it reusable
-across agent sessions.
-
-### Code Style
-
-Documenting `.editorconfig` conventions in human-readable form (`AGENTS.md`) prevents the most common
-class of agent style violations: incorrect namespace declaration style, missing XML documentation,
-wrong string formatting. An agent that knows these rules generates code that passes `dotnet format`
-without additional correction.
+By placing these files in the repository alongside the code they govern, projects make their
+standards self-documenting: an agent working on requirements can load the requirements
+guidance; an agent performing a review can load the review guidance. No external configuration
+or pre-training is required — the project explains itself.
 
 ## Agent Report Files
 
-When agents need to communicate intermediate results or hand off work between roles, they write
-report files. DEMA Consulting projects use a naming convention that keeps these files out of the
-committed codebase:
+When agents need to communicate intermediate results or hand off work between roles, they
+write report files to a dedicated folder. Projects using agentic workflows typically use
+a `.agent-logs/` folder that is excluded from source control and linting:
 
-- **Pattern**: `AGENT_REPORT_<description>.md` (e.g., `AGENT_REPORT_analysis.md`)
-- **Purpose**: Temporary inter-agent communication; not intended for long-term storage
-- **Exclusions**: Files matching this pattern are excluded from:
+- **Location**: `.agent-logs/[agent-name]-[subject]-[unique-id].md`
+- **Purpose**: Records work performed, decisions made, and follow-up items; also used for
+  temporary inter-agent communication
+- **Exclusions**: The `.agent-logs/` folder is excluded from:
   - Git tracking (via `.gitignore`)
   - Markdown linting
   - Spell checking
 
-This prevents agent-generated scratch files from polluting the project history or triggering false
-linting failures.
-
-## Continuous Compliance as Agent Context
-
-From an agent's perspective, a Continuous Compliance project is self-documenting: the standards it
-enforces are written in the same repository the agent is working in. A fully equipped Continuous
-Compliance project provides an agent with:
-
-- **What to build** — `requirements.yaml` defines all requirements
-- **How to prove it** — test naming conventions and source filters define the evidence format
-- **What style to follow** — `.editorconfig`, `.cspell.yaml`, `.markdownlint-cli2.yaml`, `.yamllint.yaml`
-- **What gates to pass** — `AGENTS.md` and role files enumerate every CI enforcement step
-- **Where to look** — the documentation map points to guides, requirements, and trace matrices
-
-An agent that reads `AGENTS.md` at the start of every session has all of this context available
-immediately, without needing to discover it through trial and error.
+This prevents agent-generated log files from polluting the project history or triggering
+false linting failures.
 
 ## ReviewMark and AI-Assisted Reviews
 
 Beyond its role in CI/CD enforcement, ReviewMark's review-set grouping is directly useful for
-AI-assisted reviews. When an AI agent is asked to review a feature or subsystem, directing it to
-the corresponding review-set in `.reviewmark.yaml` gives it a precise, pre-defined scope that
-groups all relevant files together.
+AI-assisted reviews. When an AI agent is asked to review a feature or subsystem, directing it
+to the corresponding review-set in `.reviewmark.yaml` gives it a precise, pre-defined scope
+that groups all relevant files together.
 
-Review-sets designed for AI context group requirements, design documentation, source code, and
-tests by feature area. An agent that reviews all files in a review-set at once can reason across
-the full chain of evidence — from what the code must do (requirements), to how it is structured
-(design), to what it actually does (code), to what is verified (tests) — rather than reviewing
-any one category in isolation.
+A well-designed review-set contains all the files that belong together conceptually:
+requirements documents, design documents, source code, and tests that collectively form a
+coherent unit of functionality. An agent that reviews all files in a review-set at once can
+reason across the full chain of evidence:
+
+- **Requirements** — what the code must do and why
+- **Design documents** — how the code is structured and the rationale behind key decisions
+- **Source code** — what the code actually does
+- **Tests** — which behaviors are verified and how
 
 This context-aware grouping enables agents to identify:
 
@@ -216,5 +191,11 @@ This context-aware grouping enables agents to identify:
 - **Coverage gaps** — code paths not covered by any test
 - **Consistency issues** — discrepancies between stated requirements and actual behavior
 
+Without ReviewMark's explicit groupings, an agent asked to "review the authentication module"
+must guess which files are relevant, often missing files or including unrelated ones. With
+ReviewMark, the scope is authoritative and machine-readable — the agent loads exactly the
+right files, every time.
+
 See [File Reviews](file-reviews.md#ai-assisted-reviews) for guidance on designing review-sets
 that maximize the usefulness of AI-assisted reviews.
+

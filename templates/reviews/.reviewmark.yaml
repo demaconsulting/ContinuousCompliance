@@ -9,10 +9,9 @@
 # - Run ReviewMark to generate the Review Plan and Review Report:
 #
 #   dotnet reviewmark \
-#     --definition .reviewmark.yaml \
-#     --plan docs/reviewplan/review-plan.md \
+#     --plan docs/code_review_plan/plan.md \
 #     --plan-depth 1 \
-#     --report docs/reviewreport/review-report.md \
+#     --report docs/code_review_report/report.md \
 #     --report-depth 1 \
 #     --enforce
 #

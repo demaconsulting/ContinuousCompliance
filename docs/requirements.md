@@ -16,6 +16,8 @@ The `templates/reqstream` folder provides ready-to-use template files for a new 
   .NET local tool manifest
 - [`requirements.yaml`][reqstream-root] — root requirements file that includes all files from
   `docs/reqstream/`
+- [`docs/reqstream/system-example.yaml`][reqstream-system-example] — example software system
+  requirements
 - [`docs/reqstream/subsystem-example.yaml`][reqstream-subsystem-example] — example software subsystem
   requirements
 - [`docs/reqstream/unit-example.yaml`][reqstream-unit-example] — example software unit requirements
@@ -24,17 +26,39 @@ The `templates/reqstream` folder provides ready-to-use template files for a new 
 
 [reqstream-dotnet-tools]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/.config/dotnet-tools.json
 [reqstream-root]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/requirements.yaml
+[reqstream-system-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/system-example.yaml
 [reqstream-subsystem-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/subsystem-example.yaml
 [reqstream-unit-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/unit-example.yaml
 [reqstream-ots-example]: https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reqstream/docs/reqstream/ots-example.yaml
 
-The recommended approach is to keep a separate requirements YAML file per software subsystem, unit,
-or OTS component under `docs/reqstream/`, and list them in `requirements.yaml` using the `includes`
-field. This keeps each file focused on one component and makes reviews easier.
+The recommended approach is to keep a separate requirements YAML file per software system, subsystem,
+unit, or OTS component under `docs/reqstream/`, and list them in `requirements.yaml` using the
+`includes` field. A consistent naming convention makes the scope of each file immediately clear:
+
+```text
+docs/reqstream/
+  {project}-system.yaml         # System-level requirements
+  subsystem-{name}.yaml         # Subsystem requirements
+  unit-{name}.yaml              # Software unit (class-level) requirements
+  ots-{component}.yaml          # OTS software item requirements
+```
+
+This keeps each file focused on one component and makes reviews easier.
 
 ## Requirement Classes
 
-Requirements fall into three classes based on the component they describe:
+Requirements fall into four classes based on the component they describe:
+
+### Software System Requirements
+
+System requirements describe the complete deliverable product from the perspective of its external
+users and interfaces. They capture what the system as a whole must do — its observable behaviors,
+qualities, and constraints — without specifying how any individual subsystem or unit implements
+them. System requirements are satisfied when end-to-end or integration tests demonstrate that the
+product meets its stated obligations.
+
+The recommended approach is to keep system-level requirements in a dedicated file (e.g.,
+`docs/reqstream/{project}-system.yaml`) separate from subsystem and unit requirements.
 
 ### Software Subsystem Requirements
 

@@ -19,6 +19,7 @@
 # - Add new requirement files under docs/reqstream/ and include them here
 
 includes:
+  - docs/reqstream/system-example.yaml
   - docs/reqstream/subsystem-example.yaml
   - docs/reqstream/unit-example.yaml
   - docs/reqstream/ots-example.yaml
