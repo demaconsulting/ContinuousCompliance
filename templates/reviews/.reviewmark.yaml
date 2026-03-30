@@ -3,7 +3,8 @@
 #
 # PURPOSE:
 # - Define which files require review and how they are grouped into review-sets
-# - Each review-set groups the requirements, design, source, and tests for one software unit
+# - Review-sets group related requirements, design, source, and tests by scope level
+# - (system, design, or unit level)
 #
 # USAGE:
 # - Run ReviewMark to generate the Review Plan and Review Report:
@@ -29,6 +30,19 @@ evidence-source:
   type: none
 
 reviews:
+  # System review — system-level design and integration overview
+  - id: TemplateReviews-System
+    title: System Integration Review
+    paths:
+      - "docs/design/introduction.md"
+      - "docs/design/example-system.md"
+
+  # Design review — all design documentation
+  - id: TemplateReviews-Design
+    title: Architecture and Design Review
+    paths:
+      - "docs/design/**/*.md"
+
   # Software unit review — MathHelper class
   - id: MathHelper
     title: Review of MathHelper class
