@@ -4,7 +4,7 @@
 # PURPOSE:
 # - Define which files require review and how they are grouped into review-sets
 # - Review-sets group related requirements, design, source, and tests by scope level
-# - (system, design, or unit level)
+# - (system, subsystem, design, or unit level)
 #
 # USAGE:
 # - Run ReviewMark to generate the Review Plan and Review Report:
