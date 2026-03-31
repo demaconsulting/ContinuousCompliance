@@ -174,6 +174,7 @@ Detailed documentation for each part of the pipeline:
 - [Tool Version Capture](docs/tool-versions.md) — VersionMark setup and usage
 - [Static Analysis](docs/static-analysis.md) — SonarMark and SarifMark integration
 - [Requirements Enforcement](docs/requirements.md) — ReqStream YAML format and CI/CD integration
+- [Design Documentation](docs/design.md) — role of design docs in file reviews and how to structure them
 - [File Reviews](docs/file-reviews.md) — ReviewMark configuration, evidence storage, and document signing
 - [Self-Validation](docs/self-validation.md) — Tool self-validation as test evidence
 - [Build Notes Generation](docs/build-notes.md) — BuildMark configuration and output
