@@ -4,7 +4,7 @@
 
 This document describes how the TemplateReviews software items work together as an integrated
 system. Where the subsystem design document (`helpers.md`) and the unit design documents
-(`math-helper-design.md` and `string-helper-design.md`) each describe one component in
+(`math-helper.md` and `string-helper.md`) each describe one component in
 isolation, this document focuses on the system-level structure and any cross-cutting concerns.
 
 In a real project this document would describe end-to-end data flows, coordination points between

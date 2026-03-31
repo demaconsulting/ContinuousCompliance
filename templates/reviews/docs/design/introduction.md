@@ -53,8 +53,11 @@ docs/design/
 ├── introduction.md         — this document; design overview and scope
 ├── example-system.md       — system-level interactions between subsystems
 ├── helpers.md              — Helpers subsystem design
-├── math-helper-design.md   — detailed design for MathHelper
-└── string-helper-design.md — detailed design for StringHelper
-```
+├── math-helper.md          — detailed design for MathHelper
+└── string-helper.md        — detailed design for StringHelper
 
-The test project mirrors the same layout under `test/`.
+test/
+└── Helpers/
+    ├── MathHelperTests.cs      — tests for MathHelper
+    └── StringHelperTests.cs    — tests for StringHelper
+```

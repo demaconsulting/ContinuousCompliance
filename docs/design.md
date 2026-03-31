@@ -139,7 +139,7 @@ reviews:
       - "docs/reqstream/myproduct-system.yaml"
       - "docs/design/introduction.md"
       - "docs/design/system.md"
-      - "tests/**/IntegrationTests.cs"
+      - "test/**/IntegrationTests.cs"
 
   - id: MyProduct-Design
     title: Architecture and Design Review
@@ -154,7 +154,7 @@ reviews:
       - "docs/reqstream/subsystem-mysubsystem.yaml"
       - "docs/design/mysubsystem.md"
       - "src/MySubsystem/**/*.cs"
-      - "tests/MySubsystem/**/*.cs"
+      - "test/MySubsystem/**/*.cs"
 
   - id: MyProduct-MyUnit
     title: MyUnit Unit Review
@@ -162,7 +162,7 @@ reviews:
       - "docs/reqstream/unit-myunit.yaml"
       - "docs/design/myunit.md"
       - "src/MySubsystem/MyUnit.cs"
-      - "tests/MySubsystem/MyUnitTests.cs"
+      - "test/MySubsystem/MyUnitTests.cs"
 ```
 
 ## Template Examples
@@ -175,8 +175,8 @@ folder contains ready-to-use examples of each design document type:
 | [`docs/design/introduction.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/introduction.md) | Design introduction for the example system |
 | [`docs/design/example-system.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/example-system.md) | System-level design showing subsystem interactions |
 | [`docs/design/helpers.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/helpers.md) | Subsystem-level design for the Helpers subsystem |
-| [`docs/design/math-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/math-helper-design.md) | Unit-level design for `MathHelper` |
-| [`docs/design/string-helper-design.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/string-helper-design.md) | Unit-level design for `StringHelper` |
+| [`docs/design/math-helper.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/math-helper.md) | Unit-level design for `MathHelper` |
+| [`docs/design/string-helper.md`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/reviews/docs/design/string-helper.md) | Unit-level design for `StringHelper` |
 
 The template `.reviewmark.yaml` shows how System, Design, Subsystem, and Unit review-sets reference
 these documents alongside requirements, source code, and tests.

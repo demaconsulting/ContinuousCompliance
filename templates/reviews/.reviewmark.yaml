@@ -48,25 +48,25 @@ reviews:
     title: Review of Helpers subsystem
     paths:
       - "docs/design/helpers.md"
-      - "docs/design/math-helper-design.md"
-      - "docs/design/string-helper-design.md"
+      - "docs/design/math-helper.md"
+      - "docs/design/string-helper.md"
       - "src/Helpers/**/*.cs"
-      - "test/**/*.cs"
+      - "test/Helpers/**/*.cs"
 
   # Software unit review — MathHelper class
   - id: MathHelper
     title: Review of MathHelper class
     paths:
       - "docs/reqstream/math-helper-requirements.yaml"
-      - "docs/design/math-helper-design.md"
+      - "docs/design/math-helper.md"
       - "src/Helpers/MathHelper.cs"
-      - "test/MathHelperTests.cs"
+      - "test/Helpers/MathHelperTests.cs"
 
   # Software unit review — StringHelper class
   - id: StringHelper
     title: Review of StringHelper class
     paths:
       - "docs/reqstream/string-helper-requirements.yaml"
-      - "docs/design/string-helper-design.md"
+      - "docs/design/string-helper.md"
       - "src/Helpers/StringHelper.cs"
-      - "test/StringHelperTests.cs"
+      - "test/Helpers/StringHelperTests.cs"
