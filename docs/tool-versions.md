@@ -29,7 +29,7 @@ consolidated into a single markdown versions report:
 ```bash
 dotnet versionmark \
   --publish \
-  --report docs/buildnotes/versions.md \
+  --report docs/build_notes/versions.md \
   --report-depth 1 \
   -- "artifacts/**/versionmark-*.json"
 ```

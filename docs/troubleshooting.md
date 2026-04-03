@@ -118,7 +118,7 @@ Error: Only 14 of 16 requirements are satisfied with tests.
 **Solution:**
 
 1. Run ReqStream without `--enforce` to generate the trace matrix.
-2. Open the trace matrix (`docs/tracematrix/tracematrix.md`) and identify the unsatisfied
+2. Open the trace matrix (`docs/requirements_report/trace_matrix.md`) and identify the unsatisfied
    requirements (those with no tests or a ❌ status).
 3. For each unsatisfied requirement, either:
    - Add a test that covers it and link the test name in the `tests` field, or
