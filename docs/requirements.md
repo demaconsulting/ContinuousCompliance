@@ -152,9 +152,9 @@ ReqStream runs in the document generation job after all test results have been c
 dotnet reqstream \
   --requirements requirements.yaml \
   --tests "artifacts/**/*.trx" \
-  --report docs/requirements/requirements.md \
-  --justifications docs/justifications/justifications.md \
-  --matrix docs/tracematrix/tracematrix.md \
+  --report docs/requirements_doc/requirements.md \
+  --justifications docs/requirements_doc/justifications.md \
+  --matrix docs/requirements_report/trace_matrix.md \
   --enforce
 ```
 

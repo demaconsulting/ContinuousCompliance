@@ -73,12 +73,12 @@ The following PDF documents are produced for every release:
 
 | Document | Source Markdown | Contents |
 | :------- | :-------------- | :------- |
-| **Build Notes** | `docs/buildnotes.md` + `docs/buildnotes/versions.md` | Changes, bug fixes, tool versions, and build environment |
+| **Build Notes** | `docs/build_notes.md` + `docs/build_notes/versions.md` | Changes, bug fixes, tool versions, and build environment |
 | **User Guide** | `docs/guide/guide.md` | Comprehensive usage documentation |
 | **Code Quality** | `docs/quality/sonar-quality.md` + `docs/quality/codeql-quality.md` | SonarQube/SonarCloud and CodeQL analysis results |
-| **Requirements** | `docs/requirements/requirements.md` | Full requirements list with IDs, titles, and justifications |
-| **Requirements Justifications** | `docs/justifications/justifications.md` | Rationale behind each requirement |
-| **Trace Matrix** | `docs/tracematrix/tracematrix.md` | Requirements-to-tests coverage evidence |
+| **Requirements** | `docs/requirements_doc/requirements.md` | Full requirements list with IDs, titles, and justifications |
+| **Requirements Justifications** | `docs/requirements_doc/justifications.md` | Rationale behind each requirement |
+| **Trace Matrix** | `docs/requirements_report/trace_matrix.md` | Requirements-to-tests coverage evidence |
 | **Review Plan** | `docs/reviewplan/introduction.md` + `docs/reviewplan/review-plan.md` | All files requiring review and the review-set covering each file |
 | **Review Report** | `docs/reviewreport/introduction.md` + `docs/reviewreport/review-report.md` | Currency status of each review-set (Current, Stale, or Missing) |
 

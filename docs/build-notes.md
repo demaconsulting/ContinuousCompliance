@@ -16,7 +16,7 @@ fetching associated GitHub issues and pull requests to populate the change list.
 ```bash
 dotnet buildmark \
   --build-version ${{ inputs.version }} \
-  --report docs/buildnotes.md \
+  --report docs/build_notes.md \
   --report-depth 1
 ```
 
@@ -25,7 +25,7 @@ The `--include-known-issues` flag adds an open issues section to the report:
 ```bash
 dotnet buildmark \
   --build-version v1.2.3 \
-  --report docs/buildnotes.md \
+  --report docs/build_notes.md \
   --report-depth 1 \
   --include-known-issues
 ```
@@ -70,7 +70,7 @@ into the same build notes document set, recording the exact tool versions used i
 ```bash
 dotnet versionmark \
   --publish \
-  --report docs/buildnotes/versions.md \
+  --report docs/build_notes/versions.md \
   --report-depth 1 \
   -- "artifacts/**/versionmark-*.json"
 ```
@@ -89,7 +89,7 @@ BuildMark requires a `GH_TOKEN` to fetch GitHub issue and pull request data:
   run: >
     dotnet buildmark
     --build-version ${{ inputs.version }}
-    --report docs/buildnotes.md
+    --report docs/build_notes.md
     --report-depth 1
 ```
 
