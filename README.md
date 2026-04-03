@@ -135,13 +135,16 @@ what standards they will be held to, they can produce compliant code on the firs
 iterating through multiple CI failures.
 
 Projects using the DEMA Consulting approach provide agents with machine-readable, authoritative standards
-through two complementary mechanisms:
+through three complementary mechanisms:
 
 - **`AGENTS.md`** at the repository root — a quick-reference card covering the tech stack, requirements
-  format, test naming conventions, linting configs, code style rules, and how to build and test
-- **`.github/agents/*.md`** — role-specific instruction files for specialized agents
-  (Requirements Agent, Software Developer, Code Quality Agent, Test Developer, Technical Writer,
-  Code Review Agent)
+  format, test naming conventions, linting configs, code style rules, how to build and test, and
+  delegation guidelines that route tasks to the appropriate specialized agent
+- **`.github/standards/*.md`** — domain-specific standards files covering language conventions, testing
+  practices, requirements management, design documentation, and other detailed guidance that agents load
+  selectively based on their task scope
+- **`.github/agents/*.agent.md`** — role-specific instruction files for specialized agents
+  (developer, code-review, implementation, quality)
 
 With this context, an agent adding a feature knows from the outset to: add a requirement entry to
 `requirements.yaml`, write a test named to match it, follow the coding style in `.editorconfig`, and
