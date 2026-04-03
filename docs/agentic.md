@@ -47,8 +47,13 @@ to load the layers relevant to its task:
 | **Code quality**     | `.editorconfig`, `.cspell.yaml`,              | How code and documentation must be           |
 |                      | `.markdownlint-cli2.yaml`, `.yamllint.yaml`   | formatted                                    |
 +----------------------+-----------------------------------------------+----------------------------------------------+
+| **Domain standards** | `.github/standards/*.md`                      | Detailed language, testing, requirements,    |
+|                      |                                               | and documentation standards for specific     |
+|                      |                                               | domains; loaded selectively by agents        |
++----------------------+-----------------------------------------------+----------------------------------------------+
 | **Build and test**   | `AGENTS.md`                                   | How to build, test, and lint locally;        |
-|                      |                                               | where everything lives                       |
+|                      |                                               | where everything lives; which agent to       |
+|                      |                                               | delegate to for specific tasks               |
 +----------------------+-----------------------------------------------+----------------------------------------------+
 
 An agent implementing a new feature needs the requirements layer and the build layer. An agent
@@ -67,6 +72,8 @@ project. It is a compact quick-reference card — a map to the project's standar
 the essential information an agent needs to orient itself before starting work:
 
 - **Key compliance files** — where to find `requirements.yaml`, `.reviewmark.yaml`, and linting configs
+- **Standards application** — which `.github/standards/` files to load for each type of work
+- **Delegation guidelines** — which specialized agent to call for different task types
 - **Requirements rules** — all requirements must be linked to tests; enforced in CI
 - **Test source filters** — platform- and runtime-specific test evidence requirements
 - **Test naming conventions** — patterns that make tests linkable to requirements
@@ -81,6 +88,26 @@ trial and error or CI failure.
 
 ```markdown
 # Agent Quick Reference
+
+## Standards Application (ALL Agents Must Follow)
+
+Before performing any work, read the relevant standards from `.github/standards/`:
+
+- **`language.md`** — For code development (naming, style, documentation conventions)
+- **`testing.md`** — For test development (patterns, naming, anti-patterns)
+- **`reqstream-usage.md`** — For requirements management (traceability, IDs, source filters)
+- **`reviewmark-usage.md`** — For file review management (review-sets, patterns, enforcement)
+
+Load only the standards relevant to your task scope.
+
+## Agent Delegation Guidelines
+
+The default agent should handle simple tasks directly.
+Delegate to specialized agents for specific scenarios:
+
+- **Simple fixes, small features** → Call the developer agent
+- **Formal feature implementation** → Call the implementation agent
+- **Formal code reviews** → Call the code-review agent
 
 ## Key Compliance Files
 
@@ -116,7 +143,7 @@ dotnet test --configuration Release
 ## Agent Guidance Files
 
 For larger or more complex projects, a single `AGENTS.md` may not be enough. Projects can
-provide additional layers of guidance through two mechanisms:
+provide additional layers of guidance through role files and standards files:
 
 ### Specialized Role Files
 
@@ -125,30 +152,38 @@ Projects that use specialized agent roles place an instruction file for each rol
 it owns, and which other agents it defers to. This allows different agents to load only the
 guidance relevant to their role, keeping each agent's context focused.
 
-Role files use the GitHub Copilot agent front-matter format:
+Role files use the `{role}.agent.md` naming convention and the GitHub Copilot agent
+front-matter format:
 
 ```markdown
 ---
-name: Requirements Agent
-description: Develops requirements and ensures appropriate test coverage linkage
+name: developer
+description: >
+  General-purpose software development agent that applies appropriate standards
+  based on the work being performed.
+user-invocable: true
 ---
 
-# Requirements Agent
+# Developer Agent
 
 ...
 ```
 
-### Detailed Guidance Files
+### Standards Files
 
-Projects may also include detailed guidance files covering specific domains — requirements
-management, file review configuration, documentation structure, code style conventions, and
-so on. Unlike the compact quick-reference in `AGENTS.md`, these files contain the full detail
-agents need to produce compliant output in complex situations.
+Projects place domain-specific standards in `.github/standards/`. Each file covers one
+technical domain — language conventions, testing practices, requirements management,
+design documentation, and so on. Unlike the compact quick-reference in `AGENTS.md`, these
+files contain the full detail agents need to produce compliant output in complex situations.
+
+`AGENTS.md` lists the standards files available and instructs all agents to read the
+relevant ones before starting work. Agents load only the standards applicable to their
+task, keeping their context focused.
 
 By placing these files in the repository alongside the code they govern, projects make their
-standards self-documenting: an agent working on requirements can load the requirements
-guidance; an agent performing a review can load the review guidance. No external configuration
-or pre-training is required — the project explains itself.
+standards self-documenting: an agent working on requirements loads `reqstream-usage.md`; an
+agent performing a review loads `reviewmark-usage.md`. No external configuration or
+pre-training is required — the project explains itself.
 
 ## Agent Report Files
 
