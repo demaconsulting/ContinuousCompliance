@@ -107,6 +107,7 @@ Delegate to specialized agents for specific scenarios:
 
 - **Simple fixes, small features** → Call the developer agent
 - **Formal feature implementation** → Call the implementation agent
+- **Quality validation, compliance checks, and test/lint/format readiness** → Call the quality agent
 - **Formal code reviews** → Call the code-review agent
 
 ## Key Compliance Files
