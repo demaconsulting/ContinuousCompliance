@@ -79,8 +79,8 @@ The following PDF documents are produced for every release:
 | **Requirements** | `docs/requirements_doc/requirements.md` | Full requirements list with IDs, titles, and justifications |
 | **Requirements Justifications** | `docs/requirements_doc/justifications.md` | Rationale behind each requirement |
 | **Trace Matrix** | `docs/requirements_report/trace_matrix.md` | Requirements-to-tests coverage evidence |
-| **Review Plan** | `docs/reviewplan/introduction.md` + `docs/reviewplan/review-plan.md` | All files requiring review and the review-set covering each file |
-| **Review Report** | `docs/reviewreport/introduction.md` + `docs/reviewreport/review-report.md` | Currency status of each review-set (Current, Stale, or Missing) |
+| **Review Plan** | `docs/code_review_plan/introduction.md` + `docs/code_review_plan/plan.md` | All files requiring review and the review-set covering each file |
+| **Review Report** | `docs/code_review_report/introduction.md` + `docs/code_review_report/report.md` | Currency status of each review-set (Current, Stale, or Missing) |
 
 ## CI/CD Integration
 
