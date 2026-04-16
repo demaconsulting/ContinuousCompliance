@@ -20,11 +20,11 @@ add compliance automation progressively without disrupting day-to-day developmen
 Linting is the lowest-risk starting point. It has no dependency on other pipeline stages and can be
 introduced with a single CI/CD job.
 
-- [ ] Copy `lint.sh`, `lint.bat`, `package.json`, `pip-requirements.txt`, and the lint
+- [ ] Copy `lint.ps1`, `package.json`, `pip-requirements.txt`, and the lint
   configuration files from
   [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint)
   into your repository root
-- [ ] Run `bash ./lint.sh` locally and resolve all linting errors in existing files
+- [ ] Run `./lint.ps1` locally and resolve all linting errors in existing files
 - [ ] Add a lint job to your CI/CD pipeline
 - [ ] Verify the lint job passes on every open branch
 

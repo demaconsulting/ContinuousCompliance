@@ -82,8 +82,8 @@ The pip dependencies (`yamllint`) are declared in
 [`pip-requirements.txt`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/pip-requirements.txt).
 This file follows the standard pip requirements file format and is installed into a Python virtual
 environment by the lint scripts, which expect to install from `pip-requirements.txt` by default.
-When you copy `lint.sh` and/or `lint.bat` from `templates/lint/` into a repository, you must also copy
-`pip-requirements.txt` alongside them so the scripts' `pip install -r pip-requirements.txt` step can succeed.
+When you copy `lint.ps1` from `templates/lint/` into a repository, you must also copy
+`pip-requirements.txt` alongside it so the script's `pip install -r pip-requirements.txt` step can succeed.
 
 If your project already uses `pip-requirements.txt`, add `yamllint` pinned to the version specified
 in the template file:
@@ -108,26 +108,20 @@ Continuous Compliance repositories have Business and Software requirements docum
 
 The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth
 for linting — they are used both locally by developers and by the CI/CD pipeline, ensuring rules are
-defined in only one place. To use them in your own repository, copy `lint.sh`, `lint.bat`, and the
+defined in only one place. To use them in your own repository, copy `lint.ps1` and the
 corresponding lint configuration files from `templates/lint/` into the root of your repository, then
 invoke them as shown below.
 
 ```yaml
 - name: Run linters
-  shell: bash
-  run: bash ./lint.sh
+  shell: pwsh
+  run: ./lint.ps1
 ```
 
-Running locally on Linux/macOS:
+Running locally:
 
-```bash
-bash ./lint.sh
-```
-
-Running locally on Windows:
-
-```bat
-lint.bat
+```powershell
+./lint.ps1
 ```
 
 The scripts install all required dependencies (npm packages and yamllint via Python venv) and run
