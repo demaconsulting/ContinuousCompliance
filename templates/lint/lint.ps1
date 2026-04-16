@@ -25,6 +25,63 @@ param(
 )
 
 # ==============================================================================
+# HELPER FUNCTIONS
+# ==============================================================================
+
+# Returns the platform-appropriate Python venv activation script path, or $null
+# if the venv does not exist or no activation script is found.
+function Get-VenvActivateScript {
+    if (Test-Path ".venv/Scripts/Activate.ps1") { return ".venv/Scripts/Activate.ps1" }  # Windows
+    if (Test-Path ".venv/bin/Activate.ps1") { return ".venv/bin/Activate.ps1" }          # Linux/macOS
+    return $null
+}
+
+# Ensures the Python venv exists, activates it, and installs pip requirements.
+# Returns $true if the venv is ready for use (and is now active).
+# Returns $false if any setup step fails.
+# Use -Silent to suppress all output (for FixOnly mode).
+# NOTE: On success, the venv is left activated. The caller must call deactivate when done.
+function Initialize-PythonVenv {
+    param([switch]$Silent)
+
+    # Create the venv if it doesn't already exist
+    if (-not (Test-Path ".venv")) {
+        if ($Silent) { python -m venv .venv 2>$null } else { python -m venv .venv }
+        if ($LASTEXITCODE -ne 0) { return $false }
+    }
+
+    # Detect and run the platform-appropriate activation script
+    $activateScript = Get-VenvActivateScript
+    if (-not $activateScript) { return $false }
+    if ($Silent) { & $activateScript 2>$null } else { & $activateScript }
+    if ($LASTEXITCODE -ne 0) { return $false }
+    if (-not (Get-Command deactivate -ErrorAction SilentlyContinue)) { return $false }
+
+    # Install Python tool requirements into the activated venv
+    if ($Silent) {
+        pip install -r pip-requirements.txt --quiet --disable-pip-version-check 2>$null
+    } else {
+        pip install -r pip-requirements.txt --quiet --disable-pip-version-check
+    }
+    return $LASTEXITCODE -eq 0
+}
+
+# Normalizes CRLF line endings to LF in all YAML files, excluding build artifacts
+# and vendored directories. Uses .NET file I/O to bypass PowerShell's text-mode
+# CRLF translation on Windows, which would immediately re-introduce CRLF.
+function Normalize-YamlLineEndings {
+    Get-ChildItem -Recurse -Include "*.yaml", "*.yml" |
+        Where-Object { $_.FullName -notmatch '[/\\](\.git|node_modules|\.venv|thirdparty|third-party|3rd-party|\.agent-logs)[/\\]' } |
+        ForEach-Object {
+            $raw = [System.IO.File]::ReadAllText($_.FullName)
+            $fixed = $raw.Replace("`r`n", "`n")
+            if ($raw -ne $fixed) {
+                [System.IO.File]::WriteAllText($_.FullName, $fixed, [System.Text.Encoding]::UTF8)
+            }
+        }
+}
+
+# ==============================================================================
 # AUTO-FIX MODE
 # Applies all auto-fixers silently. Never fails — applies what it can and
 # exits 0 so agents do not react to any output as a problem to solve.
@@ -54,23 +111,13 @@ if ($FixOnly) {
     }
 
     # --- YAML Auto-Fix ---
-    # Fixes common YAML formatting issues automatically.
-    if (-not (Test-Path ".venv")) {
-        python -m venv .venv 2>$null
+    # Fixes common YAML formatting issues automatically, then normalizes line
+    # endings to LF (yamlfix writes CRLF on Windows due to Python text-mode I/O).
+    if (Initialize-PythonVenv -Silent) {
+        yamlfix . 2>$null
+        deactivate 2>$null
     }
-    $activateScript = if (Test-Path ".venv/Scripts/Activate.ps1") {
-        ".venv/Scripts/Activate.ps1"    # Windows
-    } else {
-        ".venv/bin/Activate.ps1"        # Linux/macOS
-    }
-    if (Test-Path $activateScript) {
-        & $activateScript 2>$null
-        if (Get-Command deactivate -ErrorAction SilentlyContinue) {
-            pip install -r pip-requirements.txt --quiet --disable-pip-version-check 2>$null
-            yamlfix . 2>$null
-            deactivate 2>$null
-        }
-    }
+    Normalize-YamlLineEndings
 
     # [PROJECT-SPECIFIC] Add additional auto-fixers here.
     # Example (Prettier for TypeScript/JSON):
@@ -90,30 +137,8 @@ $lintError = $false
 # --- PYTHON SECTION ---
 # Sets up a virtual environment and runs yamllint.
 
-$skipPython = $false
-if (-not (Test-Path ".venv")) {
-    python -m venv .venv
-    if ($LASTEXITCODE -ne 0) { $lintError = $true; $skipPython = $true }
-}
-
-if (-not $skipPython) {
-    $activateScript = if (Test-Path ".venv/Scripts/Activate.ps1") {
-        ".venv/Scripts/Activate.ps1"    # Windows
-    } else {
-        ".venv/bin/Activate.ps1"        # Linux/macOS
-    }
-    if (Test-Path $activateScript) {
-        & $activateScript
-        if ($LASTEXITCODE -ne 0) { $lintError = $true; $skipPython = $true }
-    } else {
-        $lintError = $true; $skipPython = $true
-    }
-}
-
-if (-not $skipPython) {
-    pip install -r pip-requirements.txt --quiet --disable-pip-version-check
-    if ($LASTEXITCODE -ne 0) { $lintError = $true; $skipPython = $true }
-}
+$skipPython = -not (Initialize-PythonVenv)
+if ($skipPython) { $lintError = $true }
 
 if (-not $skipPython) {
     yamllint .
