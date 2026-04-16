@@ -70,13 +70,15 @@ function Initialize-PythonVenv {
 # and vendored directories. Uses .NET file I/O to bypass PowerShell's text-mode
 # CRLF translation on Windows, which would immediately re-introduce CRLF.
 function Normalize-YamlLineEndings {
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+
     Get-ChildItem -Recurse -Include "*.yaml", "*.yml" |
         Where-Object { $_.FullName -notmatch '[/\\](\.git|node_modules|\.venv|thirdparty|third-party|3rd-party|\.agent-logs)[/\\]' } |
         ForEach-Object {
             $raw = [System.IO.File]::ReadAllText($_.FullName)
             $fixed = $raw.Replace("`r`n", "`n")
             if ($raw -ne $fixed) {
-                [System.IO.File]::WriteAllText($_.FullName, $fixed, [System.Text.Encoding]::UTF8)
+                [System.IO.File]::WriteAllText($_.FullName, $fixed, $utf8NoBom)
             }
         }
 }
@@ -146,7 +148,7 @@ if (-not $skipPython) {
     deactivate
 }
 
-# [PROJECT-SPECIFIC]Add additional Python-based lint checks here.
+# [PROJECT-SPECIFIC] Add additional Python-based lint checks here.
 # Example:
 #   if (-not $skipPython) {
 #       flake8 src/
