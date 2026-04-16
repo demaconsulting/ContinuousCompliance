@@ -88,7 +88,7 @@ made up of composable, open-source-friendly tools.
 
 Each CI/CD run progresses through the following stages:
 
-1. **Lint** — markdownlint-cli2 · cspell · yamllint
+1. **Lint** — markdownlint-cli2 · cspell · yamllint · yamlfix
 2. **Build** — dotnet build/test + SonarScanner
 3. **Analyze** — CodeQL (produces SARIF output)
 4. **Validate** — Tool self-validation (produces TRX/JUnit output)
@@ -102,6 +102,7 @@ Each CI/CD run progresses through the following stages:
 | Linting | [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) | Markdown style and formatting |
 | Linting | [cspell](https://github.com/streetsidesoftware/cspell) | Spell-checking across all text files |
 | Linting | [yamllint](https://github.com/adrienverge/yamllint) | YAML structure and formatting |
+| Linting | [yamlfix](https://github.com/lyz-code/yamlfix) | YAML fixer |
 | Version Capture | [VersionMark](https://github.com/demaconsulting/VersionMark) | Records tool versions for each CI/CD job |
 | Static Analysis | [SonarMark](https://github.com/demaconsulting/SonarMark) | SonarQube/SonarCloud quality gate reporting |
 | Static Analysis | [SarifMark](https://github.com/demaconsulting/SarifMark) | CodeQL/SARIF analysis reporting |
@@ -173,7 +174,7 @@ practice. These templates are the recommended starting point for new projects:
 
 Detailed documentation for each part of the pipeline:
 
-- [Linting](docs/linting.md) — markdownlint-cli2, cspell, and yamllint configuration
+- [Linting](docs/linting.md) — markdownlint-cli2, cspell, yamllint, and yamlfix configuration
 - [Tool Version Capture](docs/tool-versions.md) — VersionMark setup and usage
 - [Static Analysis](docs/static-analysis.md) — SonarMark and SarifMark integration
 - [Requirements Enforcement](docs/requirements.md) — ReqStream YAML format and CI/CD integration
