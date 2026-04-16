@@ -22,6 +22,7 @@ words:
   - markdownlint
   - cspell
   - pandoc
+  - yamlfix
 
 # Exclude common build artifacts, dependencies, and vendored third-party code
 ignorePaths:
