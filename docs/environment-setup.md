@@ -27,19 +27,11 @@ git --version
 ## Linting Setup
 
 Linting dependencies are installed via the lint scripts bundled in every Continuous Compliance
-project. Copy the lint scripts and their configuration files from `templates/lint/` (or from a
-reference project) into your repository root, then run the appropriate script for your platform:
+project. Copy the lint script and its configuration files from `templates/lint/` (or from a
+reference project) into your repository root, then run it:
 
-**Linux / macOS:**
-
-```bash
-bash ./lint.sh
-```
-
-**Windows:**
-
-```bat
-lint.bat
+```powershell
+./lint.ps1
 ```
 
 The script will:

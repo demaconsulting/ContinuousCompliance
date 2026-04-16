@@ -7,7 +7,7 @@ toolchain, and their solutions.
 
 ### markdownlint-cli2 fails with "Cannot find module"
 
-**Symptom:** Running `lint.sh` or `lint.bat` produces an error such as:
+**Symptom:** Running `lint.ps1` produces an error such as:
 
 ```text
 Error: Cannot find module 'markdownlint-cli2'

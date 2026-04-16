@@ -138,7 +138,7 @@ Delegate to specialized agents for specific scenarios:
 
 dotnet build --configuration Release
 dotnet test --configuration Release
-./lint.sh   # or lint.bat on Windows
+./lint.ps1
 ```
 
 ## Agent Guidance Files
