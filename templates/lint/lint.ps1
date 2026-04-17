@@ -45,7 +45,7 @@ function Initialize-PythonVenv {
     }
     finally {
         if (-not $installSucceeded -and (Get-Command deactivate -ErrorAction SilentlyContinue)) {
-            deactivate
+            deactivate 2>$null
         }
     }
 }
