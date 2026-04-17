@@ -82,8 +82,8 @@ The pip dependencies (`yamllint`) are declared in
 [`pip-requirements.txt`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/pip-requirements.txt).
 This file follows the standard pip requirements file format and is installed into a Python virtual
 environment by the lint scripts, which expect to install from `pip-requirements.txt` by default.
-When you copy `lint.ps1` from `templates/lint/` into a repository, you must also copy
-`pip-requirements.txt` alongside it so the script's `pip install -r pip-requirements.txt` step can succeed.
+When you copy `lint.ps1` and `fix.ps1` from `templates/lint/` into a repository, you must also copy
+`pip-requirements.txt` alongside them so the scripts' `pip install -r pip-requirements.txt` step can succeed.
 
 If your project already uses `pip-requirements.txt`, add `yamllint` pinned to the version specified
 in the template file:
@@ -95,10 +95,10 @@ yamllint==1.38.0
 If your project keeps its Python dependencies in a differently named file (for example, `requirements.txt`),
 either:
 
-- Add `yamllint` to that existing requirements file and update the lint scripts to install from it instead of
-  `pip-requirements.txt`, or
+- Add `yamllint` to that existing requirements file and update `lint.ps1` and `fix.ps1` to install from it
+  instead of `pip-requirements.txt`, or
 - Keep a separate `pip-requirements.txt` alongside your existing file, containing at least `yamllint` and any
-  other lint-only Python tools you want the lint scripts to install.
+  other lint-only Python tools you want the scripts to install.
 
 The file is named `pip-requirements.txt` rather than the conventional `requirements.txt` because
 Continuous Compliance repositories have Business and Software requirements documents, and a root-level
@@ -108,9 +108,40 @@ Continuous Compliance repositories have Business and Software requirements docum
 
 The lint scripts provided in [`templates/lint/`](https://github.com/demaconsulting/ContinuousCompliance/tree/main/templates/lint) are the single source of truth
 for linting — they are used both locally by developers and by the CI/CD pipeline, ensuring rules are
-defined in only one place. To use them in your own repository, copy `lint.ps1` and the
-corresponding lint configuration files from `templates/lint/` into the root of your repository, then
-invoke them as shown below.
+defined in only one place. To use them in your own repository, copy `fix.ps1`, `lint.ps1`, and the
+corresponding lint configuration files from `templates/lint/` into the root of your repository.
+
+### fix.ps1 — Auto-fix
+
+`fix.ps1` applies all available auto-fixers and always exits 0. Run it after making changes to
+automatically handle formatting so that agents and developers do not need to respond to lint output.
+
+It handles:
+
+- **YAML formatting** via `yamlfix` and YAML line-ending normalisation
+- **Markdown formatting** via `markdownlint-cli2 --fix`
+- **C# formatting** via `dotnet format` (when a `.sln` or `.slnx` file is present)
+
+Running locally:
+
+```powershell
+./fix.ps1
+```
+
+### lint.ps1 — Lint checks
+
+`lint.ps1` runs all lint checks and reports failures. It exits 1 if any check fails. Use it as the
+CI/CD merge gate and during pre-PR cleanup.
+
+It checks:
+
+- **YAML** via `yamllint`
+- **Spelling** via `cspell`
+- **Markdown** via `markdownlint-cli2`
+- **Compliance tools** via `reqstream`, `versionmark`, and `reviewmark`
+- **C# formatting** via `dotnet format --verify-no-changes`
+
+In CI/CD:
 
 ```yaml
 - name: Run linters
@@ -124,5 +155,5 @@ Running locally:
 ./lint.ps1
 ```
 
-The scripts install all required dependencies (npm packages and yamllint via Python venv) and run
-all three linters, exiting non-zero on any failure.
+Both scripts install all required dependencies (npm packages and yamllint via Python venv) before
+running their respective operations.
