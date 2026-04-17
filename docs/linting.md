@@ -156,5 +156,5 @@ Running locally:
 ./lint.ps1
 ```
 
-Both scripts install all required dependencies (npm packages and yamllint via Python venv) before
+Both scripts install all required dependencies (npm packages and Python tools via a venv) before
 running their respective operations.
