@@ -1,7 +1,7 @@
 # fix.ps1
 #
 # PURPOSE:
-#   Applies all available auto-fixers silently. Always exits 0.
+#   Applies all available auto-fixers with progress output. Always exits 0.
 #   Run this after making changes to automatically handle formatting
 #   so agents and developers do not need to respond to lint output.
 #   Handles: dotnet format, markdownlint, yamlfix, YAML line endings.
@@ -38,12 +38,21 @@ function Initialize-PythonVenv {
     if ($LASTEXITCODE -ne 0) { return $false }
     if (-not (Get-Command deactivate -ErrorAction SilentlyContinue)) { return $false }
 
-    if ($Silent) {
-        pip install -r pip-requirements.txt --quiet --disable-pip-version-check 2>$null
-    } else {
-        pip install -r pip-requirements.txt --quiet --disable-pip-version-check
+    $installSucceeded = $false
+    try {
+        if ($Silent) {
+            pip install -r pip-requirements.txt --quiet --disable-pip-version-check 2>$null
+        } else {
+            pip install -r pip-requirements.txt --quiet --disable-pip-version-check
+        }
+        $installSucceeded = $LASTEXITCODE -eq 0
+        return $installSucceeded
     }
-    return $LASTEXITCODE -eq 0
+    finally {
+        if (-not $installSucceeded -and (Get-Command deactivate -ErrorAction SilentlyContinue)) {
+            deactivate 2>$null
+        }
+    }
 }
 
 function Normalize-YamlLineEndings {
@@ -62,7 +71,7 @@ function Normalize-YamlLineEndings {
 
 # ==============================================================================
 # AUTO-FIX
-# Applies all auto-fixers silently. Never fails — applies what it can and
+# Applies all auto-fixers with progress output. Never fails — applies what it can and
 # exits 0 so agents do not react to any output as a problem to solve.
 # ==============================================================================
 

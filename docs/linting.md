@@ -78,24 +78,25 @@ always use the versions from the template file when adopting the toolchain:
 
 ### pip-requirements.txt
 
-The pip dependencies (`yamllint`) are declared in
+The pip dependencies (`yamllint` and `yamlfix`) are declared in
 [`pip-requirements.txt`](https://github.com/demaconsulting/ContinuousCompliance/blob/main/templates/lint/pip-requirements.txt).
 This file follows the standard pip requirements file format and is installed into a Python virtual
 environment by the lint scripts, which expect to install from `pip-requirements.txt` by default.
 When you copy `lint.ps1` and `fix.ps1` from `templates/lint/` into a repository, you must also copy
 `pip-requirements.txt` alongside them so the scripts' `pip install -r pip-requirements.txt` step can succeed.
 
-If your project already uses `pip-requirements.txt`, add `yamllint` pinned to the version specified
+If your project already uses `pip-requirements.txt`, add `yamllint` and `yamlfix` pinned to the versions specified
 in the template file:
 
 ```text
 yamllint==1.38.0
+yamlfix==1.19.1
 ```
 
 If your project keeps its Python dependencies in a differently named file (for example, `requirements.txt`),
 either:
 
-- Add `yamllint` to that existing requirements file and update `lint.ps1` and `fix.ps1` to install from it
+- Add `yamllint` and `yamlfix` to that existing requirements file and update `lint.ps1` and `fix.ps1` to install from it
   instead of `pip-requirements.txt`, or
 - Keep a separate `pip-requirements.txt` alongside your existing file, containing at least `yamllint` and any
   other lint-only Python tools you want the scripts to install.

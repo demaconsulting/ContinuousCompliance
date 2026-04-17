@@ -37,8 +37,17 @@ function Initialize-PythonVenv {
     if ($LASTEXITCODE -ne 0) { return $false }
     if (-not (Get-Command deactivate -ErrorAction SilentlyContinue)) { return $false }
 
-    pip install -r pip-requirements.txt --quiet --disable-pip-version-check
-    return $LASTEXITCODE -eq 0
+    $installSucceeded = $false
+    try {
+        pip install -r pip-requirements.txt --quiet --disable-pip-version-check
+        $installSucceeded = $LASTEXITCODE -eq 0
+        return $installSucceeded
+    }
+    finally {
+        if (-not $installSucceeded -and (Get-Command deactivate -ErrorAction SilentlyContinue)) {
+            deactivate
+        }
+    }
 }
 
 # ==============================================================================
@@ -135,4 +144,3 @@ if (-not $skipDotnetFormat) {
 #   }
 
 exit ($lintError ? 1 : 0)
-
