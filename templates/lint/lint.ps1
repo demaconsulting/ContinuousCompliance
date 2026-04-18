@@ -2,7 +2,7 @@
 #
 # PURPOSE:
 #   Runs all lint checks and reports failures. Exits 1 on error.
-#   Used by CI/CD as the merge gate and by the pre-pr-lint agent
+#   Used by CI/CD as the merge gate and by the lint-fix agent
 #   during pre-PR cleanup.
 #
 #   To auto-fix formatting issues, run fix.ps1 instead.
@@ -34,7 +34,6 @@ function Initialize-PythonVenv {
     $activateScript = Get-VenvActivateScript
     if (-not $activateScript) { return $false }
     & $activateScript
-    if ($LASTEXITCODE -ne 0) { return $false }
     if (-not (Get-Command deactivate -ErrorAction SilentlyContinue)) { return $false }
 
     $installSucceeded = $false
