@@ -106,6 +106,24 @@ archivable PDF/A-3u files. It depends on all upstream stages being in place.
 
 See [PDF Document Generation](pdf-generation.md) for the full pipeline.
 
+### Stage 7: File Assertions
+
+FileAssert validates that each generated HTML and PDF document is well-formed, contains expected
+content, and carries the correct metadata. Adding it after PDF generation completes the evidence
+chain — proving Pandoc and WeasyPrint are operational in your environment.
+
+- [ ] Install FileAssert: add it to `.config/dotnet-tools.json`
+- [ ] Create `.fileassert.yaml` at the repository root, defining one test per HTML file and one
+  test per PDF file, grouped by tag to match the document groups in your pipeline
+- [ ] Add `--tag` and `--results` assertions steps after each document group's Weasyprint step
+  in your CI/CD pipeline
+- [ ] Add a FileAssert self-validation step after all document groups and before ReqStream
+- [ ] Add a final `--tag requirements` assertions step after ReqStream completes
+- [ ] Confirm all assertions pass and the TRX result files are consumed by ReqStream
+
+See [File Assertions](file-assertions.md) for configuration details and the OTS evidence timing
+guidelines.
+
 ## Handling Existing Documentation
 
 Most projects accumulate documentation that pre-dates Continuous Compliance. The recommended approach:
