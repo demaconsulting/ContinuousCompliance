@@ -108,3 +108,25 @@ requirements documents have been generated:
 ```
 
 The resulting PDF files are uploaded as pipeline artifacts and attached to the GitHub Release.
+
+## Stage 3: Document Validation with FileAssert
+
+After each document group is generated, [DemaConsulting.FileAssert](https://github.com/demaconsulting/FileAssert)
+validates that the Pandoc HTML and WeasyPrint PDF outputs are well-formed and carry the expected
+metadata. Running FileAssert immediately after each document group — before moving to the next —
+means that by the time ReqStream generates the requirements documents, there is already a full set of
+passing test results proving Pandoc and WeasyPrint are operational.
+
+FileAssert can check any combination of file existence, size, text content, PDF metadata and page
+counts, and structured document content (HTML, XML, YAML, JSON). For the PDF generation pipeline
+the most common assertions are HTML structure and PDF metadata:
+
+```bash
+dotnet fileassert \
+  --tag build-notes \
+  --results artifacts/fileassert-build-notes.trx
+```
+
+FileAssert checks are defined in `.fileassert.yaml` at the repository root, grouped by tag to match
+the document groups in the pipeline. See [File Assertions](file-assertions.md) for the full
+configuration reference.

@@ -93,7 +93,7 @@ Each CI/CD run progresses through the following stages:
 3. **Analyze** — CodeQL (produces SARIF output)
 4. **Validate** — Tool self-validation (produces TRX/JUnit output)
 5. **Document** — BuildMark · VersionMark · SonarMark · SarifMark · ReqStream (enforces requirements coverage) · ReviewMark (enforces file-review currency)
-6. **Publish** — Pandoc (Markdown→HTML) → Weasyprint (HTML→PDF)
+6. **Publish** — Pandoc (Markdown→HTML) → Weasyprint (HTML→PDF) → FileAssert (validates output documents)
 
 ### Tools
 
@@ -111,6 +111,7 @@ Each CI/CD run progresses through the following stages:
 | Build Notes | [BuildMark](https://github.com/demaconsulting/BuildMark) | Release change notes from Git history |
 | PDF Generation | [Pandoc](https://pandoc.org/) | Converts Markdown documents to HTML |
 | PDF Generation | [Weasyprint](https://weasyprint.org/) | Renders HTML to polished PDF documents |
+| File Assertions | [FileAssert](https://github.com/demaconsulting/FileAssert) | Validates pipeline outputs — file existence, size, text content, PDF metadata, XML, YAML, JSON, and HTML structure |
 
 ## Release Artifacts
 
@@ -183,6 +184,7 @@ Detailed documentation for each part of the pipeline:
 - [Self-Validation](docs/self-validation.md) — Tool self-validation as test evidence
 - [Build Notes Generation](docs/build-notes.md) — BuildMark configuration and output
 - [PDF Document Generation](docs/pdf-generation.md) — Pandoc and Weasyprint pipeline
+- [File Assertions](docs/file-assertions.md) — FileAssert configuration, acceptance criteria, OTS evidence, and PDF metadata validation
 - [AI Coding Agents](docs/agentic.md) — Structuring agent guidance files for Continuous Compliance
 - [Environment Setup](docs/environment-setup.md) — Setting up a local development environment
 - [Adopting Continuous Compliance](docs/migration.md) — Incremental migration guide for existing projects
