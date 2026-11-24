@@ -6,3 +6,6 @@ node_modules/
 
 # Node package lock files
 package-lock.json
+
+# Agent working logs (transient, never committed)
+.agent-logs/
